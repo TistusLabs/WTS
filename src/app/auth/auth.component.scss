@@ -1,0 +1,39 @@
+@import "../../_core/styles/variables";
+
+.wt-onboarding {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom right, $wt-color-primary-light, $wt-color-secondary-light);
+  .wt-auth-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .wt-auth-banner {
+      flex: 3;
+      height: 100%;
+      background: url("../../assets/worldtrip_bg_onboarding.svg");
+      background-repeat: no-repeat;
+      -webkit-background-size: contain;
+      background-size: contain;
+      background-position: bottom;
+    }
+    .wt-auth-body {
+      padding: $wt-spacing-inner-primary;
+      flex: 2;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      form {
+        width: 100%;
+      }
+    }
+  }
+  .wt-auth-footer {
+    height: 30px;
+    background: $wt-color-primary;
+    border-top: solid 3px #fff;
+  }
+}

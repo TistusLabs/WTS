@@ -1,0 +1,15 @@
+@import "../../_core/styles/variables";
+
+.wt-landing-banner-wrap {
+  background: linear-gradient(to bottom right, $wt-color-primary-light, $wt-color-secondary-light);
+  .wt-landing-banner {
+    flex: 3;
+    height: 350px;
+    width: 90%;
+    margin: 0 auto;
+    //background: url("../../assets/worldtrip_bg_onboarding.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+}

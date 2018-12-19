@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import "_core/styles/variables";
+//Mat
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  letter-spacing: 0;
+}
+
+/* COMMON
+================================================ */
+input {
+  display: block;
+  padding: $wt-spacing-inner-primary;
+  background: #ffffff;
+  border-radius: $wt-border-radius-secondary;
+  border: solid 1px $wt-color-border-primary;
+
+  .wt-input-block {
+    width: 100%;
+  }
+}
+/* --------------------------------------------- */
