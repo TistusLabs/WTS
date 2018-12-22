@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import "_core/styles/variables";
+@import "_core/styles/helpers";
 //Mat
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
@@ -8,20 +9,68 @@ body {
   height: 100%;
   margin: 0;
   font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
   letter-spacing: 0;
 }
 
 /* COMMON
 ================================================ */
+.wts-input-wrap {
+  margin-bottom: $wts-spacing-inner-primary;
+}
 input {
+  @extend %box_sizing;
+  font-size: 14px;
   display: block;
-  padding: $wt-spacing-inner-primary;
+  padding: $wts-spacing-inner-secondary;
   background: #ffffff;
-  border-radius: $wt-border-radius-secondary;
-  border: solid 1px $wt-color-border-primary;
-
-  .wt-input-block {
+  border-radius: $wts-border-radius-secondary;
+  border: solid 1px $wts-color-primary;
+  &.wts-input-block {
     width: 100%;
+  }
+}
+.wts-card {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  background: #ffffff90;
+  -webkit-box-shadow: 0px $wts-size-shadow-primary $wts-size-shadow-primary $wts-color-shadow-primary;
+  -moz-box-shadow: 0px $wts-size-shadow-primary $wts-size-shadow-primary $wts-color-shadow-primary;
+  box-shadow: 0px $wts-size-shadow-primary $wts-size-shadow-primary $wts-color-shadow-primary;
+  padding: $wts-spacing-inner-primary;
+  &.wts-card-round {
+    border-radius: $wts-border-radius-primary;
+  }
+  &.wts-card-fill {
+    width: 100%;
+    height: 100%;
+  }
+}
+._devider {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: $wts-color-border-primary;
+}
+button {
+  font-size: 14px;
+  padding: $wts-spacing-inner-third $wts-spacing-inner-primary;
+  border: none;
+  border-radius: $wts-border-radius-button;
+  cursor: pointer;
+  outline: none;
+  &:hover {
+    background: $wts-color-highlight-lightgray;
+  }
+
+  &.wts-button-primary {
+    background: $wts-color-primary;
+    color: #ffffff;
+  }
+  &.wts-button-secondary {
+    background: $wts-color-secondary;
+    color: #ffffff;
   }
 }
 /* --------------------------------------------- */

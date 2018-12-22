@@ -1,26 +1,34 @@
 //COLORS
-$wt-color-primary           : #5b8eef;
-$wt-color-primary-light     : #ffc9f8;
-$wt-color-secondary         : #f489f1;
-$wt-color-secondary-light   : #77bbf5;
+$wts-color-primary           : #5b8eef;
+$wts-color-primary-light     : #ffc9f8;
+$wts-color-secondary         : #f489f1;
+$wts-color-secondary-light   : #77bbf5;
 //--------------------------------------
-$wt-color-border-primary    : #aaa;
-$wt-color-border-secondary  : #eee;
+$wts-color-border-primary    : #aaa;
+$wts-color-border-secondary  : #eee;
 //--------------------------------------
-$wt-color-shadow-primary    : #eee;
-$wt-color-shadow-secondary  : #aaa;
+$wts-color-shadow-primary    : #00000010;
+$wts-color-shadow-secondary  : #00000050;
+$wts-shadow-card  : 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+//--------------------------------------
+$wts-color-highlight-lightgray: #eee;
+$wts-color-highlight-gray    : #ddd;
+$wts-color-highlight-darkgray: #ccc;
+//--------------------------------------
+$wts-color-text-secondary    : #888;
 
 //SPACING
-$wt-spacing-inner-primary   : 15px;
-$wt-spacing-inner-secondary : 10px;
-$wt-spacing-inner-third     : 5px;
+$wts-spacing-inner-primary   : 15px;
+$wts-spacing-inner-secondary : 10px;
+$wts-spacing-inner-third     : 5px;
 
 //BORDER
-$wt-border-radius-primary   : 10px;
-$wt-border-radius-secondary : 5px;
+$wts-border-radius-primary   : 10px;
+$wts-border-radius-secondary : 5px;
+$wts-border-radius-button    : 3px;
 
 //SIZES
-$wt-size-shadow-primary     : 5px;
-$wt-size-shadow-secondary   : 10px;
+$wts-size-shadow-primary     : 5px;
+$wts-size-shadow-secondary   : 10px;
 //--------------------------------------
-$wt-topbar-height           : 50px;
+$wts-topbar-height           : 50px;

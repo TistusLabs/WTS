@@ -1,6 +1,3 @@
-@import "../_core/styles/variables";
-
-.wt-content {
-  width: 100%;
-  height: calc(100% - #{$wt-topbar-height});
+.wts-app {
+  height: 100%;
 }

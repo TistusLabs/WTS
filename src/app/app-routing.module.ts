@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {GeneralSearchComponent} from './general-search/general-search.component';
+import {AuthComponent} from './auth/auth.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,9 @@ const routes: Routes = [
   }, {
     path: 'search',
     component: GeneralSearchComponent
+  }, {
+    path: 'auth',
+    component: AuthComponent
   }
 ];
 

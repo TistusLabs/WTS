@@ -1,21 +1,21 @@
 @import "../../_core/styles/variables";
 
-.wt-topbar {
+.wts-topbar {
   display: flex;
-  padding: 0 $wt-spacing-inner-primary;
+  padding: 0 $wts-spacing-inner-primary;
   align-items: center;
   //justify-content: center;
   background: #ffffff;
-  height: $wt-topbar-height;
-  -webkit-box-shadow: 0 1px $wt-size-shadow-primary $wt-color-shadow-secondary;
-  -moz-box-shadow: 0 1px $wt-size-shadow-primary $wt-color-shadow-secondary;
-  box-shadow: 0 1px $wt-size-shadow-primary $wt-color-shadow-secondary;
-  .wt-brand {
+  height: $wts-topbar-height;
+  -webkit-box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
+  -moz-box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
+  box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
+  .wts-brand {
     flex: 1;
     font-size: 20px;
     font-weight: 500;
   }
-  .wt-topbar-tools {
+  .wts-topbar-tools {
 
   }
 }

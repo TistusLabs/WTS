@@ -1,39 +1,111 @@
 @import "../../_core/styles/variables";
+@import "../../_core/styles/helpers";
 
-.wt-onboarding {
+.wts-onboarding {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom right, $wt-color-primary-light, $wt-color-secondary-light);
-  .wt-auth-wrap {
+  background: linear-gradient(to bottom right, $wts-color-primary-light, $wts-color-secondary-light);
+  .wts-auth-wrap {
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    .wt-auth-banner {
+    .wts-auth-banner {
       flex: 3;
+      box-sizing: border-box;
       height: 100%;
+      padding: $wts-spacing-inner-primary;
       background: url("../../assets/worldtrip_bg_onboarding.svg");
       background-repeat: no-repeat;
       -webkit-background-size: contain;
       background-size: contain;
       background-position: bottom;
+      h1 {
+        margin: 0;
+        font-size: 50px;
+        font-weight: 300;
+        color: #fff;
+        text-shadow: 0 3px 10px $wts-color-shadow-secondary;
+      }
     }
-    .wt-auth-body {
-      padding: $wt-spacing-inner-primary;
+    .wts-auth-body {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      padding: $wts-spacing-inner-primary + $wts-spacing-inner-primary;
       flex: 2;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      .wts-auth-card {
+        max-width: 500px;
+      }
+      h1 {
+        text-align: center;
+        //font-weight: normal;
+        margin-top: 0;
+        //margin-bottom: $wts-spacing-inner-primary + $wts-spacing-inner-primary;
+      }
       form {
+        @extend %box_sizing;
         width: 100%;
+      }
+      .wts-auth-method {
+        padding: $wts-spacing-inner-primary + $wts-spacing-inner-primary;
+      }
+      .wts-button-local {
+        width: 100%;
+        padding: $wts-spacing-inner-secondary;
+      }
+      .wts-button-fb {
+        width: 100%;
+        padding: $wts-spacing-inner-secondary;
+        background: #4267b2;
+        color: #ffffff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: $wts-spacing-inner-primary;
+        svg {
+          height: 24px;
+          width: 24px;
+        }
+        .wts-button-fb-text {
+          flex: 1;
+        }
+      }
+      .wts-button-g {
+        width: 100%;
+        padding: $wts-spacing-inner-secondary;
+        //background: #4267b2;
+        color: $wts-color-text-secondary;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .wts-button-g-icon {
+          position: relative;
+          height: 24px;
+          width: 24px;
+          align-items: center;
+          justify-content: center;
+          display: flex;
+          svg {
+            position: absolute;
+            height: 45px;
+            width: 45px;
+          }
+        }
+        .wts-button-fb-text {
+          flex: 1;
+        }
       }
     }
   }
-  .wt-auth-footer {
+  .wts-auth-footer {
     height: 30px;
-    background: $wt-color-primary;
+    background: $wts-color-primary;
     border-top: solid 3px #fff;
   }
 }

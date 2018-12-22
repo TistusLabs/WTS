@@ -1,0 +1,6 @@
+@import "../../_core/styles/variables";
+
+.wts-body {
+  width: 100%;
+  height: calc(100% - #{$wts-topbar-height});
+}
