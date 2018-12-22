@@ -16,6 +16,8 @@ import {AgentItineraryViewComponent} from './agent-itinerary-view/agent-itinerar
 import {AccountComponent} from './account/account.component';
 import {GeneralSearchComponent} from './general-search/general-search.component';
 import {BodyComponent} from './body/body.component';
+import {FlexLayoutModule} from '@angular/flex-layout';
+import {MatCardImage, MatCardModule, MatFormFieldModule, MatIconModule, MatToolbarModule} from '@angular/material';
 
 @NgModule({
     declarations: [
@@ -33,9 +35,15 @@ import {BodyComponent} from './body/body.component';
     imports: [
         BrowserModule,
         AppRoutingModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
         // Mat
-        // NoopAnimationsModule, MatButtonModule
+        // NoopAnimationsModule,
+        // MatButtonModule,
+        MatIconModule,
+        // MatToolbarModule,
+        // MatCardModule,
+        // MatFormFieldModule,
+        FlexLayoutModule
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -73,7 +73,7 @@ export class AuthComponent implements OnInit {
                 // Request scopes in addition to 'profile' and 'email'
                 // scope: 'additional_scope'
             });
-            self._initGoogleSignin(document.getElementById('customBtn'));
+            self._initGoogleSignin(document.getElementById('wts-button-g'));
         });
 
     }
