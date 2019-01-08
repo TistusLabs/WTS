@@ -1,3 +1,134 @@
-<p>
-  account works!
-</p>
+<div class="wts-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+    <div class="wts-acc-bnr-img-wrap" fxFlex="20%" fxFill>
+        <div class="wts-acc-bnr-img">
+            <img src="./assets/user_male.jpg" alt="">
+        </div>
+    </div>
+    <div class="wts-acc-bnr-content" fxFlex="80%" fxFill>
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.xs="start center" fxFill>
+            <div class="wts-acc-bnr-userinfo" fxLayout="column" fxLayoutAlign.xs="start center">
+                <div class="wts-space-h-p">
+                    <h1>John Doe</h1>
+                </div>
+                <button type="button" class="wts-button-secondary" (click)="goToProfile()">Go to Profile</button>
+            </div>
+            <div class="wts-acc-bnr-summary" fxFlex>
+                <div class="wts-acc-bnr-sum-item" fxFlex="33.33%">
+                    <div class="wts-bnr-itm-value">0</div>
+                    <div class="wts-bnr-itm-label">My Favourites</div>
+                </div>
+                <div class="wts-acc-bnr-sum-item" fxFlex="33.33%">
+                    <div class="wts-bnr-itm-value">0</div>
+                    <div class="wts-bnr-itm-label">History views</div>
+                </div>
+                <div class="wts-acc-bnr-sum-item" fxFlex="33.33%">
+                    <div class="wts-bnr-itm-value">0</div>
+                    <div class="wts-bnr-itm-label">Points</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wts-account">
+    <div class="wts-main-wrap" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="center" fxLayoutWrap>
+        <div fxFlex="80%" fxLayout="column" fxLayoutGap="20px">
+            <div class="wts-card wts-sumtabs" [ngClass]="{'wts-sumtabs-expanded' : summaryExpanded}">
+                <!--<mat-tab-group>-->
+                    <!--<mat-tab label="First"> Content 1 </mat-tab>-->
+                    <!--<mat-tab label="Second"> Content 2 </mat-tab>-->
+                    <!--<mat-tab label="Third"> Content 3 </mat-tab>-->
+                <!--</mat-tab-group>-->
+                <div fxLayout="row">
+                    <div class="wts-textbox wts-textbox-clickable"
+                         (click)="activateSummaryTab('awaiting_payment')"
+                         [ngClass]="{'wts-textbox-horizontal' : summaryExpanded, 'wts-textbox-vertical' : !summaryExpanded, 'wts-sumtab-active' : activeSummaryTab == 'awaiting_payment' }" fxFlex="33.3%">
+                        <div class="wts-textbox-icon" [ngClass]="{'wts-txtbx-icon-medium' : summaryExpanded, 'wts-txtbx-icon-large' : !summaryExpanded}">
+                            <mat-icon>payment</mat-icon>
+                        </div>
+                        <div class="wts-textbox-text">
+                            Awaiting Payment
+                        </div>
+                    </div>
+                    <div class="wts-textbox wts-textbox-clickable"
+                         (click)="activateSummaryTab('awaiting_reviews')"
+                         [ngClass]="{'wts-textbox-horizontal' : summaryExpanded, 'wts-textbox-vertical' : !summaryExpanded, 'wts-sumtab-active' : activeSummaryTab == 'awaiting_reviews'}" fxFlex="33.3%">
+                        <div class="wts-textbox-icon" [ngClass]="{'wts-txtbx-icon-medium' : summaryExpanded, 'wts-txtbx-icon-large' : !summaryExpanded}">
+                            <mat-icon>star_rate</mat-icon>
+                        </div>
+                        <div class="wts-textbox-text">
+                            Awaiting Reviews
+                        </div>
+                    </div>
+                    <div class="wts-textbox wts-textbox-clickable"
+                         (click)="activateSummaryTab('upcoming')"
+                         [ngClass]="{'wts-textbox-horizontal' : summaryExpanded, 'wts-textbox-vertical' : !summaryExpanded, 'wts-sumtab-active' : activeSummaryTab == 'upcoming'}" fxFlex="33.3%">
+                        <div class="wts-textbox-icon" [ngClass]="{'wts-txtbx-icon-medium' : summaryExpanded, 'wts-txtbx-icon-large' : !summaryExpanded}">
+                            <mat-icon>notifications</mat-icon>
+                        </div>
+                        <div class="wts-textbox-text">
+                            Upcoming
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="wts-card-footer">-->
+                    <!--<div class="wts-card-footer-flex"></div>-->
+                    <!--<div class="wts-card-footer-tools">-->
+                        <!--<button class="wts-button">View all</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+            <div class="wts-card">
+                <div class="wts-card-header">
+                    <div class="wts-card-header-flex">
+                        <h3 class="wts-subheader">My WTS token wallet</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="wts-card">
+                <div class="wts-card-header">
+                    <div class="wts-card-header-flex">
+                        <h3 class="wts-subheader">WTX voucher</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="wts-card">
+                <div class="wts-card-header">
+                    <div class="wts-card-header-flex">
+                        <h3 class="wts-subheader">My Rewards</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wts-card" fxFlex="20%">
+            <div class="wts-card-header">
+                <div class="wts-card-header-flex">
+                    <h2 class="wts-header-2">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon"><mat-icon>settings</mat-icon></div>
+                            Settings
+                        </div>
+                    </h2>
+                </div>
+            </div>
+            <div>
+                <ul class="wts-list">
+                    <li class="wts-list-item wts-clickable">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>lock</mat-icon></div> Reset password
+                        </div>
+                    </li>
+                    <li class="wts-list-item wts-clickable">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>payment</mat-icon></div> Payment
+                        </div>
+                    </li>
+                    <li class="wts-list-item wts-clickable">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>verified_user</mat-icon></div> Tokens
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

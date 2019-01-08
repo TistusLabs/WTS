@@ -1,0 +1,122 @@
+<div class="wts-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+    <div class="wts-acc-bnr-img-wrap" fxFlex="20%" fxFill>
+        <div class="wts-acc-bnr-img">
+            <img src="./assets/user_male.jpg" alt="">
+        </div>
+    </div>
+    <div class="wts-acc-bnr-content" fxFlex="80%" fxFill>
+        <div fxLayout="row" fxLayout.sm="row" fxLayout.xs="column" fxFill>
+            <div class="wts-acc-bnr-userinfo" fxLayout="column" fxLayoutAlign.xs="start center">
+                <div class="wts-space-h-p">
+                    <h1>John Doe</h1>
+                </div>
+                <div>
+                    <div class="wts-pill wts-pill-general">
+                        <mat-icon>check</mat-icon> Verified
+                    </div>
+                </div>
+                <div class="wts-space-h-p">
+                    <button type="button" class="wts-button-secondary" (click)="goToItinerary()">View itinerary</button>
+                </div>
+            </div>
+            <div class="wts-acc-bnr-summary" fxFlex>
+                <div class="wts-acc-bnr-sum-item">
+                    <div class="wts-bnr-rating-block">
+                        <div class="wts-rating-val">
+                            4.6
+                        </div>
+                        <div class="wts-rating-info">
+                            <div class="wts-rate-info-service">
+                                Service Rating <b>(89)</b>
+                            </div>
+                            <div class="wts-rate-info-stars">
+                                <mat-icon class="rated_full">star</mat-icon>
+                                <mat-icon class="rated_full">star</mat-icon>
+                                <mat-icon class="rated_full">star</mat-icon>
+                                <mat-icon>star</mat-icon>
+                                <mat-icon>star</mat-icon>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="wts-profile">
+    <div class="wts-main-wrap" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="center" fxLayoutWrap>
+        <div fxFlex="80%" fxLayout="column" fxLayoutGap="20px">
+            <div class="wts-card">
+                <div class="wts-card-header">
+                    <div class="wts-card-header-flex">
+                        <h2 class="wts-header-2">About</h2>
+                    </div>
+                </div>
+                <div class="wts-card-content">
+                    <div class="wts-block">
+                        <h2 class="wts-header-3">Don't let the outtakes take you out!</h2>
+                    </div>
+                    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+                        <div class="wts-block" fxFlex="33.3%">
+                            <h2 class="wts-header-3">Address</h2>
+                            <ul class="wts-list">
+                                <li class="wts-list-item">29, Singapore</li>
+                            </ul>
+                        </div>
+                        <div class="wts-block" fxFlex="33.3%">
+                            <h2 class="wts-header-3">Lifestyle</h2>
+                            <ul class="wts-list">
+                                <li class="wts-list-item">Simplistic</li>
+                            </ul>
+                        </div>
+                        <div class="wts-block" fxFlex="33.3%">
+                            <h2 class="wts-header-3">Interests</h2>
+                            <ul class="wts-list">
+                                <li class="wts-list-item">Music</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wts-card wts-card-sunken wts-space-h-p">
+                <div class="wts-card-header">
+                    <div class="wts-card-header-flex">
+                        <h2 class="wts-header-2">Highlights</h2>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+                    <div class="wts-event-block" *ngFor="let event of events">
+                        <div class="wts-event-date">{{event.date}}</div>
+                        <div class="wts-event-description">{{event.description}}</div>
+                        <div class="wts-event-footages" fxLayout="row wrap">
+                            <div class="wts-event-image" *ngFor="let image of event.images">
+                                <img src="{{image}}" alt="event.date">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="wts-card" fxFlex="20%">
+            <div class="wts-card-header">
+                <div class="wts-card-header-flex">
+                    <h2 class="wts-header-2">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon"><mat-icon>settings</mat-icon></div>
+                            Settings
+                        </div>
+                    </h2>
+                </div>
+            </div>
+            <div>
+                <ul class="wts-list">
+                    <li class="wts-list-item wts-clickable" (click)="editProfile()">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>edit</mat-icon></div> Edit profile
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

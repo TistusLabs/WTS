@@ -1,0 +1,108 @@
+<style>
+    #wts-itinerary-map {
+        width: 100%;
+        height: 400px;
+        border-radius: 10px;
+    }
+</style>
+
+<h2 class="wts-header-2">Create Itinerary</h2>
+<mat-dialog-content class="wts-dialog">
+    <form action="" class="wts-dialog-form">
+        <div class="wts-space-h-p">
+            <h3 class="wts-header-3">General</h3>
+            <div class="wts-input-wrap">
+                <input type="text" name="itineraryTitle" placeholder="Title" [(ngModel)]="data.title" class="wts-input-block-half">
+            </div>
+            <div class="wts-input-wrap">
+                <textarea type="text" name="itineraryDescription" placeholder="Description" [(ngModel)]="data.description" class="wts-input-block"></textarea>
+            </div>
+            <div class="wts-input-wrap">
+                <p>Delight people who check your itinerary with an image that describes the overall experience they will have.</p>
+                <div class="wts-image-uploader" fxLayout.xs="column">
+                    <div class="wts-image-uploader-preview">
+                        <div class="wts-uploader-placeholder">
+                            <mat-icon>terrain</mat-icon>
+                            <p>Image preview</p>
+                        </div>
+
+                    </div>
+                    <div class="wts-image-uploader-controls">
+                        <h2 class="wts-header-2">Drag & Drop</h2>
+                        <div>
+                            <i>or</i>
+                        </div>
+                        <div class="wts-space-h-p">
+                            <button class="wts-button-primary">Upload</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wts-space-h-p">
+            <h3 class="wts-header-3">Activities</h3>
+            <div class="wts-input-wrap">
+                <textarea type="text" name="itineraryDescription" placeholder="What will the traveller experience? eg: Explore the historic places etc." [(ngModel)]="data.activities" class="wts-input-block"></textarea>
+            </div>
+        </div>
+
+        <div class="wts-space-h-p">
+            <h3 class="wts-header-3">Services</h3>
+            <div class="wts-input-wrap">
+                <div class="wts-input-wrap" fxLayout="row" fxLayoutGap="10px">
+                    <input type="text" id="itineraryActivityInput" name="itineraryActivityInput" placeholder="What will you provide? eg: Food, Transportation etc." [(ngModel)]="serviceInput" class="wts-input-block-half">
+                    <button class="wts-button-primary" (click)="addService(serviceInput)"><mat-icon>add</mat-icon>Add</button>
+                </div>
+            </div>
+            <div class="wts-space-v-p" fxLayoutGap="10px" fxLayout="row">
+                <div class="wts-pill wts-pill-controlled" *ngFor="let service of data.services">
+                    <span class="wts-pill-text">{{ service }}</span>
+                    <mat-icon class="wts-pill-control" (click)="removeService(service)">close_circle_outline</mat-icon>
+                </div>
+            </div>
+        </div>
+
+        <div class="wts-space-h-p">
+            <h3 class="wts-header-3">Period</h3>
+            <div  fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+                <div class="wts-input-wrap" fxFlex fxLayout="row">
+                    <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="data.from" fxFlex>
+                    <button class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
+                    <mat-datepicker #fromPicker></mat-datepicker>
+                </div>
+                <div class="wts-input-wrap" fxFlex fxLayout="row">
+                    <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="data.to" fxFlex>
+                    <button class="mat-button-circle" (click)="toPicker.open()"><mat-icon>date_range</mat-icon></button>
+                    <mat-datepicker #toPicker></mat-datepicker>
+                </div>
+            </div>
+        </div>
+
+        <div class="wts-space-h-p">
+            <h3 class="wts-header-3">Traveller conditions</h3>
+            <div class="wts-input-wrap">
+                <input type="text" name="itineraryTravellerType" placeholder="Condition for the traveller.. eg: Age from 6 and above" [(ngModel)]="data.traveller_conditions" class="wts-input-block-half">
+            </div>
+        </div>
+
+        <div class="wts-space-h-p">
+            <h3 class="wts-header-3">Area</h3>
+            <p>Drag the marker to select the starting point of the trip.</p>
+            <div id="wts-itinerary-map"></div>
+        </div>
+
+        <div class="wts-space-h-p">
+            <h3 class="wts-header-3">Price</h3>
+            <div class="wts-input-wrap">
+                $ <input type="text" name="itineraryTravellerType" placeholder="Price per person" [(ngModel)]="data.price" class="wts-input-block-half">
+                <b> SGD</b> <span> per Person</span>
+            </div>
+        </div>
+
+    </form>
+</mat-dialog-content>
+<div mat-dialog-actions fxFlexAlign="end">
+    <button (click)="onNoClick()">Cancel</button>
+    <button class="wts-button-primary">Save</button>
+</div>

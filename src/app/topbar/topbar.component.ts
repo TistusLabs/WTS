@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {AuthService} from '../services/auth.service';
 
 @Component({
     selector: 'app-topbar',
@@ -8,14 +9,36 @@ import {Router} from '@angular/router';
 })
 export class TopbarComponent implements OnInit {
 
-    constructor(private router: Router) {
+    user = {
+        logged : false
+    };
+
+    constructor(
+        private router: Router,
+        private authServide: AuthService
+    ) {
     }
 
     ngOnInit() {
+        // this.authServide.token.subscribe(token => {
+        //     // debugger;
+        //     if (token) this.user.logged = true;
+        // });
+        this.authServide.authStatusChanged.subscribe(status => {
+            this.user.logged = true;
+        });
     }
 
     joinUser () {
         this.router.navigateByUrl('/auth');
+    }
+
+    userAccount () {
+        this.router.navigateByUrl('/account');
+    }
+
+    goToHome() {
+        this.router.navigateByUrl('/');
     }
 
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AgentItineraryViewComponent } from './agent-itinerary-view.component';
+import { AgentItineraryComponent } from './agent-itinerary.component';
 
-describe('AgentItineraryViewComponent', () => {
-  let component: AgentItineraryViewComponent;
-  let fixture: ComponentFixture<AgentItineraryViewComponent>;
+describe('AgentItineraryComponent', () => {
+  let component: AgentItineraryComponent;
+  let fixture: ComponentFixture<AgentItineraryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AgentItineraryViewComponent ]
+      declarations: [ AgentItineraryComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AgentItineraryViewComponent);
+    fixture = TestBed.createComponent(AgentItineraryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

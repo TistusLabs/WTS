@@ -1,21 +1,26 @@
 //COLORS
 $wts-color-primary           : #5b8eef;
-$wts-color-primary-light     : #ffc9f8;
+$wts-color-primary-light     : #77bbf5;
+$wts-color-primary-dark      : #3b5c9c;
 $wts-color-secondary         : #f489f1;
-$wts-color-secondary-light   : #77bbf5;
+$wts-color-secondary-light   : #ffc9f8;
+$wts-color-secondary-dark    : #ad61ab;
 //--------------------------------------
-$wts-color-border-primary    : #aaa;
-$wts-color-border-secondary  : #eee;
+$wts-color-border-primary    : #00000030;
+$wts-color-border-secondary  : #00000010;
 //--------------------------------------
 $wts-color-shadow-primary    : #00000010;
 $wts-color-shadow-secondary  : #00000050;
 $wts-shadow-card  : 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+$wts-shadow-text-secondary : 0 1px 2px #000000;
 //--------------------------------------
 $wts-color-highlight-lightgray: #eee;
 $wts-color-highlight-gray    : #ddd;
 $wts-color-highlight-darkgray: #ccc;
 //--------------------------------------
 $wts-color-text-secondary    : #888;
+//--------------------------------------
+$wts-banner-background       : 45deg, $wts-color-secondary-light, $wts-color-primary-light;
 
 //SPACING
 $wts-spacing-inner-primary   : 15px;
@@ -30,5 +35,58 @@ $wts-border-radius-button    : 3px;
 //SIZES
 $wts-size-shadow-primary     : 5px;
 $wts-size-shadow-secondary   : 10px;
+$wts-size-icon-small         : 16px;
+$wts-size-icon-medium        : 25px;
+$wts-size-icon-large         : 50px;
+$wts-itinerary-widget        : 400px;
+//--------------------------------------
+$wts-size-image-xs           : 50px;
+$wts-size-image-s            : 100px;
+$wts-size-image-m            : 150px;
+$wts-size-image-l            : 250px;
 //--------------------------------------
 $wts-topbar-height           : 50px;
+//--------------------------------------
+$wts-banner-height           : 200px;
+//--------------------------------------
+$wts-size-header-1           : 19px;
+//--------------------------------------
+$wts-size-header-2           : 17px;
+//--------------------------------------
+$wts-size-header-3           : 15px;
+
+//ANIMATIONS
+$wts-time-animation-primary  : 0.3s;
+
+$wts-mat-overwrite: (
+        50: #ffffff00,
+        100: #ffffff00,
+        200: #ffffff00,
+        300: #ffffff00,
+        400: #ffffff00,
+        500: #ffffff00,
+        600: #ffffff00,
+        700: #ffffff00,
+        800: #ffffff00,
+        900: #ffffff00,
+        A100: #ffffff00,
+        A200: #ffffff00,
+        A400: #ffffff00,
+        A700: #ffffff00,
+        contrast: (
+                50: #ffffff00,
+                100: #ffffff00,
+                200: #ffffff00,
+                300: #ffffff00,
+                400: #ffffff00,
+                500: #ffffff00,
+                600: #ffffff00,
+                700: #ffffff00,
+                800: #ffffff00,
+                900: #ffffff00,
+                A100: #ffffff00,
+                A200: #ffffff00,
+                A400: #ffffff00,
+                A700: #ffffff00,
+        )
+);

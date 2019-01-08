@@ -1,6 +1,9 @@
 <div class="wts-topbar">
-  <div class="wts-brand">Worldtrip Singapore</div>
-  <div class="wts-topbar-tools">
-    <button mat-button (click)="joinUser()">Join</button>
-  </div>
+    <div class="wts-brand">
+        <img (click)="goToHome()" src="./assets/worldtrip_singapore.jpg" alt="Worldtrip Singapore">
+    </div>
+    <div class="wts-topbar-tools">
+        <button mat-button (click)="joinUser()">Join</button>
+        <button *ngIf="user.logged" mat-button (click)="userAccount()">Account</button>
+    </div>
 </div>

@@ -2,27 +2,45 @@
 <meta name="google-signin-client_id" content="822032164383-qqbmt84lubtd9c3niaoblpcpbfoq0qis.apps.googleusercontent.com">
 <div class="wts-onboarding">
     <div class="wts-auth-wrap" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
-        <div class="wts-flex-1 wts-auth-banner">
+        <div class="wts-flex-1 wts-auth-banner" fxShow.xs="false">
             <h1>Join with us to experience the best of Worldtrip Singapore.</h1>
         </div>
         <div class="wts-auth-body">
             <div class="wts-card wts-card-fill wts-auth-card">
-                <div class="wts-auth-method">
+                <div *ngIf="!confirmOn" class="wts-auth-method">
                     <div class="wts-sub-heading">
-                        <h3>Login with your email</h3>
+                        <h3>{{ signInOn ? 'Login' : 'Sign up'}} with your email</h3>
                     </div>
-                    <form action="" autocomplete="off">
+                    <form *ngIf="signInOn" action="" autocomplete="off" (ngSubmit)="onLogin($event)" #usrForm="ngForm">
                         <div class="wts-input-wrap">
-                            <input class="wts-input-block" autocomplete="off" type="text" placeholder="email">
+                            <input id="email" name="username" class="wts-input-block" ngModel autocomplete="off" type="text" placeholder="email" required>
                         </div>
                         <div class="wts-input-wrap">
-                            <input class="wts-input-block" autocomplete="off" type="password" placeholder="password">
+                            <input type="password" id="password" name="password" class="wts-input-block" ngModel autocomplete="off" placeholder="password" required>
                         </div>
                         <div class="wts-input-wrap">
-                            <button type="button" class="wts-button-secondary wts-button-local">Sign in</button>
+                            <button type="submit" class="wts-button-secondary wts-button-local">Sign in</button>
                         </div>
                     </form>
-                    <!--<div class="_devider"></div>-->
+                    <form *ngIf="!signInOn" action="" autocomplete="off" (ngSubmit)="onSignup($event)" #usrForm="ngForm">
+                        <div class="wts-input-wrap">
+                            <input id="mobile" name="mobile" class="wts-input-block" ngModel autocomplete="off" type="text" placeholder="mobile" required>
+                        </div>
+                        <div class="wts-input-wrap">
+                            <input id="email" name="email" class="wts-input-block" ngModel autocomplete="off" type="text" placeholder="email" required>
+                        </div>
+                        <div class="wts-input-wrap">
+                            <input type="password" id="password" name="password" class="wts-input-block" ngModel autocomplete="off" placeholder="password" required>
+                        </div>
+                        <div class="wts-input-wrap">
+                            <button type="submit" class="wts-button-secondary wts-button-local">Sign in</button>
+                        </div>
+                    </form>
+                    <div class="_devider"></div>
+                    <div class="wts-auth-signup-link">
+                        <span *ngIf="signInOn">Don't have an account? <a (click)="goToSignup()">Sign Up</a></span>
+                        <span *ngIf="!signInOn">Go back to <a (click)="goToSignup()">Log in</a></span>
+                    </div>
                     <div class="wts-third-heading">
                         <h3>or..</h3>
                     </div>
@@ -44,7 +62,7 @@
                     <div id="googleLogin">
                         <!--<div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true"></div>-->
                         <button type="button" class="wts-button-g" id="wts-button-g" mat-raised-button
-                                (click)="_initGoogleSignin();">
+                                (click)="_initGoogleSignin(this);">
                             <div class="wts-button-g-icon">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                      xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -76,6 +94,17 @@
                             </div>
                         </button>
                     </div>
+                </div>
+                <div *ngIf="confirmOn" class="wts-auth-method">
+                    <p>An email have been sent with a confirmation code to the address you entered.</p>
+                    <form action="" autocomplete="off" (ngSubmit)="onConfirm($event)" #usrForm="ngForm">
+                        <div class="wts-input-wrap">
+                            <input type="text" id="validationCode" name="validationCode" class="wts-input-block" ngModel autocomplete="off" placeholder="Code" required>
+                        </div>
+                        <div class="wts-input-wrap">
+                            <button type="submit" class="wts-button-secondary wts-button-local">Confirm</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

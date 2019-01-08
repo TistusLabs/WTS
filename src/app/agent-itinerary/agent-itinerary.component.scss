@@ -1,0 +1,211 @@
+@import "../../_core/styles/variables";
+@import "../../_core/styles/helpers";
+
+.wts-banner {
+  position: relative;
+  overflow: hidden;
+  height: $wts-banner-height + ($wts-banner-height / 2);
+  //@extend %flex-center;
+  align-items: center;
+  .wts-itinerary-cover {
+    width: 100%;
+    z-index: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+  }
+  .wts-itinerary-summery {
+    z-index: 1;
+    color: #ffffff;
+    padding: $wts-spacing-inner-primary;
+    background: linear-gradient(#00000000, #00000050, #00000050, #00000000);
+    .wts-itinerary-info-main {
+      .wts-itinerary-place {
+        text-shadow: 0 1px 3px #000000;
+        text-transform: uppercase;
+      }
+      .wts-itinerary-title {
+        text-shadow: 0 2px 5px #000000;
+        font-size: 50px;
+        font-weight: 400;
+      }
+      .wts-iti-service-sum {
+        .wts-pill {
+          font-size: 14px;
+          margin-right: $wts-spacing-inner-secondary;
+        }
+      }
+    }
+  }
+  .wts-itinerary-service {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-shadow: 0 1px 2px #000000;
+    .wts-iti-service-loc,
+    .wts-iti-service-duration,
+    .wts-iti-service-lang {
+      display: flex;
+      align-items: center;
+      margin-bottom: $wts-spacing-inner-secondary;
+      .mat-icon {
+        margin-right: $wts-spacing-inner-secondary;
+        //color: $wts-color-secondary-light;
+        color: #ffffff;
+      }
+    }
+  }
+}
+
+.wts-itinerary {
+  padding: $wts-spacing-inner-primary;
+  .wts-itinerary-service {
+    display: flex;
+    .wts-iti-service-loc,
+    .wts-iti-service-duration,
+    .wts-iti-service-lang {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      .mat-icon {
+        font-size: 30px;
+        width: 30px;
+        height: 30px;
+        margin-right: $wts-spacing-inner-secondary;
+        color: $wts-color-secondary;
+      }
+    }
+  }
+  .wts-itinerary-guide-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    overflow: hidden;
+    border: solid 3px #eee;
+    padding: 2px;
+    box-sizing: border-box;
+    img {
+      width: 100%;
+      border-radius: 100%;
+    }
+  }
+  .wts-itinerary-price {
+    font-size: 30px;
+    font-weight: 500;
+    .wts-iti-price-per {
+      font-size: 16px;
+      font-weight: 300;
+    }
+  }
+  .wts-card {
+    p {
+      .mat-icon {
+        font-size: 17px;
+        width: 17px;
+        height: 17px;
+        color: $wts-color-text-secondary;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .wts-itinerary {
+    .wts-itinerary-service {
+      .wts-iti-service-loc,
+      .wts-iti-service-duration,
+      .wts-iti-service-lang {
+        justify-content: start;
+      }
+    }
+  };
+  .wts-itinerary-cover {
+    width: auto;
+    height: 100%;
+  }
+}
+
+//.wts-itinerary-widget {
+//  width: $wts-itinerary-widget;
+//  padding: $wts-spacing-inner-primary;
+//  border-radius: $wts-border-radius-secondary;
+//  -webkit-box-shadow: $wts-shadow-card;
+//  -moz-box-shadow: $wts-shadow-card;
+//  box-shadow: $wts-shadow-card;
+//  .wts-it-wid-backdrop {
+//    height: $wts-banner-height;
+//    position: relative;
+//    @extend %flex-center;
+//    overflow: hidden;
+//    margin: (-$wts-spacing-inner-primary + 1) (-$wts-spacing-inner-primary + 1) 0 (-$wts-spacing-inner-primary + 1);
+//    border-radius: $wts-border-radius-secondary $wts-border-radius-secondary 0 0;
+//    img {
+//      position: absolute;
+//      width: 120%;
+//    }
+//  }
+//  .wts-it-wid-info {
+//    position: relative;
+//    display: flex;
+//    align-items: center;
+//    .wts-it-wid-userinfo {
+//      width: 80px;
+//      padding: ($wts-spacing-inner-secondary * 3) $wts-spacing-inner-secondary 0 $wts-spacing-inner-secondary;
+//      justify-content: center;
+//      .wts-it-wid-userpic {
+//        position: absolute;
+//        top: -40px;
+//        border-radius: 100%;
+//        width: $wts-size-image-xs + 20;
+//        height: $wts-size-image-xs + 20;
+//        overflow: hidden;
+//        @extend %flex-center;
+//        img {
+//          height: 100%;
+//          width: auto;
+//          position: absolute;
+//        }
+//      }
+//      .wts-it-wid-username {
+//        font-weight: 500;
+//      }
+//      .wts-it-wid-rate-stars {
+//        .mat-icon {
+//          color: $wts-color-secondary;
+//          font-size: $wts-size-icon-small;
+//          width: $wts-size-icon-small;
+//          height: $wts-size-icon-small;
+//        }
+//      }
+//    }
+//    .wts-it-wid-desc {
+//      flex: 1;
+//      .wts-it-wid-price {
+//        position: absolute;
+//        top: -40px;
+//        right: -$wts-spacing-inner-primary;
+//        color: #ffffff;
+//        padding: $wts-spacing-inner-third $wts-spacing-inner-secondary;
+//        background: $wts-color-primary;
+//        border: solid 1px $wts-color-primary-light;
+//        border-radius: $wts-border-radius-secondary 0 0 $wts-border-radius-secondary;
+//      }
+//      p {
+//        margin-bottom: 0;
+//      }
+//    }
+//  }
+//  &:hover {
+//    -webkit-transition: box-shadow $wts-time-animation-primary;
+//    -moz-transition: box-shadow $wts-time-animation-primary;
+//    -ms-transition: box-shadow $wts-time-animation-primary;
+//    -o-transition: box-shadow $wts-time-animation-primary;
+//    transition: box-shadow $wts-time-animation-primary;
+//    -webkit-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
+//    -moz-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
+//    box-shadow: 0 5px 10px $wts-color-shadow-secondary;
+//    cursor: pointer;
+//  }
+//}

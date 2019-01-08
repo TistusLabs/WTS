@@ -1,0 +1,44 @@
+@import "../../_core/styles/variables";
+
+.wts-account {
+  padding: $wts-spacing-inner-primary;
+}
+.wts-sumtabs {
+  height: 130px;
+  -webkit-transition: height $wts-time-animation-primary;
+  -moz-transition: height $wts-time-animation-primary;
+  -ms-transition: height $wts-time-animation-primary;
+  -o-transition: height $wts-time-animation-primary;
+  transition: height $wts-time-animation-primary;
+  &.wts-sumtabs-expanded {
+    height: 500px;
+    -webkit-transition: height $wts-time-animation-primary;
+    -moz-transition: height $wts-time-animation-primary;
+    -ms-transition: height $wts-time-animation-primary;
+    -o-transition: height $wts-time-animation-primary;
+    transition: height $wts-time-animation-primary;
+    .wts-sumtab-active {
+      -webkit-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+      -moz-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+      box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+      &:hover {
+        -webkit-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+        -moz-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+        box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+      }
+    }
+  }
+  .wts-textbox {
+    padding: $wts-spacing-inner-primary;
+    .wts-textbox-icon {
+      color: $wts-color-primary;
+
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .wts-sumtabs {
+    padding: 0;
+  }
+}
