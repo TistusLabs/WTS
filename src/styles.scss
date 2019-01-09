@@ -128,7 +128,7 @@ nouislider {
 }
 
 .wts-space-h-p {
-  padding: $wts-spacing-inner-primary 0!important;
+  padding: $wts-spacing-inner-primary 0;
 }
 
 .wts-space-v-p {
@@ -319,6 +319,9 @@ textarea {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    &.wts-space-h-p {
+      padding: $wts-spacing-inner-primary 0;
+    }
   }
   &.wts-image-card {
     width: $wts-itinerary-widget - 200;

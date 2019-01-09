@@ -15,8 +15,8 @@
             </div>
         </div>
         <div fxLayout="column">
-            <div class="wts-search-dates" fxFlex fxLayout="column" fxLayoutAlign="center">
-                <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px" fxFlex>
+            <div class="wts-search-dates" fxLayout="column" fxLayoutAlign="center">
+                <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
                     <div class="wts-input-wrap" fxFlex fxLayout="row">
                         <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="searchAttr.start" fxFlex>
                         <button class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
@@ -30,8 +30,8 @@
                 </div>
                 <span class="wts-label">Duration</span>
             </div>
-            <div class="wts-search-pricerange" fxFlex fxLayout="column" fxLayoutAlign="center">
-                <div fxLayout="row" fxFlex>
+            <div class="wts-search-pricerange">
+                <div fxLayout="row">
                     <nouislider [connect]="true" [min]="0" [step]="1" [max]="15" [tooltips]="[ true, true ]" [(ngModel)]="searchAttr.pricerange"></nouislider>
                 </div>
                 <span class="wts-label">Tour guide service /per Person</span>
