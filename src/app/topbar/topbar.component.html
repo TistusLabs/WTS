@@ -3,7 +3,11 @@
         <img (click)="goToHome()" src="./assets/worldtrip_singapore.jpg" alt="Worldtrip Singapore">
     </div>
     <div class="wts-topbar-tools">
-        <button mat-button (click)="joinUser()">Join</button>
+        <button mat-button (click)="navigateTo('become_tour_guide')">Become tour guide</button>
+        <button mat-button (click)="navigateTo('about_us')">About Us</button>
+        <button mat-button (click)="navigateTo('contact_us')">Contact Us</button>
+        <button mat-button (click)="navigateTo('log_in')">Log In</button>
+        <button mat-button class="wts-button-bordered" (click)="navigateTo('sign_in')">Sign In</button>
         <button *ngIf="user.logged" mat-button (click)="userAccount()">Account</button>
     </div>
 </div>

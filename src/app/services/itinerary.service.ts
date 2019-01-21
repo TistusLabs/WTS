@@ -8,7 +8,7 @@ import { Itinerary } from '../data/itinerary.model';
 })
 export class ItineraryService {
 
-    public itinerary = null;
+    public itinerary: Itinerary;
     constructor(
         private router: Router
     ) { }

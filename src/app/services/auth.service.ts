@@ -9,7 +9,7 @@ import {
     CognitoUserSession
 } from 'amazon-cognito-identity-js';
 
-import { User } from '../data/user.model';
+import {AuthUser, User} from '../data/user.model';
 import {Router} from '@angular/router';
 
 const POOL_DATA = {
@@ -49,7 +49,7 @@ export class AuthService {
 
     signUp(email: string, password: string, mobile: string): void {
         this.authIsLoading.next(true);
-        const user: User = {
+        const user: AuthUser = {
             email: email,
             password: password,
             mobile: mobile

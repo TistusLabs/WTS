@@ -1,12 +1,16 @@
 @import "../../_core/styles/variables";
 
 .wts-topbar {
+  position: relative;
+  z-index: 1;
+  //width: 100%;
   display: flex;
   padding: 0 $wts-spacing-inner-primary;
   align-items: center;
   //justify-content: center;
-  background: #ffffff;
+  background: #ffffff50;
   height: $wts-topbar-height;
+  box-sizing: border-box;
   -webkit-box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
   -moz-box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
   box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
@@ -17,6 +21,14 @@
     cursor: pointer;
   }
   .wts-topbar-tools {
-
+    button {
+      background: transparent;
+      color: #ffffff;
+      font-weight: 500;
+      text-shadow: $wts-shadow-text-secondary;
+      &.wts-button-bordered {
+        padding: $wts-spacing-inner-third $wts-spacing-inner-primary;
+      }
+    }
   }
 }

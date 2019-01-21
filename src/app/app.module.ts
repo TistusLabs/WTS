@@ -18,15 +18,15 @@ import {AgentDashboardComponent} from './agent-dashboard/agent-dashboard.compone
 import {TravellerDashboardComponent} from './traveller-dashboard/traveller-dashboard.component';
 import {AccountComponent} from './account/account.component';
 import {GeneralComponent} from './general/general.component';
-import {BodyComponent} from './body/body.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {
+    MAT_DIALOG_DATA,
     MatDatepickerModule, MatDatepickerToggle,
     // MatAutocompleteModule,
     // MatCardImage,
     // MatCardModule,
     // MatChipsModule,
-    MatDialogModule, MatFormFieldModule,
+    MatDialogModule, MatDialogRef, MatFormFieldModule,
     // MatFormFieldModule,
     MatIconModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatSelectModule, MatSnackBarModule,
     MatTabsModule,
@@ -55,7 +55,6 @@ export function tokenGetter() {
         TravellerDashboardComponent,
         AccountComponent,
         GeneralComponent,
-        BodyComponent,
         ProfileComponent,
         EditProfile,
         AgentItineraryComponent,
@@ -103,7 +102,9 @@ export function tokenGetter() {
     ],
     providers: [
         AuthGuard,
-        AuthService
+        AuthService,
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MatDialogRef, useValue: {} }
     ],
     bootstrap: [AppComponent]
 })

@@ -7,7 +7,7 @@
 </style>
 
 <div class="wts-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap>
-    <img class="wts-itinerary-cover" src="{{ itinerary.backdrop }}" alt="{{ itinerary.name }}">
+    <img class="wts-itinerary-cover" src="{{ itinerary.backdrop }}" alt="{{ itinerary.title }}">
     <div class="wts-itinerary-summery" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.xs="15px" fxFlex>
         <div class="wts-itinerary-info-main" fxFlex="60%">
             <h3 class="wts-header-3 wts-itinerary-place">Singapore</h3>
@@ -24,7 +24,7 @@
                 <mat-icon>event</mat-icon> {{ itinerary.from + ' - ' + itinerary.to }}
             </div>
             <div class="wts-iti-service-lang">
-                <mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide.languages">{{l}}</span>
+                <mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']">{{l}}</span>
             </div>
         </div>
     </div>
@@ -42,7 +42,7 @@
                             <mat-icon>event</mat-icon> {{ itinerary.from + ' - ' + itinerary.to }}
                         </div>
                         <div class="wts-iti-service-lang">
-                            <mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide.languages; let i = index"> {{l}}{{i !== itinerary.guide.languages.length-1 ? ',  ' : null}}</span>
+                            <mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']; let i = index"> {{l}}{{i !== itinerary.guide['languages'].length-1 ? ',  ' : null}}</span>
                         </div>
                     </div>
                 </div>
@@ -52,14 +52,14 @@
                     <div fxFlex>
                         <div class="wts-card-header">
                             <div class="wts-card-header-flex">
-                                <h2 class="wts-header-2">Meet your tour guide {{ itinerary.guide.name }}</h2>
+                                <h2 class="wts-header-2">Meet your tour guide {{ itinerary.guide['name'] }}</h2>
                             </div>
                         </div>
                         <p>{{ itinerary.description }}</p>
                     </div>
                     <div fxLayout="column" fxLayoutAlign="center">
                         <div class="wts-itinerary-guide-img">
-                            <img src="{{itinerary.guide.picture}}" alt="{{itinerary.guide.name}}">
+                            <img src="{{itinerary.guide['picture']}}" alt="{{itinerary.guide['name']}}">
                         </div>
                         <button class="wts-button mat-button-flat-p"> <mat-icon>chat_outline</mat-icon> AirChat</button>
                     </div>
@@ -108,7 +108,7 @@
                         <h2 class="wts-header-2">Who can come</h2>
                     </div>
                 </div>
-                <p>{{ itinerary.conditions }}</p>
+                <p>{{ itinerary.condition }}</p>
             </div>
             <div class="wts-card">
                 <div class="wts-card-header">
@@ -147,7 +147,7 @@
                 <div class="wts-itinerary-price">${{ itinerary.price }} SGD</div>
                 <span class="wts-iti-price-per">per Person</span>
                 <div class="wts-space-h-p">
-                    <button class="wts-button-primary" (click)="createItinerary()">Request to book</button>
+                    <button class="wts-button-primary">Request to book</button>
                 </div>
                 <!--<ul class="wts-list">-->
                 <!--<li class="wts-list-item wts-clickable" (click)="editProfile()">-->

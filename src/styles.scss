@@ -448,6 +448,10 @@ button {
   &.mat-button-flat-s {
     color: $wts-color-secondary;
   }
+  &.wts-button-bordered {
+    border-radius: 30px!important;
+    border: solid 2px!important;
+  }
   & > .mat-icon {
     font-size: $wts-size-icon-small;
     height: $wts-size-icon-small;
@@ -459,7 +463,7 @@ button {
 /* --------------------------------------------- */
 .wts-banner {
   height: $wts-banner-height;
-  background: linear-gradient($wts-banner-background);
+  //background: linear-gradient($wts-banner-background);
   margin-bottom: $wts-spacing-inner-primary * 1;
   .wts-acc-bnr-img-wrap {
     position: relative;
@@ -486,6 +490,7 @@ button {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex: 1;
       .wts-acc-bnr-sum-item {
         text-align: center;
         .wts-bnr-itm-value {
@@ -708,7 +713,9 @@ button {
     .wts-acc-bnr-content {
       padding: 0 $wts-spacing-inner-primary $wts-spacing-inner-primary $wts-spacing-inner-primary;
       .wts-acc-bnr-summary {
+        flex: none;
         width: 100%;
+        display: block;
       }
     }
   }

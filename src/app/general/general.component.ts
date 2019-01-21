@@ -3,7 +3,7 @@ import * as moment from 'moment';
 
 @Component({
     selector: 'app-general',
-    templateUrl: './general.component.html',
+    templateUrl: './general_2.component.html',
     styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent implements OnInit {

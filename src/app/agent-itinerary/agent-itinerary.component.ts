@@ -1,6 +1,7 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ItineraryService} from '../services/itinerary.service';
+import {Itinerary} from '../data/itinerary.model';
 declare let google;
 
 @Component({
@@ -9,7 +10,7 @@ declare let google;
     styleUrls: ['./agent-itinerary.component.scss']
 })
 export class AgentItineraryComponent implements OnInit {
-    itinerary = null;
+    itinerary: Itinerary;
 
     constructor(
         private itineraryService: ItineraryService

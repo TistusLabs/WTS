@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Router} from '@angular/router';
 import {ItineraryService} from '../services/itinerary.service';
+import {Itinerary} from '../data/itinerary.model';
 declare let google;
 
 @Component({
@@ -10,17 +11,7 @@ declare let google;
     styleUrls: ['./agent-itineraries.component.scss']
 })
 export class AgentItinerariesComponent implements OnInit {
-    itinerary = {
-        title: '',
-        description: '',
-        activities: '',
-        services: [],
-        guest_type: '',
-        conditions: '',
-        area: '',
-        from: '',
-        to: ''
-    };
+    itinerary: Itinerary;
 
     itineraries = [{
         id : 'itinerary#1',
@@ -71,7 +62,7 @@ export class AgentItinerariesComponent implements OnInit {
     constructor(
         public dialog: MatDialog,
         private route: Router,
-        private itineraryService : ItineraryService
+        private itineraryService: ItineraryService
     ) {
     }
 
@@ -109,7 +100,7 @@ export class CreateItinerary implements OnInit {
 
     serviceInput = '';
 
-    constructor(public dialogRef: MatDialogRef<CreateItinerary>, @Inject(MAT_DIALOG_DATA) public data: AgentItinerariesComponent) {
+    constructor(public dialogRef: MatDialogRef<CreateItinerary>, @Inject(MAT_DIALOG_DATA) public data: Itinerary) {
     }
 
     ngOnInit() {

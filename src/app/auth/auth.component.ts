@@ -42,8 +42,12 @@ export class AuthComponent implements OnInit {
             function(googleUser) {
                 if (document.getElementById('name')) document.getElementById('name').innerText = "Signed in: " + googleUser.getBasicProfile().getName();
                 // localStorage.setItem('access_token', 'jwt');
-                _self.authService.broadcastToken();
-                _self.router.navigateByUrl('/account');
+                // _self.authService.broadcastToken();
+                setTimeout(() => {
+                    _self.router.navigateByUrl('/account');
+                    }, 10
+                );
+
             }, function(error) {
                 // alert(JSON.stringify(error, undefined, 2));
                 console.log("Google login cancelled");
@@ -57,7 +61,7 @@ export class AuthComponent implements OnInit {
                 console.log('submitLogin', response);
                 if (response.authResponse) {
                     // localStorage.setItem('access_token', 'jwt');
-                    _self.authService.broadcastToken();
+                    // _self.authService.broadcastToken();
                     _self.router.navigateByUrl('/account');
                 } else {
                     console.log('Facebook login failed');

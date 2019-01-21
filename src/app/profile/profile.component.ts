@@ -2,6 +2,7 @@ import {Component, OnInit, Inject} from '@angular/core';
 import {Router} from '@angular/router';
 import * as moment from 'moment';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {User} from '../data/user.model';
 
 @Component({
     selector: 'app-profile',
@@ -31,7 +32,8 @@ export class ProfileComponent implements OnInit {
                 './assets/event/singapore.jpg.jpg'
             ]
         }];
-    user = {
+
+    user: User = {
         first_name: 'John',
         last_name: 'Doe',
         address : 'No 29, Hill Street, Colombo',
@@ -72,7 +74,7 @@ export class ProfileComponent implements OnInit {
 })
 export class EditProfile {
 
-    constructor(public dialogRef: MatDialogRef<EditProfile>, @Inject(MAT_DIALOG_DATA) public data: ProfileComponent) {
+    constructor(public dialogRef: MatDialogRef<EditProfile>, @Inject(MAT_DIALOG_DATA) public data: User) {
     }
 
     onNoClick(): void {

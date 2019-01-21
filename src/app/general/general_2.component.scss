@@ -15,13 +15,7 @@
 }
 
 .wts-banner {
-  position: relative;
-  margin-top: -$wts-topbar-height;
-  height: $wts-banner-height + $wts-banner-height;
-  background: url("../../assets/backdrop_1.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  height: $wts-banner-height + $wts-banner-height/2;
   margin-bottom: 0;
   .wts-banner-gen-search {
     width: 100%;
