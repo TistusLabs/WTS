@@ -19,7 +19,8 @@
                             <input type="password" id="password" name="password" class="wts-input-block" ngModel autocomplete="off" placeholder="password" required>
                         </div>
                         <div class="wts-input-wrap">
-                            <button type="submit" class="wts-button-secondary wts-button-local">Sign in</button>
+                            <button type="submit" class="wts-button-secondary wts-button-local">{{!isLoading ? 'Sign In' : ''}} <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+                            </button>
                         </div>
                     </form>
                     <form *ngIf="!signInOn" action="" autocomplete="off" (ngSubmit)="onSignup($event)" #usrForm="ngForm">
@@ -33,7 +34,9 @@
                             <input type="password" id="password" name="password" class="wts-input-block" ngModel autocomplete="off" placeholder="password" required>
                         </div>
                         <div class="wts-input-wrap">
-                            <button type="submit" class="wts-button-secondary wts-button-local">Sign in</button>
+                            <button type="submit" class="wts-button-secondary wts-button-local">
+                                {{!isLoading ? 'Sign Up' : ''}} <mat-spinner *ngIf="isLoading" diameter="20"></mat-spinner>
+                            </button>
                         </div>
                     </form>
                     <div class="_devider"></div>

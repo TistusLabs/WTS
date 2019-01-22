@@ -24,6 +24,10 @@ export class TopbarComponent implements OnInit {
         //     // debugger;
         //     if (token) this.user.logged = true;
         // });
+        const user = this.authServide.getAuthenticatedUser();
+        if (user) {
+            this.user.logged = true;
+        }
         this.authServide.authStatusChanged.subscribe(status => {
             this.user.logged = true;
         });
@@ -39,6 +43,15 @@ export class TopbarComponent implements OnInit {
 
     goToHome() {
         this.router.navigateByUrl('/');
+    }
+
+    navigateTo(_route) {
+        this.router.navigateByUrl('/' + _route);
+    }
+
+    logOut () {
+        this.authServide.logout();
+        this.user.logged = false;
     }
 
 }

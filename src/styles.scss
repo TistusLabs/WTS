@@ -4,6 +4,7 @@
 //Mat
 //@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~nouislider/distribute/nouislider.min.css";
+@import '../node_modules/angular2-toaster/src/toaster';
 
 html,
 body {
@@ -413,7 +414,9 @@ button {
     -o-transition: filter $wts-time-animation-primary;
     transition: filter $wts-time-animation-primary;
   }
-
+  &:disabled {
+    background: $wts-color-highlight-gray;
+  }
   &.wts-button-primary {
     background: $wts-color-primary;
     color: #ffffff;
@@ -462,8 +465,10 @@ button {
 
 /* --------------------------------------------- */
 .wts-banner {
-  height: $wts-banner-height;
-  //background: linear-gradient($wts-banner-background);
+  height: $wts-banner-height + $wts-banner-height/2;
+  position: relative;
+  margin-top: -$wts-topbar-height;
+  background: linear-gradient($wts-banner-background);
   margin-bottom: $wts-spacing-inner-primary * 1;
   .wts-acc-bnr-img-wrap {
     position: relative;
@@ -473,19 +478,24 @@ button {
     width: 150px;
     height: 150px;
     border: solid 7px $wts-color-secondary-light;
+    overflow: hidden;
+    border-radius: 100%;
     -webkit-box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
     -moz-box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
     box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
-    margin: 50px auto 0 auto;
+    margin: 100px auto 0 auto;
     background: #fff;
   }
   .wts-acc-bnr-userinfo {
     h1 {
       margin: 0;
+      color: #ffffff;
+      text-shadow: $wts-shadow-text-secondary;
     }
   }
   .wts-acc-bnr-content {
-    padding: 30px 0 0 0;
+    padding: 100px 0 0 0;
+    background: radial-gradient(#00000030, #00000020, #00000000, #00000000);
     .wts-acc-bnr-summary {
       display: flex;
       align-items: center;
@@ -594,6 +604,7 @@ button {
     padding: $wts-spacing-inner-secondary $wts-spacing-inner-primary;
     background: $wts-color-primary-light;
     color: #ffffff;
+    margin: 0 $wts-spacing-inner-secondary $wts-spacing-inner-secondary 0;
     .wts-pill-control {
       margin-left: $wts-spacing-inner-secondary;
       margin-right: 0;
@@ -608,6 +619,12 @@ button {
 }
 
 /* --------------------------------------------- */
+.wts-dialog-guide {
+  font-weight: 300;
+  text-align: center;
+  font-size: 30px;
+  color: $wts-color-text-secondary;
+}
 .wts-dialog {
   .wts-dialog-form {
     padding: $wts-spacing-inner-primary;
@@ -637,6 +654,9 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
+    img {
+      height: 200px;
+    }
     .wts-uploader-placeholder {
       .mat-icon {
         font-size: $wts-size-icon-large + $wts-size-icon-large;

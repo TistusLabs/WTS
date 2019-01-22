@@ -14,20 +14,30 @@
                 <!--</div>-->
             <!--</div>-->
         <!--</div>-->
-        <div fxFlex>
+        <div class="wts-banner-text" fxFlex fxShow.xs="false">
             <h1>World Trip Singapore</h1>
+            <p>
+                Bridging Cultures - One eXperience at a Time. <br>
+                Building an Experiential Social Traveling Platform.<br>
+                Connecting travellers and tour guides to create<br>
+                Connecting travellers and tour guides to create unforgettable travel experiences/a brand-new modal of travel.
+            </p>
         </div>
         <div class="wts-search-dates">
-            <div class="wts-input-wrap" fxLayout="row">
+            <h3>Book for Tour Guide</h3>
+            <div class="wts-search-label-upper">Select tour start date</div>
+            <div class="wts-input-wrap" fxLayout="row" style="margin-bottom: 15px">
                 <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="searchAttr.start" fxFlex>
                 <button class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
                 <mat-datepicker #fromPicker></mat-datepicker>
             </div>
+            <div class="wts-search-label-upper">Select tour end date</div>
             <div class="wts-input-wrap" fxLayout="row">
                 <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="searchAttr.end" fxFlex>
                 <button class="mat-button-circle" (click)="toPicker.open()"><mat-icon>date_range</mat-icon></button>
                 <mat-datepicker #toPicker></mat-datepicker>
             </div>
+            <div class="wts-search-footer">Book Now</div>
         </div>
         <!--<button class="wts-button-primary">Search</button>-->
     </div>

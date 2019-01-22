@@ -28,7 +28,7 @@ import {
     // MatChipsModule,
     MatDialogModule, MatDialogRef, MatFormFieldModule,
     // MatFormFieldModule,
-    MatIconModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatSelectModule, MatSnackBarModule,
+    MatIconModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatSnackBarModule,
     MatTabsModule,
     // MatToolbarModule
 } from '@angular/material';
@@ -37,6 +37,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AgentItineraryComponent} from './agent-itinerary/agent-itinerary.component';
 import { AgentItinerariesComponent, CreateItinerary } from './agent-itineraries/agent-itineraries.component';
 import {NouisliderModule} from 'ng2-nouislider';
+import {ToasterModule, ToasterService} from 'angular2-toaster';
+import {UserService} from './services/user.service';
+import {HttpClient, HttpClientModule, HttpHandler} from '@angular/common/http';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -66,6 +69,7 @@ export function tokenGetter() {
         AppRoutingModule,
         BrowserAnimationsModule,
         FormsModule,
+        HttpClientModule,
         ReactiveFormsModule,
         JwtModule.forRoot({
             config: {
@@ -79,7 +83,7 @@ export function tokenGetter() {
             }
         }),
         // Mat
-        NoopAnimationsModule,
+        // NoopAnimationsModule,
         // MatButtonModule,
         MatIconModule,
         // MatToolbarModule,
@@ -94,15 +98,19 @@ export function tokenGetter() {
         MatFormFieldModule,
         MatSelectModule,
         MatSnackBarModule,
+        MatProgressSpinnerModule,
         // MatChipsModule,
         // MatAutocompleteModule,
         // MatFormFieldModule,
         FlexLayoutModule,
-        NouisliderModule
+        NouisliderModule,
+        ToasterModule
     ],
     providers: [
         AuthGuard,
         AuthService,
+        ToasterService,
+        UserService,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} }
     ],

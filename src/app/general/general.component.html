@@ -62,7 +62,8 @@
                 <h2 class="wts-header-2">Hot Trips</h2>
             </div>
         </div>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+        <mat-spinner [diameter]="30" *ngIf="loading"></mat-spinner>
+        <div *ngIf="!loading" fxLayout="row" fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
             <div class="wts-itinerary-widget"
                  (click)="openItinerary(itinerary)"
                  *ngFor="let itinerary of itineraries">

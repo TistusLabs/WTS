@@ -8,7 +8,7 @@
         <div fxLayout="row" fxLayout.sm="row" fxLayout.xs="column">
             <div class="wts-acc-bnr-userinfo" fxLayout="column" fxLayoutAlign.xs="start center">
                 <div class="wts-space-h-p">
-                    <h1>John Doe</h1>
+                    <h1>{{user.fname + ' ' + user.lname}}</h1>
                 </div>
                 <div>
                     <div class="wts-pill wts-pill-general">
@@ -23,16 +23,16 @@
                 <div class="wts-acc-bnr-sum-item">
                     <div class="wts-bnr-rating-block">
                         <div class="wts-rating-val">
-                            4.6
+                            0.0
                         </div>
                         <div class="wts-rating-info">
                             <div class="wts-rate-info-service">
-                                Service Rating <b>(89)</b>
+                                Service Rating <b>(00)</b>
                             </div>
                             <div class="wts-rate-info-stars">
-                                <mat-icon class="rated_full">star</mat-icon>
-                                <mat-icon class="rated_full">star</mat-icon>
-                                <mat-icon class="rated_full">star</mat-icon>
+                                <mat-icon>star</mat-icon>
+                                <mat-icon>star</mat-icon>
+                                <mat-icon>star</mat-icon>
                                 <mat-icon>star</mat-icon>
                                 <mat-icon>star</mat-icon>
                             </div>
@@ -54,25 +54,25 @@
                 </div>
                 <div class="wts-card-content">
                     <div class="wts-block">
-                        <h2 class="wts-header-3">Don't let the outtakes take you out!</h2>
+                        <h2 class="wts-header-3">{{user.tagline}}</h2>
                     </div>
                     <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
                         <div class="wts-block" fxFlex="33.3%">
                             <h2 class="wts-header-3">Address</h2>
                             <ul class="wts-list">
-                                <li class="wts-list-item">29, Singapore</li>
+                                <li class="wts-list-item">{{user.address}}</li>
                             </ul>
                         </div>
                         <div class="wts-block" fxFlex="33.3%">
                             <h2 class="wts-header-3">Lifestyle</h2>
                             <ul class="wts-list">
-                                <li class="wts-list-item">Simplistic</li>
+                                <li class="wts-list-item" *ngFor="let l of user.lifestyle.values">{{l}}</li>
                             </ul>
                         </div>
                         <div class="wts-block" fxFlex="33.3%">
                             <h2 class="wts-header-3">Interests</h2>
                             <ul class="wts-list">
-                                <li class="wts-list-item">Music</li>
+                                <li class="wts-list-item" *ngFor="let i of user.interests.values">{{i}}</li>
                             </ul>
                         </div>
                     </div>

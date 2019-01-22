@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject, Observable} from 'rxjs';
 
+
 import {
     CognitoUserPool,
     CognitoUserAttribute,
@@ -11,6 +12,8 @@ import {
 
 import {AuthUser, User} from '../data/user.model';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
+import {ToasterService} from 'angular2-toaster';
 
 const POOL_DATA = {
     UserPoolId: 'us-east-2_TzwFGMfr5',
@@ -30,9 +33,11 @@ export class AuthService {
     registeredUser: CognitoUser;
 
     public token = new Subject<number>();
+
     constructor(
-        private router: Router
-    ) { }
+        private router: Router,
+        private toasterService: ToasterService
+) { }
 
     private emitToken(val) {
         this.token.next(val);
@@ -64,6 +69,10 @@ export class AuthService {
             if (err) {
                 this.authDidFail.next(true);
                 this.authIsLoading.next(false);
+                for (const m of err.message.split(';')) {
+                    // debugger
+                    this.toasterService.pop('error', 'Invalid inputs', m);
+                }
                 return;
             }
             this.authDidFail.next(false);
@@ -81,17 +90,19 @@ export class AuthService {
             Pool: userPool
         };
         const cognitUser = new CognitoUser(userData);
+        const that = this;
         cognitUser.confirmRegistration(code, true, (err, result) => {
             if (err) {
                 this.authDidFail.next(true);
                 this.authIsLoading.next(false);
                 return;
             }
-            debugger;
+            // debugger;
             this.authDidFail.next(false);
             this.authDidSuccess.next(true);
             this.authIsLoading.next(false);
-            this.router.navigate(['/account']);
+            that.toasterService.pop('success', 'Welcome!', 'You have successfully signed up with Worldtrip Singapore');
+            that.router.navigateByUrl('/profile');
         });
     }
 
@@ -114,7 +125,7 @@ export class AuthService {
                 that.authDidFail.next(false);
                 that.authDidSuccess.next(true);
                 that.authIsLoading.next(false);
-                that.router.navigate(['/account']);
+                that.router.navigate(['/profile']);
                 console.log(result);
             },
             onFailure(err) {
@@ -127,32 +138,37 @@ export class AuthService {
         return;
     }
 
-    getAuthenticatedUser() {
+    getAuthenticatedUser = () => {
         return userPool.getCurrentUser();
     }
+    getIdToken = () => {
+        const user = this.getAuthenticatedUser();
+        const flag = 'CognitoIdentityServiceProvider.' + user['pool'].clientId + '.' + user['username'];
+        const _config = user['storage'];
+        return _config[flag + '.idToken'];
+    };
 
     logout() {
         this.getAuthenticatedUser().signOut();
         this.authStatusChanged.next(false);
+        this.router.navigateByUrl('/auth');
     }
 
     isAuthenticated(): Observable<boolean> {
+        debugger
         const user = this.getAuthenticatedUser();
         const obs = Observable.create((observer) => {
             if (!user) {
                 observer.next(false);
             } else {
-                user.getSession((err, session) => {
-                    if (err) {
-                        observer.next(false);
-                    } else {
-                        if (session.isValid()) {
-                            observer.next(true);
-                        } else {
+                if (user != null) {
+                    user.getSession(function(err, session) {
+                        if (err) {
                             observer.next(false);
                         }
-                    }
-                });
+                        observer.next(true);
+                    });
+                }
             }
             observer.complete();
         });

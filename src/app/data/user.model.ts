@@ -12,3 +12,35 @@ export interface AuthUser {
     password: string;
     mobile: string;
 }
+
+export interface Profile {
+    fname: string;
+    tagline: string;
+    type: string;
+    interests: {
+        wrapperName: string;
+        values: Array<any>;
+        type: string;
+    };
+    lifestyle: {
+        wrapperName: string;
+        values: Array<any>;
+        type: string;
+    };
+    profile_id: string;
+    address: string;
+    lname: string;
+    image_url: string;
+}
+
+export interface Profile_ {
+    fname: string;
+    tagline: string;
+    type: string;
+    interests: Array<string>;
+    lifestyle: Array<string>;
+    userId: string;
+    address: string;
+    lname: string;
+    image_url: string;
+}

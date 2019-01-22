@@ -12,5 +12,6 @@ export interface Itinerary {
     to: string;
     notes: string;
     guide: object;
+    is_public: boolean;
 }
 

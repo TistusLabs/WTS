@@ -3,6 +3,9 @@
 
 .wts-onboarding {
   height: 100%;
+  position: relative;
+  margin-top: -$wts-topbar-height;
+  padding-top: $wts-topbar-height;
   display: flex;
   flex-direction: column;
   background: linear-gradient(to bottom right, $wts-color-primary-light, $wts-color-secondary-light);
@@ -54,6 +57,9 @@
       }
       .wts-auth-method {
         padding: $wts-spacing-inner-primary + $wts-spacing-inner-primary;
+        .mat-progress-spinner circle, .mat-spinner circle {
+          stroke: #ffffff!important;
+        }
       }
       .wts-button-local {
         width: 100%;

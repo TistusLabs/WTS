@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
+import {AuthService} from '../services/auth.service';
+import {ItineraryService} from '../services/itinerary.service';
 
 @Component({
     selector: 'app-general',
@@ -119,11 +121,39 @@ export class GeneralComponent implements OnInit {
         picture : './assets/locations/haji_lane.jpg'
     }];
 
-    constructor() {
+    constructor(
+        private authService: AuthService,
+        private itineraryService: ItineraryService
+    ) {
     }
+    loading = false;
 
     ngOnInit() {
+        const user = this.authService.getAuthenticatedUser();
+        if (user) {
+            this.getAllItineraries();
+        } else {
+            this.itineraries = [];
+        }
     }
+
+    getAllItineraries () {
+        this.loading = true;
+        this.itineraryService.getAllItineraries()
+            .subscribe(res => {
+                this.itineraries = res['Data'];
+                for (const i_ of this.itineraries) {
+                    i_.guide = {
+                        name : 'Austin',
+                        picture : './assets/user_male.jpg',
+                        stars : Array(4).fill(0).map((x, i) => i),
+                        rating : 5.0,
+                        languages: ['English', 'Mandarin']
+                    };
+                }
+                this.loading = false;
+            });
+    };
 
     updateSearchArea(area) {
         this.searchAttr.place = area;

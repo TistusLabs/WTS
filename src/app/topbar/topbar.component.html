@@ -1,13 +1,19 @@
 <div class="wts-topbar">
     <div class="wts-brand">
-        <img (click)="goToHome()" src="./assets/worldtrip_singapore.jpg" alt="Worldtrip Singapore">
+        <img (click)="goToHome()" src="./assets/worldtrip_singapore.png" alt="Worldtrip Singapore">
     </div>
-    <div class="wts-topbar-tools">
-        <button mat-button (click)="navigateTo('become_tour_guide')">Become tour guide</button>
+    <div class="wts-topbar-tools" fxShow.xs="false">
+        <button *ngIf="user.logged" mat-button (click)="navigateTo('become_tour_guide')">Become tour guide</button>
         <button mat-button (click)="navigateTo('about_us')">About Us</button>
         <button mat-button (click)="navigateTo('contact_us')">Contact Us</button>
-        <button mat-button (click)="navigateTo('log_in')">Log In</button>
-        <button mat-button class="wts-button-bordered" (click)="navigateTo('sign_in')">Sign In</button>
+        <button *ngIf="!user.logged" mat-button (click)="navigateTo('auth')">Log In</button>
+        <button *ngIf="!user.logged" mat-button class="wts-button-bordered" (click)="navigateTo('auth')">Sign In</button>
         <button *ngIf="user.logged" mat-button (click)="userAccount()">Account</button>
+        <button *ngIf="user.logged" mat-button class="wts-button-bordered" (click)="logOut()">Log Out</button>
+    </div>
+    <div class="wts-topbar-tools wts-topbar-tools-xs" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false">
+        <button class="mat-button-circle" (click)="toggleXsNav()">
+            <mat-icon>menu</mat-icon>
+        </button>
     </div>
 </div>

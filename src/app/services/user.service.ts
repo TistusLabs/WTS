@@ -1,32 +1,28 @@
 import {Injectable} from '@angular/core';
-import {Subject, Observable, throwError} from 'rxjs';
-import {Router} from '@angular/router';
-import { Itinerary } from '../data/itinerary.model';
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Profile} from '../data/user.model';
 import {catchError, retry} from 'rxjs/internal/operators';
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {throwError} from 'rxjs';
 import {AuthService} from './auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ItineraryService {
 
-    public itinerary: Itinerary;
+export class UserService {
     constructor(
         private http: HttpClient,
-        private router: Router,
         private authService: AuthService
-    ) { }
+    ) {}
 
     private urls = {
-        'get_itinerary' : '',
-        'get_all_itinerary' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary/all',
-        'create_itinerary' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary'
+        'get_profile' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/profile',
+        'create_profile' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/profile'
     };
-    private idToken = this.authService.getIdToken();
     private requestParams;
     private requestOptions;
+    private idToken = this.authService.getIdToken();
+
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
@@ -43,19 +39,25 @@ export class ItineraryService {
             'Something bad happened; please try again later.');
     };
 
-    private emitItinerary(itinerary) {
-        this.itinerary = itinerary;
+    getProfile () {
+        // debugger
+        const headers = {
+            'Authorization': this.idToken
+        };
+        const user = this.authService.getAuthenticatedUser();
+        this.requestParams = new HttpParams()
+            .set('userId', user['username']);
+
+        this.requestOptions = {
+            params: this.requestParams,
+            headers: new HttpHeaders(headers)
+        };
+
+        return this.http.get<Profile>(this.urls.get_profile, this.requestOptions);
     }
 
-    setItinerary(itinerary) {
-        this.emitItinerary(itinerary);
-    }
-
-    getItinerary() {
-        return this.itinerary;
-    }
-
-    getAllItineraries() {
+    createProfile (profile) {
+        // debugger
         const headers = {
             'Content-Type': 'application/json',
             'Authorization': this.idToken
@@ -65,25 +67,9 @@ export class ItineraryService {
             headers: new HttpHeaders(headers)
         };
 
-        return this.http.get<Array<Itinerary>>(this.urls.get_all_itinerary, this.requestOptions)
+        return this.http.post<Profile>(this.urls.create_profile, profile, this.requestOptions)
             .pipe(
-                catchError(this.handleError)
-            );
-    }
-
-    createItinerary (itinerary) {
-        debugger
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': this.idToken
-        };
-
-        this.requestOptions = {
-            headers: new HttpHeaders(headers)
-        };
-
-        return this.http.post<Itinerary>(this.urls.create_itinerary, itinerary, this.requestOptions)
-            .pipe(
+                retry(3),
                 catchError(this.handleError)
             );
     }

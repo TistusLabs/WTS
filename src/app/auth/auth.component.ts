@@ -25,6 +25,7 @@ export class AuthComponent implements OnInit {
     confirmUser = false;
     didFail = false;
     isLoading = false;
+    loading = false;
     signInOn = true;
     confirmOn = false;
 
@@ -43,11 +44,7 @@ export class AuthComponent implements OnInit {
                 if (document.getElementById('name')) document.getElementById('name').innerText = "Signed in: " + googleUser.getBasicProfile().getName();
                 // localStorage.setItem('access_token', 'jwt');
                 // _self.authService.broadcastToken();
-                setTimeout(() => {
-                    _self.router.navigateByUrl('/account');
-                    }, 10
-                );
-
+                _self.router.navigateByUrl('/account');
             }, function(error) {
                 // alert(JSON.stringify(error, undefined, 2));
                 console.log("Google login cancelled");
@@ -113,9 +110,9 @@ export class AuthComponent implements OnInit {
             .subscribe((didFail: boolean) => {
                 this.didFail = didFail;
                 if (this.isLoading) {
-                    this.messages.open('Invalid credentials', null, {
-                        duration: 1000,
-                    });
+                    // this.messages.open('Invalid credentials', null, {
+                    //     duration: 1000,
+                    // });
                 }
             });
 
@@ -137,6 +134,7 @@ export class AuthComponent implements OnInit {
     }
 
     onLogin(e) {
+        this.loading = true;
         e.preventDefault();
         const usrName = this.form.value.username;
         const password = this.form.value.password;
@@ -144,6 +142,7 @@ export class AuthComponent implements OnInit {
     }
 
     onSignup() {
+        this.loading = true;
         const mobile = this.form.value.mobile;
         const email = this.form.value.email;
         this.temp_email = this.form.value.email;

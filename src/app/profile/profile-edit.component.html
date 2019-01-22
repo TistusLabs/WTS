@@ -1,32 +1,62 @@
-<h2 class="wts-header-2">Edit profile</h2>
+<h1 class="wts-header-1 wts-dialog-guide">{{profile.guide}}</h1>
+<h2 class="wts-header-2">{{profile.title}} profile</h2>
+<form #createProfileForm="ngForm" id="createProfileForm" class="wts-dialog-form" (ngSubmit)="createProfile()">
 <mat-dialog-content class="wts-dialog">
-    <form action="" class="wts-dialog-form">
         <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
             <div class="wts-input-block" fxFlex="50%" class="wts-input-wrap">
-                <input type="text" name="firstName" placeholder="First Name" [(ngModel)]="data.first_name" class="wts-input-block">
+                <input type="text" name="firstName" placeholder="First Name" [(ngModel)]="profile.data.fname" class="wts-input-block">
             </div>
             <div class="wts-input-block" fxFlex="50%" class="wts-input-wrap">
-                <input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="data.last_name" class="wts-input-block">
+                <input type="text" name="lastName" placeholder="Last Name" [(ngModel)]="profile.data.lname" class="wts-input-block">
             </div>
         </div>
         <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
             <div class="wts-input-block" fxFlex="100%" class="wts-input-wrap">
-                <input type="text" name="address" placeholder="Address" [(ngModel)]="data.address" class="wts-input-block">
+                <input type="text" name="tagline" placeholder="Tagline" [(ngModel)]="profile.data.tagline" class="wts-input-block">
+            </div>
+        </div>
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+            <div class="wts-input-block" fxFlex="100%" class="wts-input-wrap">
+                <input type="text" name="address" placeholder="Address" [(ngModel)]="profile.data.address" class="wts-input-block">
             </div>
         </div>
         <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
             <div class="wts-input-block" fxFlex="50%" class="wts-input-wrap">
-                <input type="text" name="interests" placeholder="Interests" [(ngModel)]="data.interests" class="wts-input-block">
+                <div class="wts-input-wrap">
+                    <div class="wts-input-wrap" fxLayout="row" fxLayoutGap="10px">
+                        <input type="text" id="interests" name="interests" placeholder="Your interests. eg: Cooking, Hiking etc." [(ngModel)]="interestInput" class="wts-input-block-half" fxFlex>
+                        <button type="button" class="mat-button-circle wts-button-primary" (click)="addInterest(interestInput)"><mat-icon>add</mat-icon></button>
+                    </div>
+                </div>
+                <div class="wts-space-v-p">
+                    <div class="wts-pill wts-pill-controlled" *ngFor="let interest of profile.data.interests">
+                        <span class="wts-pill-text">{{ interest }}</span>
+                        <mat-icon class="wts-pill-control" (click)="removeInterest(interest)">close_circle_outline</mat-icon>
+                    </div>
+                </div>
+                <!--<input type="text" name="interests" placeholder="Interests" [(ngModel)]="profile.data.interests" class="wts-input-block">-->
             </div>
             <div class="wts-input-block" fxFlex="50%" class="wts-input-wrap">
-                <input type="text" name="lifestyle" placeholder="Lifestyle" [(ngModel)]="data.lifestyle" class="wts-input-block">
+                <div class="wts-input-wrap">
+                    <div class="wts-input-wrap" fxLayout="row" fxLayoutGap="10px">
+                        <input ttype="text" name="lifestyle" placeholder="Your lifestyle" [(ngModel)]="lifestyleInput" class="wts-input-block-half" fxFlex>
+                        <button type="button" class="mat-button-circle wts-button-primary" (click)="addLifestyle(lifestyleInput)"><mat-icon>add</mat-icon></button>
+                    </div>
+                </div>
+                <div class="wts-space-v-p">
+                    <div class="wts-pill wts-pill-controlled" *ngFor="let lifestyle of profile.data.lifestyle">
+                        <span class="wts-pill-text">{{ lifestyle }}</span>
+                        <mat-icon class="wts-pill-control" (click)="removeLifestyle(lifestyle)">close_circle_outline</mat-icon>
+                    </div>
+                </div>
+                <!--<input type="text" name="lifestyle" placeholder="Lifestyle" [(ngModel)]="profile.data.lifestyle" class="wts-input-block">-->
             </div>
         </div>
         <div class="wts-space-h-p">
             <!--<h3 class="wts-header-3">Profile picture</h3>-->
             <div class="wts-image-uploader">
                 <div class="wts-image-uploader-preview" fxShow.xs="false">
-                    <img src="./assets/user_male.jpg" alt="">
+                    <img src="{{profile.data.image_url}}" alt="">
                 </div>
                 <div class="wts-image-uploader-controls">
                     <h2 class="wts-header-2">Drag & Drop</h2>
@@ -39,9 +69,10 @@
                 </div>
             </div>
         </div>
-    </form>
 </mat-dialog-content>
 <div mat-dialog-actions fxFlexAlign="end">
     <button (click)="onNoClick()">Cancel</button>
-    <button class="wts-button-primary">Save</button>
+    <button class="wts-button-primary" type="submit" [disabled]="loading">Save</button>
+    <mat-spinner diameter="30" *ngIf="loading" style="margin-left: 20px"></mat-spinner>
 </div>
+</form>

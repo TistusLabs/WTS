@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Router} from '@angular/router';
 import {ItineraryService} from '../services/itinerary.service';
 import {Itinerary} from '../data/itinerary.model';
+import {ToasterService} from 'angular2-toaster';
 declare let google;
 
 @Component({
@@ -11,7 +12,22 @@ declare let google;
     styleUrls: ['./agent-itineraries.component.scss']
 })
 export class AgentItinerariesComponent implements OnInit {
-    itinerary: Itinerary;
+    itinerary: Itinerary = {
+        title: '',
+        backdrop: '',
+        description: '',
+        activities: '',
+        services: [],
+        guest_type: '',
+        condition: '',
+        price: 0,
+        area: '',
+        from: '',
+        to: '',
+        notes: '',
+        guide: {},
+        is_public: false
+    };
 
     itineraries = [{
         id : 'itinerary#1',
@@ -59,6 +75,8 @@ export class AgentItinerariesComponent implements OnInit {
         }
     }];
 
+    loading = false;
+
     constructor(
         public dialog: MatDialog,
         private route: Router,
@@ -67,7 +85,17 @@ export class AgentItinerariesComponent implements OnInit {
     }
 
     ngOnInit() {
+        // this.getAllItineraries();
     }
+
+    getAllItineraries () {
+        this.loading = true;
+        this.itineraryService.getAllItineraries()
+            .subscribe(res => {
+                this.itineraries = res['Data'];
+                this.loading = false;
+            });
+    };
 
     createItinerary(): void {
         const dialogRef = this.dialog.open(CreateItinerary, {
@@ -99,8 +127,13 @@ export class AgentItinerariesComponent implements OnInit {
 export class CreateItinerary implements OnInit {
 
     serviceInput = '';
+    loading = false;
 
-    constructor(public dialogRef: MatDialogRef<CreateItinerary>, @Inject(MAT_DIALOG_DATA) public data: Itinerary) {
+    constructor(
+        public dialogRef: MatDialogRef<CreateItinerary>,
+        private itineraryService: ItineraryService,
+        private toasterService: ToasterService,
+        @Inject(MAT_DIALOG_DATA) public data: Itinerary) {
     }
 
     ngOnInit() {
@@ -133,6 +166,19 @@ export class CreateItinerary implements OnInit {
     removeService(input): void {
         const i = this.data['services'].indexOf(input);
         this.data['services'].splice(i, 1);
+    }
+
+    createItinerary () {
+        const payload = this.data;
+        payload.backdrop = "https://static.businessinsider.sg/2018/03/st-singapore-supertrees-4113.jpg";
+        this.loading = true;
+        this.itineraryService.createItinerary(payload)
+            .subscribe(res => {
+                if (res['IsSuccess']) {
+                    this.onNoClick();
+                    this.toasterService.pop('success', 'Itinerary created', 'You have successfully created an Itinerary');
+                }
+            });
     }
 
 }

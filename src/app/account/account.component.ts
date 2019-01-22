@@ -14,6 +14,7 @@ export class AccountComponent implements OnInit {
     }
 
     ngOnInit() {
+
     }
 
     activateSummaryTab (tab) {

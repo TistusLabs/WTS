@@ -7,7 +7,7 @@
     height: 350px;
     width: 90%;
     margin: 0 auto;
-    background: url("../../assets/worldtrip_bg_onboarding.svg");
+    //background: url("../../assets/worldtrip_bg_onboarding.svg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -18,13 +18,26 @@
   position: relative;
   margin-top: -$wts-topbar-height;
   height: $wts-banner-height + $wts-banner-height;
-  background: url("../../assets/backdrop_1.jpg");
+  background: url("../../assets/backdrop_2.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   margin-bottom: 0;
+  .wts-banner-text {
+    font-size: 40px;
+    line-height: 70px;
+    color: #ffffff;
+    p {
+      font-size: 14px!important;
+      color: #ffffff;
+      line-height: initial;
+      text-shadow: $wts-shadow-text-secondary;
+    }
+  }
   .wts-banner-gen-search {
     width: 100%;
+    padding: 0 $wts-spacing-inner-primary * 5;
+    background: linear-gradient(#00000000, #00000050);
     .wts-label {
       color: $wts-color-text-secondary;
     }
@@ -36,14 +49,27 @@
     padding-right: $wts-spacing-inner-primary;
   }
   .wts-search-dates {
+    padding: $wts-spacing-inner-primary * 2;
+    background: #ffffff;
+    box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-secondary;
     text-align: center;
+    &>h3 {
+      margin-top: 0;
+    }
     .wts-label {
       margin-top: $wts-spacing-inner-primary;
+    }
+    .wts-search-label-upper {
+      text-transform: uppercase;
+      font-size: 10px;
+      text-align: left;
+      margin: $wts-spacing-inner-primary 0 $wts-spacing-inner-third 0;
     }
     .wts-input-wrap {
       padding: 0 $wts-spacing-inner-third;
       background: #ffffff30;
       border-radius: $wts-border-radius-secondary;
+      box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
       input {
         background: transparent;
         padding: $wts-spacing-inner-secondary;
@@ -56,6 +82,15 @@
           color: $wts-color-primary;
         }
       }
+    }
+    .wts-search-footer {
+      padding: $wts-spacing-inner-primary;
+      background: $wts-color-primary;
+      color: #ffffff;
+      margin-top: $wts-spacing-inner-primary * 2;
+      margin-right: -$wts-spacing-inner-primary * 2;
+      margin-left: -$wts-spacing-inner-primary * 2;
+      margin-bottom: -$wts-spacing-inner-primary * 2;
     }
   }
   .wts-search-pricerange {

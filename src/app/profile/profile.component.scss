@@ -1,6 +1,10 @@
 @import "../../_core/styles/variables";
 
 .wts-banner {
+  background: url("../../assets/backdrop_3.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   .wts-acc-bnr-content {
     .wts-acc-bnr-summary {
       .wts-acc-bnr-sum-item {
@@ -18,7 +22,8 @@
             .wts-rate-info-service {
               padding: $wts-spacing-inner-third;
               font-size: $wts-size-header-2;
-              color: $wts-color-primary-dark;
+              //color: $wts-color-primary-dark;
+              color: #ffffff;
             }
             .wts-rate-info-stars {
               padding: $wts-spacing-inner-third;
