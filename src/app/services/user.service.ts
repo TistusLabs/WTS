@@ -21,6 +21,8 @@ export class UserService {
     };
     private requestParams;
     private requestOptions;
+    public idToken = this.authService.getIdToken();
+    public myProfile = null;
 
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
