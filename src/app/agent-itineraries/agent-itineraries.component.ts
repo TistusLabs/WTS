@@ -2,6 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Router} from '@angular/router';
 import {ItineraryService} from '../services/itinerary.service';
+import { UserService } from '../services/user.service';
 import {Itinerary} from '../data/itinerary.model';
 import {ToasterService} from 'angular2-toaster';
 declare let google;
@@ -77,15 +78,33 @@ export class AgentItinerariesComponent implements OnInit {
 
     loading = false;
 
+    profile = null;
+
     constructor(
         public dialog: MatDialog,
         private route: Router,
-        private itineraryService: ItineraryService
+        private itineraryService: ItineraryService,
+        private userService: UserService,
     ) {
     }
 
     ngOnInit() {
         // this.getAllItineraries();
+        this.loadInformation();
+    }
+
+    loadInformation() {
+        this.profile = this.userService.getCurrentUserProfile();
+        if (this.profile == null) {
+            this.userService.getProfile()
+                .subscribe(profile => {
+                    // debugger
+                    if (profile['IsSuccess']) {
+                        this.profile = profile['Data'];
+                        this.userService.setCurrentUserProfile(this.profile);
+                    }
+                });
+        }
     }
 
     getAllItineraries () {
