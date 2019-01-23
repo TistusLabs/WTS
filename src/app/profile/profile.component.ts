@@ -70,6 +70,7 @@ export class ProfileComponent implements OnInit {
                 // debugger
                 if (profile['IsSuccess']) {
                     this.user = profile['Data'];
+                    this.userService.setCurrentUserProfile(this.user);
                 } else {
                     this.openCreateProfile();
                 }
