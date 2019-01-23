@@ -101,7 +101,7 @@
         </div>
 </mat-dialog-content>
 <div mat-dialog-actions fxFlexAlign="end">
-    <button (click)="onNoClick()">Cancel</button>
+    <button type="button" (click)="onNoClick()">Cancel</button>
     <button class="wts-button-primary" type="submit" [disabled]="loading">Save</button>
     <mat-spinner diameter="30" *ngIf="loading" style="margin-left: 20px"></mat-spinner>
 </div>

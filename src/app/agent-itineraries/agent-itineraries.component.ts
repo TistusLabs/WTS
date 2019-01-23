@@ -133,6 +133,7 @@ export class CreateItinerary implements OnInit {
         public dialogRef: MatDialogRef<CreateItinerary>,
         private itineraryService: ItineraryService,
         private toasterService: ToasterService,
+        private router: Router,
         @Inject(MAT_DIALOG_DATA) public data: Itinerary) {
     }
 
@@ -177,6 +178,7 @@ export class CreateItinerary implements OnInit {
                 if (res['IsSuccess']) {
                     this.onNoClick();
                     this.toasterService.pop('success', 'Itinerary created', 'You have successfully created an Itinerary');
+                    this.router.navigateByUrl('/');
                 }
             });
     }

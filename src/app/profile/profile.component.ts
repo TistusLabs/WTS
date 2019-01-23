@@ -106,8 +106,16 @@ export class ProfileComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            // console.log('The dialog was closed');
-            // this.animal = result;
+            debugger
+            if (result) {
+                this.userService.getProfile()
+                    .subscribe(profile => {
+                        // debugger
+                        if (profile['IsSuccess']) {
+                            this.user = profile['Data'];
+                        }
+                    });
+            }
         });
     }
 
@@ -135,8 +143,8 @@ export class EditProfile implements OnInit {
         this.profile = JSON.parse(JSON.stringify(this.data));
     }
 
-    onNoClick(): void {
-        this.dialogRef.close();
+    onNoClick(status): void {
+        this.dialogRef.close(status);
     }
 
     addInterest(input): void {
@@ -169,7 +177,7 @@ export class EditProfile implements OnInit {
         this.userService.createProfile(payload)
             .subscribe(res => {
                 if (res['IsSuccess']) {
-                    this.onNoClick();
+                    this.onNoClick(true);
                     this.loading = false;
                     this.toasterService.pop('success', 'Profile created', 'You have successfully created your profile');
                 }

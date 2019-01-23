@@ -120,9 +120,16 @@ export class AuthComponent implements OnInit {
             .subscribe((didSuccess: boolean) => {
                 if (didSuccess) {
                     // this.router.navigateByUrl('/profile');
-                    this.signInOn = false;
+                    // this.signInOn = true;
                 }
             });
+
+        this.authService.authStatusChanged.subscribe(status => {
+            if (status) {
+                this.goToSignup();
+                this.confirmOn = false;
+            }
+        });
 
         this.authService.authConfirmOn
             .subscribe((onConfirm: boolean) => {

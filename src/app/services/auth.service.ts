@@ -144,11 +144,21 @@ export class AuthService {
     }
     getIdToken = () => {
         const user = this.getAuthenticatedUser();
+        const _self = this;
+        let token;
         if (user) {
-            const flag = 'CognitoIdentityServiceProvider.' + user['pool'].clientId + '.' + user['username'];
-            const _config = user['storage'];
-            return _config[flag + '.idToken'];
+            user.getSession(function(err, session) {
+                if (err) {
+                    _self.toasterService.pop('error', 'Invalid user!', 'Please log in again');
+                    _self.router.navigateByUrl('/auth');
+                }
+                token = session.getIdToken().getJwtToken();
+            });
+            // const flag = 'CognitoIdentityServiceProvider.' + user['pool'].clientId + '.' + user['username'];
+            // const _config = user['storage'];
+            // return _config[flag + '.idToken'];
         }
+        return token;
     };
 
     logout() {

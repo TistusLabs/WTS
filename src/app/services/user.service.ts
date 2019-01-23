@@ -21,7 +21,6 @@ export class UserService {
     };
     private requestParams;
     private requestOptions;
-    private idToken = this.authService.getIdToken();
 
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -40,9 +39,10 @@ export class UserService {
     };
 
     getProfile () {
-        // debugger
+        debugger
+        const idToken = this.authService.getIdToken();
         const headers = {
-            'Authorization': this.idToken
+            'Authorization': idToken
         };
         const user = this.authService.getAuthenticatedUser();
         this.requestParams = new HttpParams()
@@ -58,9 +58,10 @@ export class UserService {
 
     createProfile (profile) {
         // debugger
+        const idToken = this.authService.getIdToken();
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': this.idToken
+            'Authorization': idToken
         };
 
         this.requestOptions = {

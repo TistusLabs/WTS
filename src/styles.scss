@@ -198,12 +198,14 @@ nouislider {
 
 .wts-itinerary-widget {
   max-width: $wts-itinerary-widget;
+  width: $wts-itinerary-widget;
   padding: $wts-spacing-inner-primary;
   background: #ffffff;
   border-radius: $wts-border-radius-secondary;
   -webkit-box-shadow: $wts-shadow-card;
   -moz-box-shadow: $wts-shadow-card;
   box-shadow: $wts-shadow-card;
+  float: left;
   .wts-it-wid-backdrop {
     height: $wts-banner-height;
     position: relative;
