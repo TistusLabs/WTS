@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {AuthService} from '../services/auth.service';
 import {ItineraryService} from '../services/itinerary.service';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-general',
@@ -123,6 +124,7 @@ export class GeneralComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
+        private router: Router,
         private itineraryService: ItineraryService
     ) {
     }
@@ -153,6 +155,11 @@ export class GeneralComponent implements OnInit {
                 }
                 this.loading = false;
             });
+    }
+
+    openItinerary(itinerary) {
+        this.itineraryService.setItinerary(itinerary);
+        this.router.navigateByUrl('/itinerary/' + itinerary.id);
     }
 
     updateSearchArea(area) {

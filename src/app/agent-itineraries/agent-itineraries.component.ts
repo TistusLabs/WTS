@@ -21,7 +21,7 @@ export class AgentItinerariesComponent implements OnInit {
         guest_type: '',
         condition: '',
         price: 0,
-        area: '',
+        area: 'Singapore',
         from: '',
         to: '',
         notes: '',

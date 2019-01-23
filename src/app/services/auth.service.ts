@@ -98,11 +98,12 @@ export class AuthService {
                 return;
             }
             // debugger;
-            this.authDidFail.next(false);
-            this.authDidSuccess.next(true);
-            this.authIsLoading.next(false);
+            that.authStatusChanged.next(true);
+            that.authDidFail.next(false);
+            that.authDidSuccess.next(true);
+            that.authIsLoading.next(false);
             that.toasterService.pop('success', 'Welcome!', 'You have successfully signed up with Worldtrip Singapore');
-            that.router.navigateByUrl('/profile');
+            // that.router.navigate(['/profile']);
         });
     }
 

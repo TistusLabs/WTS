@@ -13,7 +13,7 @@
             <h3 class="wts-header-3 wts-itinerary-place">Singapore</h3>
             <h2 class="wts-header-2 wts-itinerary-title">{{ itinerary.title }}</h2>
             <div class="wts-iti-service-sum">
-                <span class="wts-pill wts-pill-general" *ngFor="let s of itinerary.services">{{s}}</span>
+                <span class="wts-pill wts-pill-general" *ngFor="let s of itinerary.services.values">{{s}}</span>
             </div>
         </div>
         <div class="wts-itinerary-service" fxFlex="40%" fxShow.xs="false">

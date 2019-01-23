@@ -7,7 +7,7 @@
         <button mat-button (click)="navigateTo('about_us')">About Us</button>
         <button mat-button (click)="navigateTo('contact_us')">Contact Us</button>
         <button *ngIf="!user.logged" mat-button (click)="navigateTo('auth')">Log In</button>
-        <button *ngIf="!user.logged" mat-button class="wts-button-bordered" (click)="navigateTo('auth')">Sign In</button>
+        <button *ngIf="!user.logged" mat-button class="wts-button-bordered" (click)="navigateTo('auth')">Sign Up</button>
         <button *ngIf="user.logged" mat-button (click)="userAccount()">Account</button>
         <button *ngIf="user.logged" mat-button class="wts-button-bordered" (click)="logOut()">Log Out</button>
     </div>
