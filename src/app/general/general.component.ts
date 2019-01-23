@@ -153,7 +153,7 @@ export class GeneralComponent implements OnInit {
                 }
                 this.loading = false;
             });
-    };
+    }
 
     updateSearchArea(area) {
         this.searchAttr.place = area;

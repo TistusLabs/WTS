@@ -143,9 +143,11 @@ export class AuthService {
     }
     getIdToken = () => {
         const user = this.getAuthenticatedUser();
-        const flag = 'CognitoIdentityServiceProvider.' + user['pool'].clientId + '.' + user['username'];
-        const _config = user['storage'];
-        return _config[flag + '.idToken'];
+        if (user) {
+            const flag = 'CognitoIdentityServiceProvider.' + user['pool'].clientId + '.' + user['username'];
+            const _config = user['storage'];
+            return _config[flag + '.idToken'];
+        }
     };
 
     logout() {
