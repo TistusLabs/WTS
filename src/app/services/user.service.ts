@@ -22,6 +22,7 @@ export class UserService {
     private requestParams;
     private requestOptions;
     private idToken = this.authService.getIdToken();
+    private myProfile;
 
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -54,6 +55,14 @@ export class UserService {
         };
 
         return this.http.get<Profile>(this.urls.get_profile, this.requestOptions);
+    }
+
+    setCurrentUserProfile(profile){
+        this.myProfile = profile;
+    }
+
+    getCurrentUserProfile(){
+        return this.myProfile;
     }
 
     createProfile (profile) {

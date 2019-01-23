@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {UserService} from '../services/user.service';
 
 @Component({
     selector: 'app-account',
@@ -9,12 +10,19 @@ import {Router} from '@angular/router';
 export class AccountComponent implements OnInit {
     summaryExpanded = false;
     activeSummaryTab = null;
+    profile = {};
 
-    constructor(public router: Router ) {
-    }
+    constructor(public router: Router,
+        private userService: UserService, 
+        ) {}
 
     ngOnInit() {
+        this.loadInformation();
+    }
 
+    loadInformation(){
+        debugger
+        this.profile = this.userService.getCurrentUserProfile();
     }
 
     activateSummaryTab (tab) {
