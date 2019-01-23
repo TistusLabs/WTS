@@ -73,9 +73,10 @@ export class ItineraryService {
 
     createItinerary (itinerary) {
         debugger
+        const idToken = this.authService.getIdToken();
         const headers = {
             'Content-Type': 'application/json',
-            'Authorization': this.idToken
+            'Authorization': idToken
         };
 
         this.requestOptions = {

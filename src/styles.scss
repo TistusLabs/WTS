@@ -369,6 +369,9 @@ textarea {
 
     }
   }
+  &.wts-card-clickable {
+    cursor: pointer;
+  }
   .wts-card-footer {
     display: flex;
     align-items: center;

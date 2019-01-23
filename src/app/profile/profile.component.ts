@@ -1,5 +1,5 @@
 import {Component, OnInit, Inject} from '@angular/core';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import * as moment from 'moment';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Profile, Profile_, User} from '../data/user.model';
@@ -58,6 +58,7 @@ export class ProfileComponent implements OnInit {
     };
 
     constructor(private router: Router,
+                private route: ActivatedRoute,
                 private userService: UserService,
                 private toasterService: ToasterService,
                 public dialog: MatDialog) {
@@ -65,6 +66,17 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         // debugger
+        const data = this.route.snapshot.paramMap.get('data');
+        if (data) {
+            this.user.fname = data['fname'];
+            this.user.lname = data['lname'];
+            this.user.tagline = data['tagline'];
+            this.user.interests = data['interests'];
+            this.user.lifestyle = data['lifestyle'];
+            this.user.address = data['address'];
+            this.user.image_url = data['fname'];
+        }
+
         this.userService.getProfile()
             .subscribe(profile => {
                 // debugger

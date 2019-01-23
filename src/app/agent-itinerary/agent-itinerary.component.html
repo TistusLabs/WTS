@@ -21,7 +21,7 @@
                 <mat-icon>location_on</mat-icon> {{ itinerary.area }}
             </div>
             <div class="wts-iti-service-duration">
-                <mat-icon>event</mat-icon> {{ itinerary.from + ' - ' + itinerary.to }}
+                <mat-icon>event</mat-icon> {{ itinerary.from | date:'MMM d y' + ' - ' + itinerary.to | date:'MMM d y' }}
             </div>
             <div class="wts-iti-service-lang">
                 <mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']">{{l}}</span>
@@ -39,7 +39,7 @@
                             <mat-icon>location_on</mat-icon> {{ itinerary.area }}
                         </div>
                         <div class="wts-iti-service-duration" fxFlex>
-                            <mat-icon>event</mat-icon> {{ itinerary.from + ' - ' + itinerary.to }}
+                            <mat-icon>event</mat-icon> {{ itinerary.from | date:'MMM d y' + ' - ' + itinerary.to | date:'MMM d y' }}
                         </div>
                         <div class="wts-iti-service-lang">
                             <mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']; let i = index"> {{l}}{{i !== itinerary.guide['languages'].length-1 ? ',  ' : null}}</span>

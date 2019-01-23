@@ -77,6 +77,14 @@ export class GeneralComponent implements OnInit {
     }];
 
     topGuides = [{
+        fname: 'Amelia',
+        tagline: 'Live life to the fullest',
+        type: 'traveller',
+        interests: ['Hiking', 'Cooking'],
+        lifestyle: ['Simple'],
+        address: 'No 20, Hill Street, Singapore',
+        lname: 'Peters',
+        image_url: './assets/guides/user_amelia.jpg',
         name : 'Amelia',
         picture : './assets/guides/user_amelia.jpg',
         stars : Array(4).fill(0).map((x, i) => i),
@@ -164,6 +172,15 @@ export class GeneralComponent implements OnInit {
 
     updateSearchArea(area) {
         this.searchAttr.place = area;
+    }
+
+    goToProfile(user) {
+        debugger
+        if (user.fname === 'Amelia') {
+            this.router.navigate(['/profile', {
+                user: user
+            }]);
+        }
     }
 
 }
