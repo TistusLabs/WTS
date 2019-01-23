@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {UserService} from '../services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'app-account',
@@ -13,28 +13,37 @@ export class AccountComponent implements OnInit {
     profile = {};
 
     constructor(public router: Router,
-        private userService: UserService, 
-        ) {}
+        private userService: UserService,
+    ) { }
 
     ngOnInit() {
         this.loadInformation();
     }
 
-    loadInformation(){
-        debugger
+    loadInformation() {
         this.profile = this.userService.getCurrentUserProfile();
+        if (this.profile == null) {
+            this.userService.getProfile()
+                .subscribe(profile => {
+                    // debugger
+                    if (profile['IsSuccess']) {
+                        this.profile = profile['Data'];
+                        this.userService.setCurrentUserProfile(this.profile);
+                    }
+                });
+        }
     }
 
-    activateSummaryTab (tab) {
+    activateSummaryTab(tab) {
         this.activeSummaryTab = tab;
         this.toggleSummary(true);
     }
 
-    toggleSummary (s) {
+    toggleSummary(s) {
         this.summaryExpanded = s;
     }
 
-    goToProfile () {
+    goToProfile() {
         this.router.navigateByUrl('/profile');
     }
 

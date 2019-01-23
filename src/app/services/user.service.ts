@@ -22,7 +22,7 @@ export class UserService {
     private requestParams;
     private requestOptions;
     private idToken = this.authService.getIdToken();
-    private myProfile;
+    private myProfile = null;
 
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {

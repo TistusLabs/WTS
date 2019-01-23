@@ -108,7 +108,7 @@ export class AuthService {
     }
 
     signIn(username: string, password: string): void {
-        debugger
+        // debugger
         this.authIsLoading.next(true);
         const authData = {
             Username: username,
