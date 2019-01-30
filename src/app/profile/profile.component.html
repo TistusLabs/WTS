@@ -1,7 +1,7 @@
 <div class="wts-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
     <div class="wts-acc-bnr-img-wrap" fxFlex="20%" fxFlex.sm="100%" fxFlex.xs="100%">
         <div class="wts-acc-bnr-img">
-            <img src="./assets/user_male.jpg" alt="">
+            <img src="{{user.image_url !== '' ? user.image_url : './assets/user_male.jpg'}}" alt="">
         </div>
     </div>
     <div class="wts-acc-bnr-content" fxFlex="80%" fxFlex.sm="100%" fxFlex.xs="100%">

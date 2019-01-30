@@ -3,10 +3,11 @@ import * as moment from 'moment';
 import {AuthService} from '../services/auth.service';
 import {ItineraryService} from '../services/itinerary.service';
 import {Router} from '@angular/router';
+import {UserService} from '../services/user.service';
 
 @Component({
     selector: 'app-general',
-    templateUrl: './general_2.component.html',
+    templateUrl: './general.component.html',
     styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent implements OnInit {
@@ -132,6 +133,7 @@ export class GeneralComponent implements OnInit {
 
     constructor(
         private authService: AuthService,
+        private userService: UserService,
         private router: Router,
         private itineraryService: ItineraryService
     ) {
@@ -177,9 +179,8 @@ export class GeneralComponent implements OnInit {
     goToProfile(user) {
         debugger
         if (user.fname === 'Amelia') {
-            this.router.navigate(['/profile', {
-                user: user
-            }]);
+            this.userService.setHomeUser(user);
+            this.router.navigateByUrl('/profile');
         }
     }
 

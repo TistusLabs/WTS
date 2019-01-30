@@ -28,6 +28,7 @@ export class AuthComponent implements OnInit {
     loading = false;
     signInOn = true;
     confirmOn = false;
+    countryCode = null;
 
     constructor(
         private router: Router,
@@ -120,13 +121,13 @@ export class AuthComponent implements OnInit {
             .subscribe((didSuccess: boolean) => {
                 if (didSuccess) {
                     // this.router.navigateByUrl('/profile');
-                    // this.signInOn = true;
+                    this.signInOn = true;
                 }
             });
 
         this.authService.authStatusChanged.subscribe(status => {
             if (status) {
-                this.goToSignup();
+                this.signInOn = true;
                 this.confirmOn = false;
             }
         });
@@ -135,6 +136,19 @@ export class AuthComponent implements OnInit {
             .subscribe((onConfirm: boolean) => {
                 this.confirmOn = onConfirm;
             });
+
+        //Geolocation
+        this.authService.getCountry().subscribe(country => {
+            if (country.status === 'success') {
+                this.authService.getCountryCode()
+                    .subscribe(codes => {
+                        const code = codes.filter(c => {
+                            if (c.code === country.countryCode) return c.dial_code;
+                        });
+                        this.countryCode = code[0].dial_code;
+                    });
+            }
+        });
     }
 
     goToSignup() {
@@ -151,11 +165,11 @@ export class AuthComponent implements OnInit {
 
     onSignup() {
         this.loading = true;
-        const mobile = this.form.value.mobile;
+        const mobile = this.countryCode ? this.countryCode + this.form.value.mobile : this.form.value.mobile;
         const email = this.form.value.email;
         this.temp_email = this.form.value.email;
         const password = this.form.value.password;
-        this.authService.signUp(email, password, mobile);
+        this.authService.signUp(email, password, mobile.replace(/ /g,''));
     }
 
     onDoConfirm() {

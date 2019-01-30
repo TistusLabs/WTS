@@ -21,7 +21,7 @@
                 <mat-icon>location_on</mat-icon> {{ itinerary.area }}
             </div>
             <div class="wts-iti-service-duration">
-                <mat-icon>event</mat-icon> {{ itinerary.from + ' - ' + itinerary.to }}
+                <mat-icon>event</mat-icon> {{ itinerary.from | date: 'longDate'}} - {{ itinerary.to | date: 'longDate'}}
             </div>
             <div class="wts-iti-service-lang">
                 <mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']">{{l}}</span>
@@ -39,7 +39,7 @@
                             <mat-icon>location_on</mat-icon> {{ itinerary.area }}
                         </div>
                         <div class="wts-iti-service-duration" fxFlex>
-                            <mat-icon>event</mat-icon> {{ itinerary.from + ' - ' + itinerary.to }}
+                            <mat-icon>event</mat-icon> {{ itinerary.from | date: 'longDate'}} - {{ itinerary.to | date: 'longDate'}}
                         </div>
                         <div class="wts-iti-service-lang">
                             <mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']; let i = index"> {{l}}{{i !== itinerary.guide['languages'].length-1 ? ',  ' : null}}</span>
@@ -116,12 +116,12 @@
                         <h2 class="wts-header-2">Where we'll be</h2>
                     </div>
                 </div>
-                <p>{{ itinerary.condition }}</p>
+                <p>{{ itinerary.area }}</p>
                 <div class="wts-space-h-p">
                     <div id="wts-itinerary-map"></div>
                 </div>
             </div>
-            <div class="wts-card">
+            <div class="wts-card" *ngIf="itinerary.notes">
                 <div class="wts-card-header">
                     <div class="wts-card-header-flex">
                         <h2 class="wts-header-2">Notes</h2>

@@ -1,41 +1,43 @@
 <div class="wts-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
-    <div class="wts-banner-gen-search" fxLayout="column">
-        <div class="wts-space-h-p wts-search-type">
-            <div fxLayout="row" fxFlex="60%" fxFlex.sm="100%" fxFlex.xs="100%">
-                <button [matMenuTriggerFor]="menu" class="wts-search-area">{{ searchAttr.place }}</button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="updateSearchArea(place)" *ngFor="let place of searchAttr.places">{{ place }}</button>
-                </mat-menu>
-                <div class="wts-input-wrap" fxFlex>
-                    <mat-icon class="wts-serach-icon">search</mat-icon>
-                    <div fxLayout="row" fxLayoutAlign="center start">
-                        <input class="wts-input-block" type="text" placeholder="Search...">
-                    </div>
-                </div>
-            </div>
+    <div class="wts-banner-gen-search" fxLayout="row">
+        <!--<div class="wts-space-h-p wts-search-type">-->
+            <!--<div fxLayout="row" fxFlex="60%" fxFlex.sm="100%" fxFlex.xs="100%">-->
+                <!--<button [matMenuTriggerFor]="menu" class="wts-search-area">{{ searchAttr.place }}</button>-->
+                <!--<mat-menu #menu="matMenu">-->
+                    <!--<button mat-menu-item (click)="updateSearchArea(place)" *ngFor="let place of searchAttr.places">{{ place }}</button>-->
+                <!--</mat-menu>-->
+                <!--<div class="wts-input-wrap" fxFlex>-->
+                    <!--<mat-icon class="wts-serach-icon">search</mat-icon>-->
+                    <!--<div fxLayout="row" fxLayoutAlign="center start">-->
+                        <!--<input class="wts-input-block" type="text" placeholder="Search...">-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="wts-banner-text" fxFlex fxShow.xs="false">
+            <h1>World Trip Singapore</h1>
+            <p>
+                Bridging Cultures - One eXperience at a Time. <br>
+                Building an Experiential Social Traveling Platform.<br>
+                Connecting travellers and tour guides to create<br>
+                Connecting travellers and tour guides to create unforgettable travel experiences/a brand-new modal of travel.
+            </p>
         </div>
-        <div fxLayout="column">
-            <div class="wts-search-dates" fxLayout="column" fxLayoutAlign="center">
-                <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
-                    <div class="wts-input-wrap" fxLayout="row">
-                        <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="searchAttr.start" fxFlex>
-                        <button class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
-                        <mat-datepicker #fromPicker></mat-datepicker>
-                    </div>
-                    <div class="wts-input-wrap" fxLayout="row">
-                        <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="searchAttr.end" fxFlex>
-                        <button class="mat-button-circle" (click)="toPicker.open()"><mat-icon>date_range</mat-icon></button>
-                        <mat-datepicker #toPicker></mat-datepicker>
-                    </div>
-                </div>
-                <span class="wts-label">Duration</span>
+        <div class="wts-search-dates">
+            <h3>Book for Tour Guide</h3>
+            <div class="wts-search-label-upper">Select tour start date</div>
+            <div class="wts-input-wrap" fxLayout="row" style="margin-bottom: 15px">
+                <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="searchAttr.start" fxFlex>
+                <button class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
+                <mat-datepicker #fromPicker></mat-datepicker>
             </div>
-            <div class="wts-search-pricerange">
-                <div fxLayout="row">
-                    <nouislider [connect]="true" [min]="0" [step]="1" [max]="15" [tooltips]="[ true, true ]" [(ngModel)]="searchAttr.pricerange"></nouislider>
-                </div>
-                <span class="wts-label">Tour guide service /per Person</span>
+            <div class="wts-search-label-upper">Select tour end date</div>
+            <div class="wts-input-wrap" fxLayout="row">
+                <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="searchAttr.end" fxFlex>
+                <button class="mat-button-circle" (click)="toPicker.open()"><mat-icon>date_range</mat-icon></button>
+                <mat-datepicker #toPicker></mat-datepicker>
             </div>
+            <div class="wts-search-footer">Book Now</div>
         </div>
         <!--<button class="wts-button-primary">Search</button>-->
     </div>
@@ -62,8 +64,7 @@
                 <h2 class="wts-header-2">Hot Trips</h2>
             </div>
         </div>
-        <mat-spinner [diameter]="30" *ngIf="loading"></mat-spinner>
-        <div *ngIf="!loading" fxLayoutWrap fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
             <div class="wts-itinerary-widget"
                  (click)="openItinerary(itinerary)"
                  *ngFor="let itinerary of itineraries">

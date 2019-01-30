@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Subject, Observable} from 'rxjs';
+import {BehaviorSubject, Subject, Observable, throwError} from 'rxjs';
 
 
 import {
@@ -14,7 +14,13 @@ import {AuthUser, User} from '../data/user.model';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {ToasterService} from 'angular2-toaster';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {catchError} from 'rxjs/internal/operators';
 
+const urls = {
+    country : 'http://ip-api.com/json',
+    countryCodes : 'assets/countrycodes.json'
+};
 const POOL_DATA = {
     UserPoolId: 'us-east-2_TzwFGMfr5',
     ClientId: '7adv02bn3463bhu558eelrthsr'
@@ -35,12 +41,29 @@ export class AuthService {
     public token = new Subject<number>();
 
     constructor(
+        private http: HttpClient,
         private router: Router,
         private toasterService: ToasterService
 ) { }
 
     private emitToken(val) {
         this.token.next(val);
+    }
+
+    private handleError(error: HttpErrorResponse) {
+        if (error.error instanceof ErrorEvent) {
+            // A client-side or network error occurred. Handle it accordingly.
+            console.error('An error occurred:', error.error.message);
+        } else {
+            // The backend returned an unsuccessful response code.
+            // The response body may contain clues as to what went wrong,
+            console.error(
+                `Backend returned code ${error.status}, ` +
+                `body was: ${error.error}`);
+        }
+        // return an observable with a user-facing error message
+        return throwError(
+            'Something bad happened; please try again later.');
     }
 
     broadcastToken() {
@@ -193,5 +216,19 @@ export class AuthService {
         this.isAuthenticated().subscribe(
             (auth) => this.authStatusChanged.next(auth)
         );
+    }
+
+    // Gerlocation
+    getCountry () {
+        return this.http.get(urls.country)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+    getCountryCode () {
+        return this.http.get(urls.countryCodes)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import {Profile_} from '../data/user.model';
 
 @Component({
     selector: 'app-account',
@@ -10,7 +11,7 @@ import { UserService } from '../services/user.service';
 export class AccountComponent implements OnInit {
     summaryExpanded = false;
     activeSummaryTab = null;
-    profile = {};
+    profile: Profile_ = null;
 
     constructor(public router: Router,
         private userService: UserService,

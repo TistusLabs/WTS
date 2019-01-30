@@ -66,28 +66,28 @@ export class ProfileComponent implements OnInit {
 
     ngOnInit() {
         // debugger
-        const data = this.route.snapshot.paramMap.get('data');
+        const data = this.userService.getHomeUser();
         if (data) {
             this.user.fname = data['fname'];
             this.user.lname = data['lname'];
             this.user.tagline = data['tagline'];
-            this.user.interests = data['interests'];
-            this.user.lifestyle = data['lifestyle'];
+            this.user.interests.values = data['interests'];
+            this.user.lifestyle.values = data['lifestyle'];
             this.user.address = data['address'];
-            this.user.image_url = data['fname'];
+            this.user.image_url = data['image_url'];
+        } else {
+            this.userService.getProfile()
+                .subscribe(profile => {
+                    // debugger
+                    if (profile['IsSuccess']) {
+                        this.user = profile['Data'];
+                        this.userService.setCurrentUserProfile(this.user);
+                    } else {
+                        this.openCreateProfile();
+                    }
+                });
+            // this.openCreateProfile();
         }
-
-        this.userService.getProfile()
-            .subscribe(profile => {
-                // debugger
-                if (profile['IsSuccess']) {
-                    this.user = profile['Data'];
-                    this.userService.setCurrentUserProfile(this.user);
-                } else {
-                    this.openCreateProfile();
-                }
-            });
-        // this.openCreateProfile();
     }
 
     goToItinerary() {
@@ -119,7 +119,7 @@ export class ProfileComponent implements OnInit {
         });
 
         dialogRef.afterClosed().subscribe(result => {
-            debugger
+            // debugger
             if (result) {
                 this.userService.getProfile()
                     .subscribe(profile => {

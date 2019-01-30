@@ -23,6 +23,15 @@ export class UserService {
     private requestOptions;
     public idToken = this.authService.getIdToken();
     private myProfile = null;
+    homeUser = null;
+
+    setHomeUser(user) {
+        this.homeUser = user;
+    }
+
+    getHomeUser() {
+        return this.homeUser;
+    }
 
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
@@ -41,7 +50,7 @@ export class UserService {
     };
 
     getProfile () {
-        debugger
+        // debugger
         const idToken = this.authService.getIdToken();
         const headers = {
             'Authorization': idToken

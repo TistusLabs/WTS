@@ -8,7 +8,7 @@
         <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.xs="start center">
             <div class="wts-acc-bnr-userinfo" fxLayout="column" fxLayoutAlign.xs="start center">
                 <div class="wts-space-h-p">
-                    <h1>{{profile.fname + ' ' + profile.lname}}</h1>
+                    <h1>{{profile ? profile.fname + ' ' + profile.lname : null}}</h1>
                 </div>
                 <button type="button" class="wts-button-secondary" (click)="goToProfile()">Go to Profile</button>
             </div>

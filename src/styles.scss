@@ -82,6 +82,9 @@ nouislider {
 .noUi-handle:after, .noUi-handle:before {
   top: 8px;
 }
+.mat-menu-panel.wts-topbar-menu {
+  width: 200px;
+}
 
 /* COMMON
 ================================================ */
@@ -490,6 +493,9 @@ button {
     box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
     margin: 100px auto 0 auto;
     background: #fff;
+    img {
+      width: 105%;
+    }
   }
   .wts-acc-bnr-userinfo {
     h1 {

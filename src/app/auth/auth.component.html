@@ -24,8 +24,9 @@
                         </div>
                     </form>
                     <form *ngIf="!signInOn" action="" autocomplete="off" (ngSubmit)="onSignup($event)" #usrForm="ngForm">
-                        <div class="wts-input-wrap">
-                            <input id="mobile" name="mobile" class="wts-input-block" ngModel autocomplete="off" type="text" placeholder="Mobile" required>
+                        <div class="wts-input-wrap" style="display: flex;align-items: center;position: relative;">
+                            <span style="display: inline-block;position:absolute;font-size: 15px;margin: 0 10px;color: #888">{{countryCode}}</span>
+                            <input id="mobile" name="mobile" class="wts-input-block" ngModel autocomplete="off" type="text" placeholder="Mobile" required style="padding-left: 50px">
                         </div>
                         <div class="wts-input-wrap">
                             <input id="email" name="email" class="wts-input-block" ngModel autocomplete="off" type="text" placeholder="Email" required>

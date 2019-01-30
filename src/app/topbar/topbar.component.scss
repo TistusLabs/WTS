@@ -8,7 +8,7 @@
   padding: 0 $wts-spacing-inner-primary;
   align-items: center;
   //justify-content: center;
-  background: #ffffff90;
+  background: #ffffff96;
   height: $wts-topbar-height;
   box-sizing: border-box;
   -webkit-box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
@@ -24,17 +24,33 @@
     }
   }
   .wts-topbar-tools {
+    display: flex;
+    align-items: center;
     button {
+      //background: radial-gradient(#ffffff40, #ffffff30, #ffffff10, #ffffff00);
       background: transparent;
-      color: #ffffff;
+      //color: #ffffff;
+      color: $wts-color-primary-dark;
       font-weight: 500;
-      text-shadow: 0 0 2px #000;
+      text-shadow: 0 0 1px #fff;
       &.wts-button-bordered {
         padding: $wts-spacing-inner-third $wts-spacing-inner-primary;
       }
       &:hover {
-        //color: $wts-color-secondary-light;
+        color: $wts-color-secondary;
       }
+      &.wts-menu-img-button {
+        overflow: hidden;
+        /* align-items: center; */
+        position: relative;
+        img {
+          width: 100%;
+          position: absolute;
+        }
+      }
+    }
+    .mat-menu-panel {
+      width: 200px;
     }
     &.wts-topbar-tools-xs {
       .mat-icon {
