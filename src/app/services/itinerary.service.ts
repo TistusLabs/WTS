@@ -22,6 +22,7 @@ export class ItineraryService {
     private urls = {
         'get_itinerary' : '',
         'get_all_itinerary' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary/all',
+        'get_my_itinerary' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary/my',
         'create_itinerary' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary'
     };
     private idToken = this.authService.getIdToken();
@@ -71,8 +72,24 @@ export class ItineraryService {
             );
     }
 
+    getMyItineraries() {
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': this.idToken
+        };
+
+        this.requestOptions = {
+            headers: new HttpHeaders(headers)
+        };
+
+        return this.http.get<Array<Itinerary>>(this.urls.get_my_itinerary, this.requestOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
     createItinerary (itinerary) {
-        debugger
+        // debugger
         const idToken = this.authService.getIdToken();
         const headers = {
             'Content-Type': 'application/json',

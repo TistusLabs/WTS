@@ -139,6 +139,7 @@ export class GeneralComponent implements OnInit {
     ) {
     }
     loading = false;
+    itemFlexSetter = 32;
 
     ngOnInit() {
         const user = this.authService.getAuthenticatedUser();
@@ -169,7 +170,7 @@ export class GeneralComponent implements OnInit {
 
     openItinerary(itinerary) {
         this.itineraryService.setItinerary(itinerary);
-        this.router.navigateByUrl('/itinerary/' + itinerary.id);
+        this.router.navigateByUrl('/itinerary/' + itinerary.itinerary_id);
     }
 
     updateSearchArea(area) {
@@ -177,7 +178,7 @@ export class GeneralComponent implements OnInit {
     }
 
     goToProfile(user) {
-        debugger
+        // debugger
         if (user.fname === 'Amelia') {
             this.userService.setHomeUser(user);
             this.router.navigateByUrl('/profile');

@@ -10,6 +10,7 @@
         <button *ngIf="!user.logged" mat-button class="wts-button-bordered" (click)="navigateTo('auth')">Sign Up</button>
         <!--<button *ngIf="user.logged" mat-button (click)="userAccount()">Account</button>-->
         <!--<button *ngIf="user.logged" mat-button class="wts-button-bordered" (click)="logOut()">Log Out</button>-->
+        <button *ngIf="user.logged" mat-button class="wts-button-bordered" (click)="navigateTo('itineraries')">My Itineraries</button>
         <button *ngIf="user.logged" type="button" class="wts-menu-img-button mat-button-circle wts-button-primary" [matMenuTriggerFor]="menu">
             <img src="{{user.image ? user.image : '../assets/user_male.jpg'}}">
         </button>

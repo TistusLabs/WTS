@@ -2,7 +2,7 @@
 
 .wts-topbar {
   position: relative;
-  z-index: 1;
+  z-index: 1000;
   //width: 100%;
   display: flex;
   padding: 0 $wts-spacing-inner-primary;
@@ -11,9 +11,9 @@
   background: #ffffff96;
   height: $wts-topbar-height;
   box-sizing: border-box;
-  -webkit-box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
-  -moz-box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
-  box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
+  //-webkit-box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
+  //-moz-box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
+  //box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
   .wts-brand {
     flex: 1;
     font-size: 20px;
@@ -29,19 +29,20 @@
     button {
       //background: radial-gradient(#ffffff40, #ffffff30, #ffffff10, #ffffff00);
       background: transparent;
-      //color: #ffffff;
-      color: $wts-color-primary-dark;
+      color: #ffffff;
+      //color: $wts-color-primary-dark;
       font-weight: 500;
-      text-shadow: 0 0 1px #fff;
+      text-shadow: 0 0 2px #000;
       &.wts-button-bordered {
         padding: $wts-spacing-inner-third $wts-spacing-inner-primary;
       }
       &:hover {
-        color: $wts-color-secondary;
+        //color: $wts-color-secondary;
       }
       &.wts-menu-img-button {
         overflow: hidden;
         /* align-items: center; */
+        margin-left: $wts-spacing-inner-primary;
         position: relative;
         img {
           width: 100%;

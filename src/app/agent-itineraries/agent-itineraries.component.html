@@ -61,29 +61,29 @@
                 </div>
                 <div class="wts-space-h-p">
                     <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
-                    <div *ngIf="!loading" fxLayout="row" fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column"
-                         fxLayoutGap="15px">
+                    <div *ngIf="!loading" fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px" class="wts-itineraries-wrap">
                         <div class="wts-itinerary-widget"
+                             [fxFlex.gt-xs]="itemFlexSetter"
                              (click)="openItinerary(itinerary)"
-                             *ngFor="let itinerary of itineraries">
+                             *ngFor="let itinerary of myitineraries">
                             <div class="wts-it-wid-backdrop">
                                 <img src="{{ itinerary.backdrop }}" alt="{{ itinerary.title }}">
                             </div>
                             <div class="wts-it-wid-info">
-                                <div class="wts-it-wid-userinfo">
-                                    <div fxLayout="column" fxLayoutAlign="center center">
-                                        <div class="wts-it-wid-userpic">
-                                            <img src="{{itinerary.guide.picture}}" alt="{{itinerary.guide.name}}">
-                                        </div>
-                                        <div class="wts-it-wid-username">{{ itinerary.guide.name }}</div>
-                                        <div class="wts-it-wid-rate-stars">
-                                            <mat-icon *ngFor="let s of itinerary.guide.stars">star</mat-icon>
-                                        </div>
-                                        <div class="wts-it-wid-rate-value">{{ itinerary.guide.rating | number : '1.1'
-                                            }}
-                                        </div>
-                                    </div>
-                                </div>
+                                <!--<div class="wts-it-wid-userinfo">-->
+                                    <!--<div fxLayout="column" fxLayoutAlign="center center">-->
+                                        <!--<div class="wts-it-wid-userpic">-->
+                                            <!--<img src="{{itinerary.guide.picture}}" alt="{{itinerary.guide.name}}">-->
+                                        <!--</div>-->
+                                        <!--<div class="wts-it-wid-username">{{ itinerary.guide.name }}</div>-->
+                                        <!--<div class="wts-it-wid-rate-stars">-->
+                                            <!--<mat-icon *ngFor="let s of itinerary.guide.stars">star</mat-icon>-->
+                                        <!--</div>-->
+                                        <!--<div class="wts-it-wid-rate-value">{{ itinerary.guide.rating | number : '1.1'-->
+                                            <!--}}-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
                                 <div class="wts-it-wid-desc">
                                     <div class="wts-it-wid-price">${{ itinerary.price }}/ per Person</div>
                                     <div>

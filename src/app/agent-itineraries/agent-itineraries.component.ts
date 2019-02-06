@@ -29,7 +29,6 @@ export class AgentItinerariesComponent implements OnInit {
         guide: {},
         is_public: false
     };
-
     itineraries = [{
         id : 'itinerary#1',
         backdrop : './assets/event/singapore.jpg.jpg',
@@ -76,20 +75,21 @@ export class AgentItinerariesComponent implements OnInit {
         }
     }];
 
+    myitineraries = [];
     loading = false;
-
     profile = null;
+    itemFlexSetter = 31;
 
     constructor(
         public dialog: MatDialog,
         private route: Router,
         private itineraryService: ItineraryService,
+        public toastr: ToasterService,
         private userService: UserService,
     ) {
     }
 
     ngOnInit() {
-        // this.getAllItineraries();
         this.loadInformation();
     }
 
@@ -103,18 +103,33 @@ export class AgentItinerariesComponent implements OnInit {
                         this.profile = profile['Data'];
                         this.userService.setCurrentUserProfile(this.profile);
                     }
+                    this.getAllItineraries();
                 });
+        } else {
+            this.getAllItineraries();
         }
     }
 
     getAllItineraries () {
         this.loading = true;
-        this.itineraryService.getAllItineraries()
+        this.itineraryService.getMyItineraries()
             .subscribe(res => {
-                this.itineraries = res['Data'];
+                this.myitineraries = res['Data'];
+                for (const i_ of this.myitineraries) {
+                    i_.guide = {
+                        name : this.profile.fname,
+                        picture : './assets/user_male.jpg',
+                        stars : Array(4).fill(0).map((x, i) => i),
+                        rating : 5.0,
+                        languages: ['English', 'Mandarin']
+                    };
+                }
                 this.loading = false;
+            },
+            error => {
+                this.toastr.pop('error', 'My Itineraries', 'Failed to load Itineraries');
             });
-    };
+    }
 
     createItinerary(): void {
         const dialogRef = this.dialog.open(CreateItinerary, {
@@ -126,13 +141,14 @@ export class AgentItinerariesComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             // console.log('The dialog was closed');
             // this.animal = result;
+            this.getAllItineraries();
         });
     }
 
     openItinerary(itinerary) {
-        debugger
+        // debugger
         this.itineraryService.setItinerary(itinerary);
-        this.route.navigateByUrl('/itinerary/' + itinerary.id);
+        this.route.navigateByUrl('/itinerary/' + itinerary.itinerary_id);
     }
 
 }
@@ -197,7 +213,7 @@ export class CreateItinerary implements OnInit {
                 if (res['IsSuccess']) {
                     this.onNoClick();
                     this.toasterService.pop('success', 'Itinerary created', 'You have successfully created an Itinerary');
-                    this.router.navigateByUrl('/');
+                    // this.router.navigateByUrl('/');
                 }
             });
     }

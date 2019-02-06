@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 import {NgForm} from '@angular/forms';
 import {MatSnackBar} from '@angular/material';
+import {ToasterService} from 'angular2-toaster';
 declare var FB: any, gapi: any;
 
 @Component({
@@ -25,6 +26,7 @@ export class AuthComponent implements OnInit {
     confirmUser = false;
     didFail = false;
     isLoading = false;
+    geolocloading = false;
     loading = false;
     signInOn = true;
     confirmOn = false;
@@ -33,7 +35,7 @@ export class AuthComponent implements OnInit {
     constructor(
         private router: Router,
         private authService: AuthService,
-        private messages: MatSnackBar
+        private toasterService: ToasterService
     ) {
     }
 
@@ -137,17 +139,39 @@ export class AuthComponent implements OnInit {
                 this.confirmOn = onConfirm;
             });
 
-        //Geolocation
-        this.authService.getCountry().subscribe(country => {
-            if (country.status === 'success') {
-                this.authService.getCountryCode()
-                    .subscribe(codes => {
-                        const code = codes.filter(c => {
-                            if (c.code === country.countryCode) return c.dial_code;
+        // Geolocation
+        const _self = this;
+        navigator.geolocation.getCurrentPosition(pos => {
+            const lat = pos.coords.latitude;
+            const lon = pos.coords.longitude;
+            _self.geolocloading = true;
+            this.authService.getCountry(lat, lon).subscribe(country => {
+                if (country['status'] === 'OK') {
+                    let _country = null;
+                    const _address_comps = country['results'];
+                    for (const x of _address_comps) {
+                        for (let i = 0; i < x['address_components'].length; i++) {
+                            const addressType = x['address_components'][i]['types'][0];
+                            if (addressType === 'country') {
+                                _country = x['address_components'][i]['short_name'];
+                                break;
+                            }
+                        }
+                    }
+                    this.authService.getCountryCode()
+                        .subscribe(codes => {
+                            const _codes = codes;
+                            const code = _codes['filter'](c => {
+                                if (c.code === _country) return c.dial_code;
+                            });
+                            this.countryCode = code[0].dial_code;
+                            this.geolocloading = false;
                         });
-                        this.countryCode = code[0].dial_code;
-                    });
-            }
+                } else {
+                    this.geolocloading = false;
+                    this.toasterService.pop('error', 'Faild to identify country', 'Sorry, we were unable to understand where you are from. Please use the correct country code for your phone number when Signing Up');
+                }
+            });
         });
     }
 

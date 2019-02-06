@@ -33,6 +33,7 @@ export class AgentItineraryComponent implements OnInit {
             draggable: true,
             title: 'Drag me!'
         });
+        window.scrollTo(0, 0);
     }
 
     initMap() {

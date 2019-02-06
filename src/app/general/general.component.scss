@@ -36,6 +36,7 @@
   }
   .wts-banner-gen-search {
     width: 100%;
+    z-index: 1;
     padding: 0 $wts-spacing-inner-primary * 5;
     background: linear-gradient(#00000000, #00000050);
     .wts-label {

@@ -64,10 +64,12 @@
                 <h2 class="wts-header-2">Hot Trips</h2>
             </div>
         </div>
-        <div fxLayout="row" fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+        <div fxLayout="row wrap" fxLayoutAlign="start start" class="wts-itineraries-wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
             <div class="wts-itinerary-widget"
+                 [fxFlex.gt-xs]="itemFlexSetter"
+                 fxFlex.xs="100%"
                  (click)="openItinerary(itinerary)"
-                 *ngFor="let itinerary of itineraries">
+                 *ngFor="let itinerary of (itineraries ? itineraries.slice(0, 6) : [])">
                 <div class="wts-it-wid-backdrop">
                     <img src="{{ itinerary.backdrop }}" alt="{{ itinerary.title }}">
                 </div>
@@ -86,9 +88,9 @@
                     </div>
                     <div class="wts-it-wid-desc">
                         <div class="wts-it-wid-price">${{ itinerary.price }}/ per Person</div>
-                        <div>
+                        <div class="wts-it-wid-about">
                             <h3 class="wts-header-3">{{ itinerary.title }}</h3>
-                            <p>{{ itinerary.description | slice:0:80 }}...</p>
+                            <p>{{ itinerary.description.trim() | slice:0:80 }}...</p>
                         </div>
                     </div>
                 </div>

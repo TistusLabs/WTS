@@ -28,9 +28,13 @@ export class TopbarComponent implements OnInit {
         if (user) {
             this.user.logged = true;
         }
-        this.authServide.authStatusChanged.subscribe(status => {
-            this.user.logged = true;
-        });
+        this.authServide.authDidSuccess
+            .subscribe((didSuccess: boolean) => {
+                if (didSuccess) {
+                    // debugger
+                    this.user.logged = true;
+                }
+            });
     }
 
     joinUser () {

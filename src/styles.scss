@@ -208,7 +208,7 @@ nouislider {
   -webkit-box-shadow: $wts-shadow-card;
   -moz-box-shadow: $wts-shadow-card;
   box-shadow: $wts-shadow-card;
-  float: left;
+  //float: left;
   .wts-it-wid-backdrop {
     height: $wts-banner-height;
     position: relative;
@@ -257,6 +257,9 @@ nouislider {
     }
     .wts-it-wid-desc {
       flex: 1;
+      padding-top: $wts-spacing-inner-secondary;
+      height: 70px;
+      overflow-y: hidden;
       .wts-it-wid-price {
         position: absolute;
         top: -40px;
@@ -267,8 +270,16 @@ nouislider {
         border: solid 1px $wts-color-primary-light;
         border-radius: $wts-border-radius-secondary 0 0 $wts-border-radius-secondary;
       }
-      p {
-        margin-bottom: 0;
+      .wts-it-wid-about {
+        .wts-header-3 {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: auto;
+        }
+        p {
+          margin-bottom: 0;
+        }
       }
     }
   }
@@ -284,7 +295,13 @@ nouislider {
     cursor: pointer;
   }
 }
-
+.wts-itineraries-wrap {
+  .wts-itinerary-widget {
+    &:not(:last-child) {
+      margin-bottom: $wts-spacing-inner-primary;
+    }
+  }
+}
 /* --------------------------------------------- */
 input,
 textarea {
@@ -478,8 +495,18 @@ button {
   margin-top: -$wts-topbar-height;
   background: linear-gradient($wts-banner-background);
   margin-bottom: $wts-spacing-inner-primary * 1;
+  &:after {
+    content: '';
+    z-index: 0;
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(#00000020 45px, #00000000 55px);
+  }
   .wts-acc-bnr-img-wrap {
     position: relative;
+    z-index: 1;
   }
   .wts-acc-bnr-img {
     position: relative;
@@ -506,7 +533,8 @@ button {
   }
   .wts-acc-bnr-content {
     padding: 100px 0 0 0;
-    background: radial-gradient(#00000030, #00000020, #00000000, #00000000);
+    z-index: 1;
+    //background: radial-gradient(#00000030, #00000020, #00000000, #00000000);
     .wts-acc-bnr-summary {
       display: flex;
       align-items: center;

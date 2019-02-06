@@ -18,7 +18,9 @@ import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError} from 'rxjs/internal/operators';
 
 const urls = {
-    country : 'http://ip-api.com/json',
+    // country : 'https://json.geoiplookup.io/api',
+    country : 'https://json.geoiplookup.io/api',
+    geocode : 'https://maps.googleapis.com/maps/api/geocode/json?',
     countryCodes : 'assets/countrycodes.json'
 };
 const POOL_DATA = {
@@ -157,6 +159,10 @@ export class AuthService {
                 that.authDidFail.next(true);
                 that.authIsLoading.next(false);
                 console.log(err);
+                for (const m of err.message.split(';')) {
+                    // debugger
+                    that.toasterService.pop('error', 'Invalid inputs', m);
+                }
             }
         });
         this.authStatusChanged.next(true); // create user with cognito data
@@ -192,7 +198,7 @@ export class AuthService {
     }
 
     isAuthenticated(): Observable<boolean> {
-        debugger
+        // debugger
         const user = this.getAuthenticatedUser();
         const obs = Observable.create((observer) => {
             if (!user) {
@@ -219,8 +225,8 @@ export class AuthService {
     }
 
     // Gerlocation
-    getCountry () {
-        return this.http.get(urls.country)
+    getCountry (lat, lon) {
+        return this.http.get(urls.geocode + 'latlng=' + lat + ',' + lon + '&key=AIzaSyCzZfydejAbwOMqsqcubkDLUX0k6aHkU8A')
             .pipe(
                 catchError(this.handleError)
             );
