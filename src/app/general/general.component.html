@@ -51,9 +51,9 @@
         <div fxLayout="row" fxLayoutGap="15px" fxLayoutAlign="center" fxLayoutAlign.xs="start" class="wts-top-guides">
             <div class="wts-card wts-text-center wts-card-clickable" fxLayout="column" fxLayoutAlign="center" *ngFor="let guide of topGuides" (click)="goToProfile(guide)">
                 <div class="wts-itinerary-guide-img">
-                    <img src="{{guide.picture}}" alt="{{guide.name}}">
+                    <img src="{{guide.image_url}}" alt="{{guide.fname}} {{guide.lname}}">
                 </div>
-                <span>{{ guide.name }}</span>
+                <span>{{ guide.fname }}</span>
             </div>
         </div>
     </div>

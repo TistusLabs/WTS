@@ -81,16 +81,16 @@ export class GeneralComponent implements OnInit {
     // }
 
     topGuides = [{
-        fname: 'Amelia',
+        fname: 'Shehan',
         tagline: 'Live life to the fullest',
         type: 'traveller',
         interests: ['Hiking', 'Cooking'],
         lifestyle: ['Simple'],
         address: 'No 20, Hill Street, Singapore',
         lname: 'Peters',
-        image_url: './assets/guides/user_amelia.jpg',
-        name : 'Amelia',
-        picture : './assets/guides/user_amelia.jpg',
+        image_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXo_o26uqbNH68_AVxVT02uWqiKw5CGyClFpAaoWIAVr7G_uvbrg',
+        name : 'Shehan',
+        picture : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXo_o26uqbNH68_AVxVT02uWqiKw5CGyClFpAaoWIAVr7G_uvbrg',
         stars : Array(4).fill(0).map((x, i) => i),
         rating : 5.0,
         languages: ['English', 'Mandarin']
@@ -147,6 +147,7 @@ export class GeneralComponent implements OnInit {
     ngOnInit() {
         // non authenticated requests
         this.getAllItineraries();
+        this.getTopGuides();
 
         // authenticated requests
         const user = this.authService.getAuthenticatedUser();
@@ -172,6 +173,26 @@ export class GeneralComponent implements OnInit {
                         languages: ['English', 'Mandarin']
                     };
                 }
+                this.loading = false;
+            });
+    }
+
+    getTopGuides () {
+        //debugger
+        this.loading = true;
+        this.userService.getTopGuides()
+            .subscribe(res => {
+                debugger
+                this.topGuides = res['Data'];
+                // for (const i_ of this.itineraries) {
+                //     i_.guide = {
+                //         name : 'Austin',
+                //         picture : './assets/user_male.jpg',
+                //         stars : Array(4).fill(0).map((x, i) => i),
+                //         rating : 5.0,
+                //         languages: ['English', 'Mandarin']
+                //     };
+                // }
                 this.loading = false;
             });
     }

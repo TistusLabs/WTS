@@ -17,7 +17,8 @@ export class UserService {
 
     private urls = {
         'get_profile' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/profile',
-        'create_profile' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/profile'
+        'create_profile' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/profile',
+        'get_topguides' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/guide/top'
     };
     private requestParams;
     private requestOptions;
@@ -92,5 +93,20 @@ export class UserService {
 
     getCurrentUserProfile(){
         return this.myProfile;
+    }
+
+    getTopGuides() {
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+
+        this.requestOptions = {
+            headers: new HttpHeaders(headers)
+        };
+
+        return this.http.get<Array<Profile>>(this.urls.get_topguides, this.requestOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 }
