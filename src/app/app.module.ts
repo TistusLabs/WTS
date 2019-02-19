@@ -40,6 +40,7 @@ import {NouisliderModule} from 'ng2-nouislider';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import {UserService} from './services/user.service';
 import {HttpClient, HttpClientModule, HttpHandler} from '@angular/common/http';
+import { FooterComponent } from './footer/footer.component';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -62,7 +63,8 @@ export function tokenGetter() {
         EditProfile,
         AgentItineraryComponent,
         CreateItinerary,
-        AgentItinerariesComponent
+        AgentItinerariesComponent,
+        FooterComponent
     ],
     imports: [
         BrowserModule,

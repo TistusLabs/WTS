@@ -1,0 +1,79 @@
+@import "../../_core/styles/variables";
+
+.wts-footer {
+  padding: ($wts-spacing-inner-primary * 3);
+  .wts-footer-social {
+    ul {
+      padding: 0;
+      display: block;
+      list-style: none;
+      li {
+        display: inline-block;
+        margin-left: $wts-spacing-inner-primary;
+        a.wts-social-link {
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          background: url("../../assets/icons/wts_social.svg");
+          filter: grayscale(1);
+          opacity: 0.3;
+          -webkit-transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+          -moz-transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+          -ms-transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+          -o-transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+          transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+          &:hover {
+            opacity: 1;
+            filter: grayscale(0);
+            -webkit-transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+            -moz-transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+            -ms-transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+            -o-transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+            transition: opacity $wts-time-animation-primary, filter $wts-time-animation-primary;
+          }
+
+          &.wts-social-fb {
+            background-position: 0 0;
+          }
+          &.wts-social-tt {
+            background-position: -54px 0;
+          }
+          &.wts-social-ig {
+            background-position: -108px 0;
+          }
+          &.wts-social-yt {
+            background-position: -161px 0;
+          }
+          &.wts-social-re {
+            background-position: -216px 0;
+          }
+        }
+      }
+    }
+  }
+  .wts-footer-container {
+    padding: ($wts-spacing-inner-primary * 2) $wts-spacing-inner-third $wts-spacing-inner-third $wts-spacing-inner-third;
+    border-top: solid 1px $wts-color-border-primary;
+    .wts-footer-column {
+      h4 {
+        margin-top: 0;
+        margin-bottom: $wts-spacing-inner-third;
+        color: $wts-color-text-secondary;
+      }
+      ul {
+        padding: 0;
+        list-style: none;
+        li {
+          margin-bottom: $wts-spacing-inner-third;
+          a {
+            text-decoration: none;
+            color: $wts-color-text-secondary;
+            &:hover {
+              color: $wts-color-secondary;
+            }
+          }
+        }
+      }
+    }
+  }
+}

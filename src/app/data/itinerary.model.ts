@@ -5,11 +5,11 @@ export interface Itinerary {
     activities: string;
     services: Array<String>;
     guest_type: string;
-    condition: string;
+    guest_condition: string;
     price: number;
     area: string;
-    from: string;
-    to: string;
+    tour_from: string;
+    tour_to: string;
     notes: string;
     guide: object;
     is_public: boolean;

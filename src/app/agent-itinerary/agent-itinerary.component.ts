@@ -2,6 +2,8 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ItineraryService} from '../services/itinerary.service';
 import {Itinerary} from '../data/itinerary.model';
+import {ToasterService} from 'angular2-toaster';
+
 declare let google;
 
 @Component({
@@ -11,10 +13,10 @@ declare let google;
 })
 export class AgentItineraryComponent implements OnInit {
     itinerary: Itinerary;
+    loading = false;
 
-    constructor(
-        private itineraryService: ItineraryService
-    ) {
+    constructor(private itineraryService: ItineraryService,
+                private toastr: ToasterService) {
     }
 
     ngOnInit() {
@@ -38,6 +40,24 @@ export class AgentItineraryComponent implements OnInit {
 
     initMap() {
 
+    }
+
+    makePublic() {
+        this.loading = true;
+        const _payload = this.itinerary;
+        _payload.is_public = true;
+        this.itineraryService.editItinerary(_payload)
+            .subscribe(
+                res => {
+                    // debugger;
+                    this.loading = false;
+                    this.toastr.pop('success', 'Make Public', 'Successfully made public.');
+                },
+                error => {
+                    // debugger;
+                    this.loading = false;
+                    this.toastr.pop('error', 'My Itineraries', 'Failed to make public.');
+                });
     }
 
 }

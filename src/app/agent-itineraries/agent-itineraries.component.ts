@@ -5,6 +5,7 @@ import {ItineraryService} from '../services/itinerary.service';
 import { UserService } from '../services/user.service';
 import {Itinerary} from '../data/itinerary.model';
 import {ToasterService} from 'angular2-toaster';
+import {MediaService} from '../services/media.service';
 declare let google;
 
 @Component({
@@ -20,11 +21,11 @@ export class AgentItinerariesComponent implements OnInit {
         activities: '',
         services: [],
         guest_type: '',
-        condition: '',
+        guest_condition: '',
         price: 0,
         area: 'Singapore',
-        from: '',
-        to: '',
+        tour_from: '',
+        tour_to: '',
         notes: '',
         guide: {},
         is_public: false
@@ -163,11 +164,13 @@ export class CreateItinerary implements OnInit {
 
     serviceInput = '';
     loading = false;
+    imageFile = null;
 
     constructor(
         public dialogRef: MatDialogRef<CreateItinerary>,
         private itineraryService: ItineraryService,
         private toasterService: ToasterService,
+        private mediaService: MediaService,
         private router: Router,
         @Inject(MAT_DIALOG_DATA) public data: Itinerary) {
     }
@@ -190,6 +193,7 @@ export class CreateItinerary implements OnInit {
     }
 
     onNoClick(): void {
+        this.data = null;
         this.dialogRef.close();
     }
 
@@ -204,10 +208,35 @@ export class CreateItinerary implements OnInit {
         this.data['services'].splice(i, 1);
     }
 
-    createItinerary () {
+    handleProfileImage (files: FileList) {
+        const reader = new FileReader();
+        const _self = this;
+        this.imageFile = files.item(0);
+        reader.onload = function (e) {
+            _self.data['backdrop'] = e.target['result'];
+        };
+        reader.readAsDataURL(files.item(0));
+    }
+
+    createInineraryInit() {
         const payload = this.data;
-        payload.backdrop = "https://static.businessinsider.sg/2018/03/st-singapore-supertrees-4113.jpg";
+        const _self = this;
+        // payload.backdrop = "https://static.businessinsider.sg/2018/03/st-singapore-supertrees-4113.jpg";
         this.loading = true;
+        if (this.imageFile) {
+            this.mediaService.uploadMedia(_self.imageFile, payload['backdrop'], 'itinerary')
+                .subscribe(media => {
+                    _self.createItinerary(payload);
+                }, error => {
+                    _self.loading = false;
+                    _self.toasterService.pop('error', 'Itinerary', 'Failed to create itinerary. Please try again later.');
+                });
+        } else {
+            this.createItinerary(payload);
+        }
+    }
+
+    createItinerary (payload) {
         this.itineraryService.createItinerary(payload)
             .subscribe(res => {
                 if (res['IsSuccess']) {

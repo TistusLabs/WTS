@@ -7,7 +7,7 @@
 </style>
 
 <h2 class="wts-header-2">Create Itinerary</h2>
-<form #createItineraryForm="ngForm" id="createItineraryForm" class="wts-dialog-form" (ngSubmit)="createItinerary()">
+<form #createItineraryForm="ngForm" id="createItineraryForm" class="wts-dialog-form" (ngSubmit)="createInineraryInit()">
 <mat-dialog-content class="wts-dialog">
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">General</h3>
@@ -19,13 +19,13 @@
             </div>
             <div class="wts-input-wrap">
                 <p>Delight people who check your itinerary with an image that describes the overall experience they will have.</p>
-                <div class="wts-image-uploader" fxLayout.xs="column">
-                    <div class="wts-image-uploader-preview">
-                        <div class="wts-uploader-placeholder">
+                <div class="wts-image-uploader">
+                    <div class="wts-image-uploader-preview" fxShow.xs="false">
+                        <img *ngIf="data.backdrop != ''" src="{{data.backdrop}}" alt="">
+                        <div *ngIf="data.backdrop == ''" class="wts-uploader-placeholder">
                             <mat-icon>terrain</mat-icon>
                             <p>Image preview</p>
                         </div>
-
                     </div>
                     <div class="wts-image-uploader-controls">
                         <h2 class="wts-header-2">Drag & Drop</h2>
@@ -33,7 +33,8 @@
                             <i>or</i>
                         </div>
                         <div class="wts-space-h-p">
-                            <button type="button" class="wts-button-primary">Upload</button>
+                            <input type="file" accept="image/*" (change)="handleProfileImage($event.target.files)" #file style="display: none">
+                            <button type="button" (click)="file.click()" class="wts-button-primary">Upload</button>
                         </div>
                     </div>
                 </div>
@@ -67,12 +68,12 @@
             <h3 class="wts-header-3">Period</h3>
             <div  fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
-                    <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="data.from" fxFlex>
+                    <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="data.tour_from" fxFlex>
                     <button type="button" class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
                     <mat-datepicker #fromPicker></mat-datepicker>
                 </div>
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
-                    <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="data.to" fxFlex>
+                    <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="data.tour_to" fxFlex>
                     <button type="button" class="mat-button-circle" (click)="toPicker.open()"><mat-icon>date_range</mat-icon></button>
                     <mat-datepicker #toPicker></mat-datepicker>
                 </div>
@@ -82,7 +83,7 @@
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Traveller conditions</h3>
             <div class="wts-input-wrap">
-                <input type="text" name="itineraryTravellerType" placeholder="Condition for the traveller.. eg: Age from 6 and above" [(ngModel)]="data.condition" class="wts-input-block-half">
+                <input type="text" name="itineraryTravellerType" placeholder="Condition for the traveller.. eg: Age from 6 and above" [(ngModel)]="data.guest_condition" class="wts-input-block-half">
             </div>
         </div>
 

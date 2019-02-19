@@ -108,7 +108,7 @@
                         <h2 class="wts-header-2">Who can come</h2>
                     </div>
                 </div>
-                <p>{{ itinerary.condition }}</p>
+                <p>{{ itinerary.guest_condition }}</p>
             </div>
             <div class="wts-card">
                 <div class="wts-card-header">
@@ -131,32 +131,34 @@
             </div>
         </div>
         <div class="wts-card" fxFlex="20%">
-            <!--<div class="wts-card-header">-->
-                <!--<div class="wts-card-header-flex">-->
-                    <!--<h2 class="wts-header-2">-->
-                        <!--<div class="wts-textbox wts-textbox-horizontal">-->
-                            <!--<div class="wts-textbox-icon">-->
-                                <!--<mat-icon>settings</mat-icon>-->
-                            <!--</div>-->
-                            <!--Settings-->
-                        <!--</div>-->
-                    <!--</h2>-->
-                <!--</div>-->
-            <!--</div>-->
             <div fxLayout="column" fxLayoutAlign="center" style="text-align: center">
                 <div class="wts-itinerary-price">${{ itinerary.price }} SGD</div>
                 <span class="wts-iti-price-per">per Person</span>
                 <div class="wts-space-h-p">
                     <button class="wts-button-primary">Request to book</button>
                 </div>
-                <!--<ul class="wts-list">-->
-                <!--<li class="wts-list-item wts-clickable" (click)="editProfile()">-->
-                <!--<div class="wts-textbox wts-textbox-horizontal">-->
-                <!--<div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>edit</mat-icon></div> Create new Itinerary-->
-                <!--</div>-->
-                <!--</li>-->
-                <!--</ul>-->
             </div>
+            <div class="_divider"></div>
+            <div class="wts-card-header" style="margin-top: 10px">
+                <div class="wts-card-header-flex">
+                    <h2 class="wts-header-2">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon">
+                                <mat-icon>settings</mat-icon>
+                            </div>
+                            Settings
+                        </div>
+                    </h2>
+                </div>
+            </div>
+            <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+            <ul class="wts-list" *ngIf="!loading && !itinerary.is_public">
+                <li class="wts-list-item wts-clickable" (click)="makePublic()">
+                    <div class="wts-textbox wts-textbox-horizontal">
+                        <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>language</mat-icon></div> Make Public
+                    </div>
+                </li>
+            </ul>
         </div>
     </div>
 </div>

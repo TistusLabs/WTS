@@ -57,16 +57,7 @@ export class ItineraryService {
     }
 
     getAllItineraries() {
-        const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': this.idToken
-        };
-
-        this.requestOptions = {
-            headers: new HttpHeaders(headers)
-        };
-
-        return this.http.get<Array<Itinerary>>(this.urls.get_all_itinerary, this.requestOptions)
+        return this.http.get<Array<Itinerary>>(this.urls.get_all_itinerary)
             .pipe(
                 catchError(this.handleError)
             );
@@ -105,4 +96,24 @@ export class ItineraryService {
                 catchError(this.handleError)
             );
     }
+
+    editItinerary (itinerary) {
+        // debugger
+        const idToken = this.authService.getIdToken();
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': idToken
+        };
+
+        this.requestOptions = {
+            headers: new HttpHeaders(headers)
+        };
+
+        return this.http.put<Itinerary>(this.urls.create_itinerary, itinerary, this.requestOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+
 }

@@ -6,6 +6,8 @@ import {Profile, Profile_, User} from '../data/user.model';
 import {UserService} from '../services/user.service';
 import {any} from 'codelyzer/util/function';
 import {ToasterService} from 'angular2-toaster';
+import {MediaService} from '../services/media.service';
+import {catchError} from 'rxjs/internal/operators';
 
 @Component({
     selector: 'app-profile',
@@ -44,11 +46,10 @@ export class ProfileComponent implements OnInit {
     //     lifestyle: 'Simplicity',
     //     isVerified : true
     // };
-
     user: Profile_ = {
         fname: '',
         tagline: '',
-        type: 'traveller',
+        profile_type: 'guest',
         interests: [],
         lifestyle: [],
         userId: '',
@@ -78,12 +79,11 @@ export class ProfileComponent implements OnInit {
         } else {
             this.userService.getProfile()
                 .subscribe(profile => {
-                    // debugger
                     if (profile['IsSuccess']) {
                         this.user = profile['Data'];
                         this.userService.setCurrentUserProfile(this.user);
                     } else {
-                        this.openCreateProfile();
+                        this.openCreateProfile(false);
                     }
                 });
             // this.openCreateProfile();
@@ -107,13 +107,13 @@ export class ProfileComponent implements OnInit {
         });
     }
 
-    openCreateProfile(): void {
+    openCreateProfile(isEdit: boolean): void {
         const dialogRef = this.dialog.open(EditProfile, {
             width: '60%',
             disableClose: true,
             data: {
-                title: 'Create your',
-                guide: `Let's start with the basics`,
+                title: isEdit ? 'Edit' : 'Create your',
+                guide: isEdit ? '' : `Let's start with the basics`,
                 data: this.user
             }
         });
@@ -141,16 +141,17 @@ export class ProfileComponent implements OnInit {
 })
 export class EditProfile implements OnInit {
 
-    constructor(
-        public dialogRef: MatDialogRef<EditProfile>,
-        @Inject(MAT_DIALOG_DATA) public data: Profile_,
-        private toasterService: ToasterService,
-        private userService: UserService
-    ) {
+    constructor(public dialogRef: MatDialogRef<EditProfile>,
+                @Inject(MAT_DIALOG_DATA) public data: Profile_,
+                private toasterService: ToasterService,
+                private mediaService: MediaService,
+                private userService: UserService) {
     }
 
     profile: Profile;
     loading = false;
+    fileToUpload: File = null;
+    imageFile = null;
 
     ngOnInit() {
         this.profile = JSON.parse(JSON.stringify(this.data));
@@ -183,16 +184,46 @@ export class EditProfile implements OnInit {
         this.profile['data'].lifestyle.splice(i, 1);
     }
 
-    createProfile() {
+    handleProfileImage (files: FileList) {
+        const reader = new FileReader();
+        const _self = this;
+        this.imageFile = files.item(0);
+        reader.onload = function (e) {
+            _self.profile['data'].image_url = e.target['result'];
+        };
+        reader.readAsDataURL(files.item(0));
+    }
+
+    createProfileInit() {
         const payload = this.profile['data'];
         delete payload.profile_id;
         this.loading = true;
+        const _self = this;
+        if (_self.imageFile) {
+            _self.mediaService.uploadMedia(_self.imageFile, _self.profile['data'].image_url, 'profiles')
+                .subscribe(media => {
+                    debugger;
+                    this.createProfile(payload);
+                }, error => {
+                    this.loading = false;
+                    this.toasterService.pop('error', 'Profile creation ', 'Failed to create profile. Please try again later.');
+                });
+        } else {
+            this.createProfile(payload);
+        }
+    }
+
+    createProfile(payload) {
         this.userService.createProfile(payload)
             .subscribe(res => {
                 if (res['IsSuccess']) {
+                    debugger;
                     this.onNoClick(true);
                     this.loading = false;
                     this.toasterService.pop('success', 'Profile created', 'You have successfully created your profile');
+                } else {
+                    this.loading = false;
+                    this.toasterService.pop('error', 'Profile creation', 'Failed to create profile. Please try again later.');
                 }
             });
     }

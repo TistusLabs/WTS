@@ -65,11 +65,12 @@
             </div>
         </div>
         <div fxLayout="row wrap" fxLayoutAlign="start start" class="wts-itineraries-wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+            <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
             <div class="wts-itinerary-widget"
                  [fxFlex.gt-xs]="itemFlexSetter"
                  fxFlex.xs="100%"
                  (click)="openItinerary(itinerary)"
-                 *ngFor="let itinerary of (itineraries ? itineraries.slice(0, 6) : [])">
+                 *ngFor="let itinerary of (itineraries ? itineraries.slice(0, 10) : [])">
                 <div class="wts-it-wid-backdrop">
                     <img src="{{ itinerary.backdrop }}" alt="{{ itinerary.title }}">
                 </div>

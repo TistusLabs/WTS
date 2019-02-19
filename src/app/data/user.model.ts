@@ -16,7 +16,7 @@ export interface AuthUser {
 export interface Profile {
     fname: string;
     tagline: string;
-    type: string;
+    profile_type: string;
     interests: {
         wrapperName: string;
         values: Array<any>;
@@ -36,7 +36,7 @@ export interface Profile {
 export interface Profile_ {
     fname: string;
     tagline: string;
-    type: string;
+    profile_type: string;
     interests: Array<string>;
     lifestyle: Array<string>;
     userId: string;
