@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import {AuthService} from '../services/auth.service';
-import {ItineraryService} from '../services/itinerary.service';
-import {Router} from '@angular/router';
-import {UserService} from '../services/user.service';
+import { AuthService } from '../services/auth.service';
+import { ItineraryService } from '../services/itinerary.service';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'app-general',
@@ -25,11 +25,11 @@ export class GeneralComponent implements OnInit {
         'img': 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/U9PP3KXXY2.jpg'
     }];
     searchAttr = {
-        place : 'Singapore',
-        places : ['Singapore', 'Malaysia'],
-        start : new Date(),
-        end : new Date(),
-        pricerange : [0, 150]
+        place: 'Singapore',
+        places: ['Singapore', 'Malaysia'],
+        start: new Date(),
+        end: new Date(),
+        pricerange: [0, 150]
     };
 
     itineraries = [];
@@ -80,7 +80,9 @@ export class GeneralComponent implements OnInit {
     //     }
     // }
 
-    topGuides = [{
+    topGuides = [];
+
+    /*{
         fname: 'Shehan',
         tagline: 'Live life to the fullest',
         type: 'traveller',
@@ -112,26 +114,26 @@ export class GeneralComponent implements OnInit {
         stars : Array(4).fill(0).map((x, i) => i),
         rating : 5.0,
         languages: ['English', 'Mandarin']
-    }];
+    }*/
 
     topLocations = [{
-        name : 'Kampong Glam',
-        picture : './assets/locations/kampong_glam.jpg'
+        name: 'Kampong Glam',
+        picture: './assets/locations/kampong_glam.jpg'
     }, {
-        name : 'NUS University',
-        picture : './assets/locations/nus_university.jpg'
+        name: 'NUS University',
+        picture: './assets/locations/nus_university.jpg'
     }, {
-        name : 'Haji Lane',
-        picture : './assets/locations/haji_lane.jpg'
+        name: 'Haji Lane',
+        picture: './assets/locations/haji_lane.jpg'
     }, {
-        name : 'Kampong Glam',
-        picture : './assets/locations/kampong_glam.jpg'
+        name: 'Kampong Glam',
+        picture: './assets/locations/kampong_glam.jpg'
     }, {
-        name : 'NUS University',
-        picture : './assets/locations/nus_university.jpg'
+        name: 'NUS University',
+        picture: './assets/locations/nus_university.jpg'
     }, {
-        name : 'Haji Lane',
-        picture : './assets/locations/haji_lane.jpg'
+        name: 'Haji Lane',
+        picture: './assets/locations/haji_lane.jpg'
     }];
 
     constructor(
@@ -152,13 +154,13 @@ export class GeneralComponent implements OnInit {
         // authenticated requests
         const user = this.authService.getAuthenticatedUser();
         if (user) {
-            
+
         } else {
             this.itineraries = [];
         }
     }
 
-    getAllItineraries () {
+    getAllItineraries() {
         //debugger
         this.loading = true;
         this.itineraryService.getAllItineraries()
@@ -166,10 +168,10 @@ export class GeneralComponent implements OnInit {
                 this.itineraries = res['Data'];
                 for (const i_ of this.itineraries) {
                     i_.guide = {
-                        name : 'Austin',
-                        picture : './assets/user_male.jpg',
-                        stars : Array(4).fill(0).map((x, i) => i),
-                        rating : 5.0,
+                        name: 'Austin',
+                        picture: './assets/user_male.jpg',
+                        stars: Array(4).fill(0).map((x, i) => i),
+                        rating: 5.0,
                         languages: ['English', 'Mandarin']
                     };
                 }
@@ -177,12 +179,10 @@ export class GeneralComponent implements OnInit {
             });
     }
 
-    getTopGuides () {
-        //debugger
+    getTopGuides() {
         this.loading = true;
         this.userService.getTopGuides()
             .subscribe(res => {
-                debugger
                 this.topGuides = res['Data'];
                 // for (const i_ of this.itineraries) {
                 //     i_.guide = {
@@ -207,11 +207,9 @@ export class GeneralComponent implements OnInit {
     }
 
     goToProfile(user) {
-        // debugger
-        if (user.fname === 'Amelia') {
-            this.userService.setHomeUser(user);
-            this.router.navigateByUrl('/profile');
-        }
+        debugger
+        this.userService.setHomeUser(user);
+        this.router.navigateByUrl('/profile');
     }
 
 }

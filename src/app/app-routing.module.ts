@@ -25,8 +25,7 @@ const routes: Routes = [
         canActivate: [AuthGuard]
     }, {
         path: 'profile',
-        component: ProfileComponent,
-        canActivate: [AuthGuard]
+        component: ProfileComponent
     }, {
         path: 'itineraries',
         component: AgentItinerariesComponent,
