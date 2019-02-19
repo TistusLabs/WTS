@@ -31,51 +31,54 @@ export class GeneralComponent implements OnInit {
         end : new Date(),
         pricerange : [0, 150]
     };
-    itineraries = [{
-        id : 'itinerary#1',
-        backdrop : './assets/event/singapore.jpg.jpg',
-        title : 'Historical Night Tour',
-        description : 'Come with me on a night tour and I will immerse you in the history and current affairs of Singapore! I am a qualified Singapore tour guide with a special interest in culture',
-        activities: 'Join me on a journey through Singapore from past to present. Explore the historic Civic District before',
-        conditions: 'Guests aged 6 and up can attend',
-        price : 129,
-        services: [
-            'Meal', 'Drinks', 'Ticket'
-        ],
-        area: 'Singapore',
-        from: '4th January 2019',
-        to: '10th January 2019',
-        notes: 'You must be able to walk 6km to join this tour',
-        guide : {
-            name : 'Amelia',
-            picture : './assets/user_female.jpg',
-            stars : Array(3).fill(0).map((x, i) => i),
-            rating : 5.0,
-            languages: ['English', 'Mandarin']
-        }
-    }, {
-        id : 'itinerary#2',
-        backdrop : './assets/event/hokkien-mee-.jpg',
-        title : 'Singapore Shopping Trip',
-        description : 'Come with me on a night tour and I will immerse you in the history and current affairs of Singapore! I am a qualified Singapore tour guide with a special interest in culture',
-        activities: 'Join me on a journey through Singapore from past to present. Explore the historic Civic District before',
-        conditions: 'Guests aged 6 and up can attend',
-        price : 59,
-        services: [
-            'Meal', 'Drinks', 'Ticket'
-        ],
-        area: 'Singapore',
-        from: '4th January 2019',
-        to: '10th January 2019',
-        notes: 'You must be able to walk 6km to join this tour',
-        guide : {
-            name : 'Austin',
-            picture : './assets/user_male.jpg',
-            stars : Array(4).fill(0).map((x, i) => i),
-            rating : 5.0,
-            languages: ['English', 'Mandarin']
-        }
-    }];
+
+    itineraries = [];
+
+    // {
+    //     id : 'itinerary#1',
+    //     backdrop : './assets/event/singapore.jpg.jpg',
+    //     title : 'Historical Night Tour',
+    //     description : 'Come with me on a night tour and I will immerse you in the history and current affairs of Singapore! I am a qualified Singapore tour guide with a special interest in culture',
+    //     activities: 'Join me on a journey through Singapore from past to present. Explore the historic Civic District before',
+    //     conditions: 'Guests aged 6 and up can attend',
+    //     price : 129,
+    //     services: [
+    //         'Meal', 'Drinks', 'Ticket'
+    //     ],
+    //     area: 'Singapore',
+    //     from: '4th January 2019',
+    //     to: '10th January 2019',
+    //     notes: 'You must be able to walk 6km to join this tour',
+    //     guide : {
+    //         name : 'Amelia',
+    //         picture : './assets/user_female.jpg',
+    //         stars : Array(3).fill(0).map((x, i) => i),
+    //         rating : 5.0,
+    //         languages: ['English', 'Mandarin']
+    //     }
+    // }, {
+    //     id : 'itinerary#2',
+    //     backdrop : './assets/event/hokkien-mee-.jpg',
+    //     title : 'Singapore Shopping Trip',
+    //     description : 'Come with me on a night tour and I will immerse you in the history and current affairs of Singapore! I am a qualified Singapore tour guide with a special interest in culture',
+    //     activities: 'Join me on a journey through Singapore from past to present. Explore the historic Civic District before',
+    //     conditions: 'Guests aged 6 and up can attend',
+    //     price : 59,
+    //     services: [
+    //         'Meal', 'Drinks', 'Ticket'
+    //     ],
+    //     area: 'Singapore',
+    //     from: '4th January 2019',
+    //     to: '10th January 2019',
+    //     notes: 'You must be able to walk 6km to join this tour',
+    //     guide : {
+    //         name : 'Austin',
+    //         picture : './assets/user_male.jpg',
+    //         stars : Array(4).fill(0).map((x, i) => i),
+    //         rating : 5.0,
+    //         languages: ['English', 'Mandarin']
+    //     }
+    // }
 
     topGuides = [{
         fname: 'Amelia',
@@ -142,15 +145,20 @@ export class GeneralComponent implements OnInit {
     itemFlexSetter = 32;
 
     ngOnInit() {
+        // non authenticated requests
+        this.getAllItineraries();
+
+        // authenticated requests
         const user = this.authService.getAuthenticatedUser();
         if (user) {
-            this.getAllItineraries();
+            
         } else {
             this.itineraries = [];
         }
     }
 
     getAllItineraries () {
+        //debugger
         this.loading = true;
         this.itineraryService.getAllItineraries()
             .subscribe(res => {

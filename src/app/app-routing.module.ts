@@ -36,8 +36,7 @@ const routes: Routes = [
         component: AgentItineraryComponent,
         data: {
           itinerary : null
-        },
-        canActivate: [AuthGuard]
+        }
     }
 ];
 
