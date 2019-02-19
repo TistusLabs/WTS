@@ -3,15 +3,19 @@
         <img (click)="goToHome()" src="./assets/worldtrip_singapore.png" alt="Worldtrip Singapore">
     </div>
     <div class="wts-topbar-tools" fxShow.xs="false">
+        <button mat-button (click)="goToHome()">Home</button>
         <button *ngIf="user.logged" mat-button (click)="navigateTo('become_tour_guide')">Become tour guide</button>
         <button mat-button (click)="navigateTo('about_us')">About Us</button>
         <button mat-button (click)="navigateTo('contact_us')">Contact Us</button>
         <button *ngIf="!user.logged" mat-button (click)="navigateTo('auth')">Log In</button>
-        <button *ngIf="!user.logged" mat-button class="wts-button-bordered" (click)="navigateTo('auth')">Sign Up</button>
+        <button *ngIf="!user.logged" mat-button class="wts-button-bordered" (click)="navigateTo('auth')">Sign
+            Up</button>
         <!--<button *ngIf="user.logged" mat-button (click)="userAccount()">Account</button>-->
         <!--<button *ngIf="user.logged" mat-button class="wts-button-bordered" (click)="logOut()">Log Out</button>-->
-        <button *ngIf="user.logged" mat-button class="wts-button-bordered" (click)="navigateTo('itineraries')">My Itineraries</button>
-        <button *ngIf="user.logged" type="button" class="wts-menu-img-button mat-button-circle wts-button-primary" [matMenuTriggerFor]="menu">
+        <button *ngIf="user.logged" mat-button class="wts-button-bordered" (click)="navigateTo('itineraries')">My
+            Itineraries</button>
+        <button *ngIf="user.logged" type="button" class="wts-menu-img-button mat-button-circle wts-button-primary"
+            [matMenuTriggerFor]="menu">
             <img src="{{user.image ? user.image : '../assets/user_male.jpg'}}">
         </button>
         <mat-menu #menu="matMenu" class="wts-topbar-menu">
@@ -30,7 +34,8 @@
             </button>
         </mat-menu>
     </div>
-    <div class="wts-topbar-tools wts-topbar-tools-xs" fxShow.xs="true" fxShow.sm="true" fxShow.md="false" fxShow.lg="false">
+    <div class="wts-topbar-tools wts-topbar-tools-xs" fxShow.xs="true" fxShow.sm="true" fxShow.md="false"
+        fxShow.lg="false">
         <button class="mat-button-circle" (click)="toggleXsNav()">
             <mat-icon>menu</mat-icon>
         </button>

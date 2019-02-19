@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
-import {AuthService} from '../services/auth.service';
-import {ItineraryService} from '../services/itinerary.service';
-import {Router} from '@angular/router';
-import {UserService} from '../services/user.service';
+import { AuthService } from '../services/auth.service';
+import { ItineraryService } from '../services/itinerary.service';
+import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'app-general',
@@ -25,11 +25,11 @@ export class GeneralComponent implements OnInit {
         'img': 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/U9PP3KXXY2.jpg'
     }];
     searchAttr = {
-        place : 'Singapore',
-        places : ['Singapore', 'Malaysia'],
-        start : new Date(),
-        end : new Date(),
-        pricerange : [0, 150]
+        place: 'Singapore',
+        places: ['Singapore', 'Malaysia'],
+        start: new Date(),
+        end: new Date(),
+        pricerange: [0, 150]
     };
     itineraries = [];
     // itineraries = [{
@@ -78,17 +78,19 @@ export class GeneralComponent implements OnInit {
     //     }
     // }];
 
-    topGuides = [{
-        fname: 'Amelia',
+    topGuides = [];
+
+    /*{
+        fname: 'Shehan',
         tagline: 'Live life to the fullest',
         type: 'traveller',
         interests: ['Hiking', 'Cooking'],
         lifestyle: ['Simple'],
         address: 'No 20, Hill Street, Singapore',
         lname: 'Peters',
-        image_url: './assets/guides/user_amelia.jpg',
-        name : 'Amelia',
-        picture : './assets/guides/user_amelia.jpg',
+        image_url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXo_o26uqbNH68_AVxVT02uWqiKw5CGyClFpAaoWIAVr7G_uvbrg',
+        name : 'Shehan',
+        picture : 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXo_o26uqbNH68_AVxVT02uWqiKw5CGyClFpAaoWIAVr7G_uvbrg',
         stars : Array(4).fill(0).map((x, i) => i),
         rating : 5.0,
         languages: ['English', 'Mandarin']
@@ -110,26 +112,26 @@ export class GeneralComponent implements OnInit {
         stars : Array(4).fill(0).map((x, i) => i),
         rating : 5.0,
         languages: ['English', 'Mandarin']
-    }];
+    }*/
 
     topLocations = [{
-        name : 'Kampong Glam',
-        picture : './assets/locations/kampong_glam.jpg'
+        name: 'Kampong Glam',
+        picture: './assets/locations/kampong_glam.jpg'
     }, {
-        name : 'NUS University',
-        picture : './assets/locations/nus_university.jpg'
+        name: 'NUS University',
+        picture: './assets/locations/nus_university.jpg'
     }, {
-        name : 'Haji Lane',
-        picture : './assets/locations/haji_lane.jpg'
+        name: 'Haji Lane',
+        picture: './assets/locations/haji_lane.jpg'
     }, {
-        name : 'Kampong Glam',
-        picture : './assets/locations/kampong_glam.jpg'
+        name: 'Kampong Glam',
+        picture: './assets/locations/kampong_glam.jpg'
     }, {
-        name : 'NUS University',
-        picture : './assets/locations/nus_university.jpg'
+        name: 'NUS University',
+        picture: './assets/locations/nus_university.jpg'
     }, {
-        name : 'Haji Lane',
-        picture : './assets/locations/haji_lane.jpg'
+        name: 'Haji Lane',
+        picture: './assets/locations/haji_lane.jpg'
     }];
 
     constructor(
@@ -143,28 +145,50 @@ export class GeneralComponent implements OnInit {
     itemFlexSetter = 32;
 
     ngOnInit() {
+        // non authenticated requests
+        this.getAllItineraries();
+        this.getTopGuides();
+
+        // authenticated requests
         const user = this.authService.getAuthenticatedUser();
         if (user) {
-            this.getAllItineraries();
-        } else {
-            this.itineraries = [];
+            debugger
         }
     }
 
-    getAllItineraries () {
+    getAllItineraries() {
+        //debugger
         this.loading = true;
         this.itineraryService.getAllItineraries()
             .subscribe(res => {
                 this.itineraries = res['Data'];
                 for (const i_ of this.itineraries) {
                     i_.guide = {
-                        name : 'Austin',
-                        picture : './assets/user_male.jpg',
-                        stars : Array(4).fill(0).map((x, i) => i),
-                        rating : 5.0,
+                        name: 'Austin',
+                        picture: './assets/user_male.jpg',
+                        stars: Array(4).fill(0).map((x, i) => i),
+                        rating: 5.0,
                         languages: ['English', 'Mandarin']
                     };
                 }
+                this.loading = false;
+            });
+    }
+
+    getTopGuides() {
+        this.loading = true;
+        this.userService.getTopGuides()
+            .subscribe(res => {
+                this.topGuides = res['Data'];
+                // for (const i_ of this.itineraries) {
+                //     i_.guide = {
+                //         name : 'Austin',
+                //         picture : './assets/user_male.jpg',
+                //         stars : Array(4).fill(0).map((x, i) => i),
+                //         rating : 5.0,
+                //         languages: ['English', 'Mandarin']
+                //     };
+                // }
                 this.loading = false;
             });
     }
@@ -179,11 +203,9 @@ export class GeneralComponent implements OnInit {
     }
 
     goToProfile(user) {
-        // debugger
-        if (user.fname === 'Amelia') {
-            this.userService.setHomeUser(user);
-            this.router.navigateByUrl('/profile');
-        }
+        debugger
+        this.userService.setHomeUser(user);
+        this.router.navigateByUrl('/profile/' + user.userId);
     }
 
 }

@@ -65,8 +65,7 @@ export class ItineraryService {
 
     getMyItineraries() {
         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': this.idToken
+            'Content-Type': 'application/json'
         };
 
         this.requestOptions = {
