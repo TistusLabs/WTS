@@ -209,7 +209,7 @@ export class GeneralComponent implements OnInit {
     goToProfile(user) {
         debugger
         this.userService.setHomeUser(user);
-        this.router.navigateByUrl('/profile');
+        this.router.navigateByUrl('/profile/' + user.userId);
     }
 
 }
