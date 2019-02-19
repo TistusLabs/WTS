@@ -65,8 +65,8 @@ export class ProfileComponent implements OnInit {
     }
 
     ngOnInit() {
-        // debugger
-        const data = this.userService.getHomeUser();
+        debugger
+        const data = this.userService.getCurrentUserProfile();
         if (data) {
             this.user.fname = data['fname'];
             this.user.lname = data['lname'];

@@ -154,9 +154,7 @@ export class GeneralComponent implements OnInit {
         // authenticated requests
         const user = this.authService.getAuthenticatedUser();
         if (user) {
-
-        } else {
-            this.itineraries = [];
+            debugger
         }
     }
 

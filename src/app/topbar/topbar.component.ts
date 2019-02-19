@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { UserService } from '../services/user.service';
 
 @Component({
     selector: 'app-topbar',
@@ -10,16 +11,20 @@ import {AuthService} from '../services/auth.service';
 export class TopbarComponent implements OnInit {
 
     user = {
-        logged : false
+        logged: false
     };
+
+    profile = {};
 
     constructor(
         private router: Router,
-        private authServide: AuthService
+        private authServide: AuthService,
+        private userService: UserService
     ) {
     }
 
     ngOnInit() {
+        //debugger
         // this.authServide.token.subscribe(token => {
         //     // debugger;
         //     if (token) this.user.logged = true;
@@ -35,13 +40,26 @@ export class TopbarComponent implements OnInit {
                     this.user.logged = true;
                 }
             });
+        const data = this.userService.getCurrentUserProfile();
+        if (data) {
+            this.profile = data;
+        } else {
+            this.userService.getProfile()
+                .subscribe(profile => {
+                    debugger
+                    if (profile['IsSuccess']) {
+                        this.profile = profile['Data'];
+                        this.userService.setCurrentUserProfile(this.profile);
+                    }
+                });
+        }
     }
 
-    joinUser () {
+    joinUser() {
         this.router.navigateByUrl('/auth');
     }
 
-    userAccount () {
+    userAccount() {
         this.router.navigateByUrl('/account');
     }
 
@@ -53,7 +71,7 @@ export class TopbarComponent implements OnInit {
         this.router.navigateByUrl('/' + _route);
     }
 
-    logOut () {
+    logOut() {
         this.authServide.logout();
         this.user.logged = false;
     }
