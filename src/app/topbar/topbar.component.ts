@@ -44,12 +44,13 @@ export class TopbarComponent implements OnInit {
         if (data) {
             this.profile = data;
         } else {
-            this.userService.getProfile()
+            const user = this.authServide.getAuthenticatedUser();
+            this.userService.getProfile(user['username'])
                 .subscribe(profile => {
                     debugger
                     if (profile['IsSuccess']) {
                         this.profile = profile['Data'];
-                        this.userService.setCurrentUserProfile(this.profile);
+                        //this.userService.setCurrentUserProfile(this.profile);
                     }
                 });
         }

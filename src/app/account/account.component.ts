@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import {Profile_} from '../data/user.model';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-account',
@@ -15,6 +16,7 @@ export class AccountComponent implements OnInit {
 
     constructor(public router: Router,
         private userService: UserService,
+        private authService: AuthService
     ) { }
 
     ngOnInit() {
@@ -24,12 +26,13 @@ export class AccountComponent implements OnInit {
     loadInformation() {
         this.profile = this.userService.getCurrentUserProfile();
         if (this.profile == null) {
-            this.userService.getProfile()
+            const user = this.authService.getAuthenticatedUser();
+            this.userService.getProfile(user['username'])
                 .subscribe(profile => {
                     // debugger
                     if (profile['IsSuccess']) {
                         this.profile = profile['Data'];
-                        this.userService.setCurrentUserProfile(this.profile);
+                       // this.userService.setCurrentUserProfile(this.profile);
                     }
                 });
         }
