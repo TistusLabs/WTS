@@ -6,6 +6,7 @@ import { UserService } from '../services/user.service';
 import {Itinerary} from '../data/itinerary.model';
 import {ToasterService} from 'angular2-toaster';
 import {MediaService} from '../services/media.service';
+import { AuthService } from '../services/auth.service';
 declare let google;
 
 @Component({
@@ -87,6 +88,7 @@ export class AgentItinerariesComponent implements OnInit {
         private itineraryService: ItineraryService,
         public toastr: ToasterService,
         private userService: UserService,
+        private authService: AuthService
     ) {
     }
 
@@ -97,12 +99,13 @@ export class AgentItinerariesComponent implements OnInit {
     loadInformation() {
         this.profile = this.userService.getCurrentUserProfile();
         if (this.profile == null) {
-            this.userService.getProfile()
+            const user = this.authService.getAuthenticatedUser();
+            this.userService.getProfile(user['username'])
                 .subscribe(profile => {
                     // debugger
                     if (profile['IsSuccess']) {
                         this.profile = profile['Data'];
-                        this.userService.setCurrentUserProfile(this.profile);
+                        //this.userService.setCurrentUserProfile(this.profile);
                     }
                     this.getAllItineraries();
                 });

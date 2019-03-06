@@ -1,5 +1,5 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {Profile, Profile_, User} from '../data/user.model';
@@ -9,6 +9,7 @@ import {ToasterService} from 'angular2-toaster';
 import {MediaService} from '../services/media.service';
 import {catchError} from 'rxjs/internal/operators';
 import {ItineraryService} from '../services/itinerary.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
     selector: 'app-profile',
@@ -42,6 +43,8 @@ export class ProfileComponent implements OnInit {
             ]
         }];
 
+    profileID = "";
+
     // user: User = {
     //     first_name: 'John',
     //     last_name: 'Doe',
@@ -59,41 +62,67 @@ export class ProfileComponent implements OnInit {
         userId: '',
         address: '',
         lname: '',
-        image_url: 'https://i.pinimg.com/236x/e1/26/15/e12615cb231c9ab8e41dd726649f999a--drawing-practice-figure-drawing.jpg'
+        image_url: 'https://www.tripwishlist.com/Media/BLPhotos/dummy_user.png'
     };
 
     constructor(private router: Router,
-                private route: ActivatedRoute,
-                private userService: UserService,
-                private toasterService: ToasterService,
-                private itineraryService: ItineraryService,
-                public dialog: MatDialog) {
+        private route: ActivatedRoute,
+        private userService: UserService,
+        private authService: AuthService,
+        private toasterService: ToasterService,
+        private itineraryService: ItineraryService,
+        private ref: ChangeDetectorRef,
+        public dialog: MatDialog) {
+    }
+
+    getProfileInfo (profileID){
+        this.userService.getProfile(profileID)
+        .subscribe(profile => {
+            if (profile['IsSuccess']) {
+                this.user = profile['Data'];
+            } else {
+                this.openCreateProfile(false);
+            }
+        });
     }
 
     ngOnInit() {
         debugger
-        const data = this.userService.getHomeUser();
-        if (data) {
-            this.user.fname = data['fname'];
-            this.user.lname = data['lname'];
-            this.user.tagline = data['tagline'];
-            this.user.interests.values = data['interests'];
-            this.user.lifestyle.values = data['lifestyle'];
-            this.user.address = data['address'];
-            this.user.image_url = data['image_url'];
+        this.profileID = this.route.snapshot.paramMap.get("id")
+        if (this.profileID == null) {
+            const profile = this.userService.getCurrentUserProfile();
+            if (profile == null) {
+                const user = this.authService.getAuthenticatedUser();
+                this.getProfileInfo(user['username']);
+            } else {
+                this.user = profile;
+            }
         } else {
-            this.userService.getProfile()
-                .subscribe(profile => {
-                    if (profile['IsSuccess']) {
-                        this.user = profile['Data'];
-                        this.userService.setCurrentUserProfile(this.user);
-                    } else {
-                        this.openCreateProfile(false);
-                    }
-                });
-            // this.openCreateProfile();
+            this.getProfileInfo(this.profileID);
         }
+        this.ref.detectChanges();
         this.getAllItineraries();
+        // const data = this.userService.getHomeUser();
+        // if (data) {
+        //     this.user.fname = data['fname'];
+        //     this.user.lname = data['lname'];
+        //     this.user.tagline = data['tagline'];
+        //     this.user.interests.values = data['interests'];
+        //     this.user.lifestyle.values = data['lifestyle'];
+        //     this.user.address = data['address'];
+        //     this.user.image_url = data['image_url'];
+        // } else {
+        //     this.userService.getProfile()
+        //         .subscribe(profile => {
+        //             if (profile['IsSuccess']) {
+        //                 this.user = profile['Data'];
+        //                 this.userService.setCurrentUserProfile(this.user);
+        //             } else {
+        //                 this.openCreateProfile(false);
+        //             }
+        //         });
+        //     // this.openCreateProfile();
+        // }
     }
 
     goToItinerary() {
@@ -127,7 +156,8 @@ export class ProfileComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             // debugger
             if (result) {
-                this.userService.getProfile()
+                const user = this.authService.getAuthenticatedUser();
+                this.userService.getProfile(user['username'])
                     .subscribe(profile => {
                         // debugger
                         if (profile['IsSuccess']) {
@@ -136,6 +166,8 @@ export class ProfileComponent implements OnInit {
                     });
             }
         });
+
+        this.ref.detectChanges();
     }
 
     getAllItineraries () {
@@ -170,10 +202,10 @@ export class ProfileComponent implements OnInit {
 export class EditProfile implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<EditProfile>,
-                @Inject(MAT_DIALOG_DATA) public data: Profile_,
-                private toasterService: ToasterService,
-                private mediaService: MediaService,
-                private userService: UserService) {
+        @Inject(MAT_DIALOG_DATA) public data: Profile_,
+        private toasterService: ToasterService,
+        private mediaService: MediaService,
+        private userService: UserService) {
     }
 
     profile: Profile;
@@ -212,7 +244,7 @@ export class EditProfile implements OnInit {
         this.profile['data'].lifestyle.splice(i, 1);
     }
 
-    handleProfileImage (files: FileList) {
+    handleProfileImage(files: FileList) {
         const reader = new FileReader();
         const _self = this;
         this.imageFile = files.item(0);

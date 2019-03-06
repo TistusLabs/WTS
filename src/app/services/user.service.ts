@@ -50,15 +50,15 @@ export class UserService {
             'Something bad happened; please try again later.');
     };
 
-    getProfile () {
+    getProfile (userID) {
         // debugger
-        const idToken = this.authService.getIdToken();
+        //const idToken = this.authService.getIdToken();
         const headers = {
-            'Authorization': idToken
+            //'Authorization': idToken
         };
-        const user = this.authService.getAuthenticatedUser();
+        
         this.requestParams = new HttpParams()
-            .set('userId', user['username']);
+            .set('userId', userID);
 
         this.requestOptions = {
             params: this.requestParams,
