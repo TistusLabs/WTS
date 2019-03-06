@@ -1,50 +1,7 @@
 @import "../../_core/styles/variables";
 
-.wts-banner {
-  background: url("../../assets/backdrop_3.jpg");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  .wts-acc-bnr-content {
-    .wts-acc-bnr-summary {
-      .wts-acc-bnr-sum-item {
-        .wts-bnr-rating-block {
-          display: flex;
-          align-items: center;
-          .wts-rating-val {
-            font-size: $wts-size-icon-large;
-            font-weight: 500;
-            padding: $wts-spacing-inner-primary;
-            align-items: center;
-            color: #ffffff;
-          }
-          .wts-rating-info {
-            .wts-rate-info-service {
-              padding: $wts-spacing-inner-third;
-              font-size: $wts-size-header-2;
-              //color: $wts-color-primary-dark;
-              color: #ffffff;
-            }
-            .wts-rate-info-stars {
-              padding: $wts-spacing-inner-third;
-              .mat-icon {
-                color: #ffffff70;
-                &.rated_full {
-                  color: $wts-color-secondary;
-                  text-shadow: -1px 0 $wts-color-secondary-dark, 0 1px $wts-color-secondary-dark, 1px 0 $wts-color-secondary-dark, 0 -1px $wts-color-secondary-dark;
-                }
-                &:not(last-child) {
-                  margin-right: $wts-spacing-inner-secondary;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
 .wts-profile {
+  background: $wts-color-highlight-lightgray;
   padding: $wts-spacing-inner-primary * 3;
 }
 

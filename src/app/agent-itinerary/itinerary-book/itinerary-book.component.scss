@@ -1,0 +1,95 @@
+@import "variables";
+
+.wts-booking-setup {
+  h2 {
+    margin-top: 0;
+  }
+  .mat-dialog-content {
+    max-height: 60vh;
+  }
+  .wts-booking-header {
+    display: flex;
+    margin-top: $wts-spacing-inner-primary*2;
+    .wts-step-tab {
+      padding: 15px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      .wts-step-number {
+        border-radius: 100%;
+        height: 40px;
+        width: 40px;
+        align-items: center;
+        justify-content: center;
+        background: $wts-color-highlight-gray;
+        display: flex;
+        font-weight: 700;
+        margin-right: $wts-spacing-inner-primary;
+        color: #ffffff;
+      }
+      .wts-step-title {
+        font-weight: 500;
+        flex: 1;
+        text-align: center;
+      }
+      &.wts-step-tab-active {
+        -webkit-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+        -moz-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+        box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+        .wts-step-number {
+          background: linear-gradient(-45deg, $wts-color-primary, $wts-color-secondary);
+        }
+        &:hover {
+          -webkit-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+          -moz-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+          box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+        }
+        &.wts-step-tab-done {
+          .wts-step-number {
+            background: linear-gradient(-45deg, $wts-color-primary, $wts-color-secondary);
+          }
+        }
+      }
+      &.wts-step-tab-done {
+        -webkit-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+        -moz-box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+        box-shadow: 0 -8px 13px $wts-color-shadow-primary;
+        .wts-step-number {
+          background: linear-gradient(-45deg, #63bd78, #81d694);
+        }
+      }
+    }
+  }
+  .wts-booking-step {
+    padding: $wts-spacing-inner-primary*2 0;
+    &.wts-booking-summary {
+      .wts-itinerary-image {
+        height: 200px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        overflow: hidden;
+        border-radius: $wts-border-radius-primary;
+        margin-right: $wts-spacing-inner-primary;
+
+        img {
+          height: 100%;
+          position: absolute;
+          border-radius: $wts-border-radius-primary;
+        }
+      }
+    }
+    .wts-itinerary-info {
+      .wts-textbox {
+        mat-icon {
+          color: $wts-color-text-secondary;
+        }
+        &:not(:last-child) {
+          margin-bottom: $wts-spacing-inner-secondary;
+        }
+      }
+    }
+  }
+}

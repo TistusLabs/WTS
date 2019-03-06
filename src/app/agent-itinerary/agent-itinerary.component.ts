@@ -3,6 +3,8 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ItineraryService} from '../services/itinerary.service';
 import {Itinerary} from '../data/itinerary.model';
 import {ToasterService} from 'angular2-toaster';
+import {MatDialog} from '@angular/material';
+import {ItineraryBook} from './itinerary-book/itinerary-book.component';
 
 declare let google;
 
@@ -16,7 +18,8 @@ export class AgentItineraryComponent implements OnInit {
     loading = false;
 
     constructor(private itineraryService: ItineraryService,
-                private toastr: ToasterService) {
+                private toastr: ToasterService,
+                public dialog: MatDialog) {
     }
 
     ngOnInit() {
@@ -40,6 +43,24 @@ export class AgentItineraryComponent implements OnInit {
 
     initMap() {
 
+    }
+
+    requestToBook (itinerary) {
+        const dialogRef = this.dialog.open(ItineraryBook, {
+            width: '70%',
+            disableClose: true,
+            data: {
+                title: 'Book this Itinerary',
+                data: itinerary
+            }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            // debugger
+            if (result) {
+
+            }
+        });
     }
 
     makePublic() {

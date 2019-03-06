@@ -1,7 +1,7 @@
+declare const Buffer;
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject, Observable, throwError} from 'rxjs';
-
-
+import AWS from 'aws-sdk/global';
 import {
     CognitoUserPool,
     CognitoUserAttribute,
@@ -75,6 +75,45 @@ export class AuthService {
         } else {
             this.emitToken(false);
         }
+    }
+
+    signUpFB_init (accessToken) {
+
+        // Add the Facebook access token to the Cognito credentials login map.
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: POOL_DATA.UserPoolId,
+            Logins: {
+                'graph.facebook.com': accessToken
+            }
+        });
+
+        // Obtain AWS credentials
+        AWS.config.getCredentials(function() {
+            debugger
+            this.authDidFail.next(false);
+            this.authConfirmOn.next(true);
+            this.authIsLoading.next(false);
+            // this.registeredUser = result.user;
+        });
+    }
+
+    signUpGoogle_init (gUser) {
+        // Add the Google access token to the Cognito credentials login map.
+        AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+            IdentityPoolId: POOL_DATA.UserPoolId,
+            Logins: {
+                'accounts.google.com': gUser['id_token']
+            }
+        });
+
+        // Obtain AWS credentials
+        AWS.config.getCredentials(function() {
+            debugger
+            this.authDidFail.next(false);
+            this.authConfirmOn.next(true);
+            this.authIsLoading.next(false);
+            // this.registeredUser = result.user;
+        });
     }
 
     signUp(email: string, password: string, mobile: string): void {

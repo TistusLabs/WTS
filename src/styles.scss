@@ -121,6 +121,9 @@ nouislider {
     height: $wts-size-header-2;
     margin-right: $wts-spacing-inner-third;
   }
+  &.m-b {
+    margin-bottom: $wts-spacing-inner-primary;
+  }
 }
 
 .wts-input-wrap {
@@ -142,169 +145,10 @@ nouislider {
 .wts-text-center {
   text-align: center;
 }
-
-.wts-event-block {
-  max-width: $wts-itinerary-widget - 70;
-  padding: $wts-spacing-inner-third;
-  background: #ffffff;
-  border-radius: $wts-border-radius-secondary;
-  -webkit-box-shadow: $wts-shadow-card;
-  -moz-box-shadow: $wts-shadow-card;
-  box-shadow: $wts-shadow-card;
-  -webkit-transition: box-shadow $wts-time-animation-primary;
-  -moz-transition: box-shadow $wts-time-animation-primary;
-  -ms-transition: box-shadow $wts-time-animation-primary;
-  -o-transition: box-shadow $wts-time-animation-primary;
-  transition: box-shadow $wts-time-animation-primary;
-  .wts-event-date {
-    padding: $wts-spacing-inner-secondary;
-    font-weight: 500;
-  }
-  .wts-event-description {
-    padding: $wts-spacing-inner-third $wts-spacing-inner-secondary;
-    color: $wts-color-text-secondary;
-    height: 40px;
-  }
-  .wts-event-footages {
-    overflow: auto;
-    padding: $wts-spacing-inner-secondary;
-    .wts-event-image {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 149px;
-      min-width: 149px;
-      height: 149px;
-      overflow: hidden;
-      float: left;
-      margin: 3px;
-      img {
-        height: 150%;
-        position: absolute;
-      }
-    }
-  }
-
-  &:hover {
-    -webkit-transition: box-shadow $wts-time-animation-primary;
-    -moz-transition: box-shadow $wts-time-animation-primary;
-    -ms-transition: box-shadow $wts-time-animation-primary;
-    -o-transition: box-shadow $wts-time-animation-primary;
-    transition: box-shadow $wts-time-animation-primary;
-    -webkit-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
-    -moz-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
-    box-shadow: 0 5px 10px $wts-color-shadow-secondary;
-    cursor: pointer;
-  }
-}
-
-.wts-itinerary-widget {
-  max-width: $wts-itinerary-widget;
-  width: $wts-itinerary-widget;
-  padding: $wts-spacing-inner-primary;
-  background: #ffffff;
-  border-radius: $wts-border-radius-secondary;
-  -webkit-box-shadow: $wts-shadow-card;
-  -moz-box-shadow: $wts-shadow-card;
-  box-shadow: $wts-shadow-card;
-  //float: left;
-  .wts-it-wid-backdrop {
-    height: $wts-banner-height;
-    position: relative;
-    @extend %flex-center;
-    overflow: hidden;
-    margin: (-$wts-spacing-inner-primary + 1) (-$wts-spacing-inner-primary + 1) 0 (-$wts-spacing-inner-primary + 1);
-    border-radius: $wts-border-radius-secondary $wts-border-radius-secondary 0 0;
-    img {
-      position: absolute;
-      width: 120%;
-    }
-  }
-  .wts-it-wid-info {
-    position: relative;
-    display: flex;
-    align-items: center;
-    .wts-it-wid-userinfo {
-      width: 80px;
-      padding: ($wts-spacing-inner-secondary * 3) $wts-spacing-inner-secondary 0 $wts-spacing-inner-secondary;
-      justify-content: center;
-      .wts-it-wid-userpic {
-        position: absolute;
-        top: -40px;
-        border-radius: 100%;
-        width: $wts-size-image-xs + 20;
-        height: $wts-size-image-xs + 20;
-        overflow: hidden;
-        @extend %flex-center;
-        img {
-          height: 100%;
-          width: auto;
-          position: absolute;
-        }
-      }
-      .wts-it-wid-username {
-        font-weight: 500;
-      }
-      .wts-it-wid-rate-stars {
-        .mat-icon {
-          color: $wts-color-secondary;
-          font-size: $wts-size-icon-small;
-          width: $wts-size-icon-small;
-          height: $wts-size-icon-small;
-        }
-      }
-    }
-    .wts-it-wid-desc {
-      flex: 1;
-      padding-top: $wts-spacing-inner-secondary;
-      height: 70px;
-      overflow-y: hidden;
-      .wts-it-wid-price {
-        position: absolute;
-        top: -40px;
-        right: -$wts-spacing-inner-primary;
-        color: #ffffff;
-        padding: $wts-spacing-inner-third $wts-spacing-inner-secondary;
-        background: $wts-color-primary;
-        border: solid 1px $wts-color-primary-light;
-        border-radius: $wts-border-radius-secondary 0 0 $wts-border-radius-secondary;
-      }
-      .wts-it-wid-about {
-        .wts-header-3 {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          width: auto;
-        }
-        p {
-          margin-bottom: 0;
-        }
-      }
-    }
-  }
-  &:hover {
-    -webkit-transition: box-shadow $wts-time-animation-primary;
-    -moz-transition: box-shadow $wts-time-animation-primary;
-    -ms-transition: box-shadow $wts-time-animation-primary;
-    -o-transition: box-shadow $wts-time-animation-primary;
-    transition: box-shadow $wts-time-animation-primary;
-    -webkit-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
-    -moz-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
-    box-shadow: 0 5px 10px $wts-color-shadow-secondary;
-    cursor: pointer;
-  }
-}
-.wts-itineraries-wrap {
-  .wts-itinerary-widget {
-    &:not(:last-child) {
-      margin-bottom: $wts-spacing-inner-primary;
-    }
-  }
-}
 /* --------------------------------------------- */
 input,
-textarea {
+textarea,
+mat-select{
   @extend %box_sizing;
   font-size: 14px;
   display: inline-block;
@@ -319,6 +163,119 @@ textarea {
   &.wts-input-block-half {
     width: 50%;
   }
+}
+
+input[type="radio"]:checked,
+input[type="radio"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+input[type="radio"]:checked+label,
+input[type="radio"]:not(:checked)+label {
+  position: relative;
+  padding-left: 40px;
+  cursor: pointer;
+  line-height: 25px;
+  display: inline-block; //color: #666;
+}
+input[type="radio"]:checked+label:before,
+input[type="radio"]:not(:checked)+label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px; //border: 2px solid #aaa;
+  border-radius: 100%;
+  background: #fff;
+  border: solid 2px $wts-color-primary;
+}
+input[type="radio"]:checked+label:after,
+input[type="radio"]:not(:checked)+label:after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: $wts-color-primary;
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  border-radius: 100%;
+  -webkit-transition: all $wts-time-animation-primary ease;
+  transition: all $wts-time-animation-primary ease;
+}
+input[type="radio"]:not(:checked)+label:after {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+  transform: scale(0);
+}
+input[type="radio"]:checked+label:after {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);
+}
+
+input[type="checkbox"]:checked,
+input[type="checkbox"]:not(:checked) {
+  position: absolute;
+  left: -9999px;
+}
+input[type="checkbox"]:checked+label,
+input[type="checkbox"]:not(:checked)+label {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  display: inline-block;
+}
+input[type="checkbox"]:checked+label:before,
+input[type="checkbox"]:not(:checked)+label:before {
+  content: '';
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 20px;
+  height: 20px; //border: 2px solid #aaa;
+  border-radius: 3px;
+  //background: #fff;
+  border: solid 1px $wts-color-border-primary;
+}
+input[type="checkbox"]:checked+label:before {
+  border: solid 2px $wts-color-primary;
+}
+input[type="checkbox"]:checked+label:after,
+input[type="checkbox"]:not(:checked)+label:after {
+  content: '';
+  width: 12px;
+  height: 7px;
+  background: #fff;
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  box-shadow: -3px 3px 0 $wts-color-primary;
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-transition: all $wts-time-animation-primary ease;
+  -moz-transition: all $wts-time-animation-primary ease;
+  -ms-transition: all $wts-time-animation-primary ease;
+  -o-transition: all $wts-time-animation-primary ease;
+  transition: all $wts-time-animation-primary ease;
+}
+input[type="checkbox"]:not(:checked)+label:after {
+  opacity: 0;
+}
+input[type="checkbox"]:checked+label:after {
+  opacity: 1;
 }
 
 /* --------------------------------------------- */
@@ -342,6 +299,7 @@ textarea {
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+    background: transparent;
     &.wts-space-h-p {
       padding: $wts-spacing-inner-primary 0;
     }
@@ -448,6 +406,11 @@ button {
     .mat-icon {
       color: #ffffff;
     }
+    .mat-spinner {
+      circle {
+        stroke: #fff;
+      }
+    }
   }
   &.wts-button-secondary {
     padding: $wts-spacing-inner-third $wts-spacing-inner-primary;
@@ -489,75 +452,13 @@ button {
 }
 
 /* --------------------------------------------- */
-.wts-banner {
-  height: $wts-banner-height + $wts-banner-height/2;
-  position: relative;
-  margin-top: -$wts-topbar-height;
-  background: linear-gradient($wts-banner-background);
-  margin-bottom: $wts-spacing-inner-primary * 1;
-  &:after {
-    content: '';
-    z-index: 0;
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(#00000020 45px, #00000000 55px);
-  }
-  .wts-acc-bnr-img-wrap {
-    position: relative;
-    z-index: 1;
-  }
-  .wts-acc-bnr-img {
-    position: relative;
-    width: 150px;
-    height: 150px;
-    border: solid 7px $wts-color-secondary-light;
-    overflow: hidden;
-    border-radius: 100%;
-    -webkit-box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
-    -moz-box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
-    box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
-    margin: 100px auto 0 auto;
-    background: #fff;
-    img {
-      width: 105%;
-    }
-  }
-  .wts-acc-bnr-userinfo {
-    h1 {
-      margin: 0;
-      color: #ffffff;
-      text-shadow: $wts-shadow-text-secondary;
-    }
-  }
-  .wts-acc-bnr-content {
-    padding: 100px 0 0 0;
-    z-index: 1;
-    //background: radial-gradient(#00000030, #00000020, #00000000, #00000000);
-    .wts-acc-bnr-summary {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      .wts-acc-bnr-sum-item {
-        text-align: center;
-        .wts-bnr-itm-value {
-          font-size: 3pc;
-        }
-      }
-    }
-  }
-}
-
-/* --------------------------------------------- */
 .wts-textbox {
-  display: inline-flex;
-  display: -ms-inline-flexbox;
-  display: -webkit-inline-flex;
+  display: flex;
+  display: -ms-flexbox;
+  display: -webkit-flex;
   border-radius: $wts-border-radius-secondary;
   align-items: center;
-  justify-content: center;
+  //justify-content: center;
   text-align: center;
   &.wts-textbox-vertical {
     flex-direction: column;
@@ -759,6 +660,41 @@ button {
   }
 }
 /* --------------------------------------------- */
+.wts-guide-acc-summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .wts-guide-sum-item {
+    text-align: center;
+    //background: linear-gradient(-45deg, $wts-color-primary, $wts-color-primary-light);
+    display: flex;
+    align-items: center;
+    padding: 0;
+    &.wts-card {
+      //border-radius: $wts-border-radius-primary;
+    }
+    .wts-guide-sum-item-value {
+      font-size: 20px;
+      font-weight: 700;
+      //color: $wts-color-secondary-light;
+      color: $wts-color-text-secondary;
+      flex: 1;
+      text-align: center;
+      border-left: solid 1px $wts-color-shadow-primary;
+      padding: $wts-spacing-inner-secondary;
+    }
+    .wts-guide-sum-item-label {
+      //color: $wts-color-highlight-gray;
+      //color: $wts-color-text-secondary;
+      background: linear-gradient(-45deg, $wts-color-highlight-gray, $wts-color-highlight-lightgray);
+      mat-icon {
+        color: $wts-color-secondary;
+        padding: $wts-spacing-inner-secondary;
+        //font-size: 30px;
+      }
+    }
+  }
+}
 
 
 //MEDIA QUERIES

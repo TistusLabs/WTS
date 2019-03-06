@@ -1,10 +1,11 @@
-@import "../../_core/styles/variables";
-@import "../../_core/styles/helpers";
+@import "variables";
+@import "helpers";
 
 .wts-banner {
   position: relative;
   overflow: hidden;
   height: $wts-banner-height + ($wts-banner-height / 2);
+  margin-top: -$wts-topbar-height;
   //@extend %flex-center;
   align-items: center;
   .wts-itinerary-cover {
@@ -51,8 +52,8 @@
       margin-bottom: $wts-spacing-inner-secondary;
       .mat-icon {
         margin-right: $wts-spacing-inner-secondary;
-        //color: $wts-color-secondary-light;
-        color: #ffffff;
+        color: $wts-color-secondary-light;
+        //color: #ffffff;
       }
     }
   }

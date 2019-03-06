@@ -109,6 +109,14 @@
     background: $wts-color-highlight-lightgray;
     &.wts-card-top-guides {
       background: $wts-color-highlight-gray;
+      padding: $wts-spacing-inner-primary * 3;
+    }
+    &.wts-card-hot-trips {
+      padding: $wts-spacing-inner-primary * 3;
+    }
+    &.wts-card-hot-places {
+      background: #ffffff;
+      padding: $wts-spacing-inner-primary * 3;
     }
   }
   .wts-itinerary-guide-img {

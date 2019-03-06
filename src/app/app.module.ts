@@ -28,7 +28,8 @@ import {
     // MatChipsModule,
     MatDialogModule, MatDialogRef, MatDividerModule, MatFormFieldModule,
     // MatFormFieldModule,
-    MatIconModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule, MatSnackBarModule,
+    MatIconModule, MatMenuModule, MatNativeDateModule, MatOptionModule, MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule,
+    MatSnackBarModule,
     MatTabsModule,
     // MatToolbarModule
 } from '@angular/material';
@@ -41,6 +42,13 @@ import {ToasterModule, ToasterService} from 'angular2-toaster';
 import {UserService} from './services/user.service';
 import {HttpClient, HttpClientModule, HttpHandler} from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
+import {EventBlockComponent} from './_WIDGETS/wts-event-block/wts_event_block.widget';
+import {ImageGridComponent} from './_WIDGETS/wts-image-grid/wts_image_grid.widget';
+import {ItineraryComponent} from './_WIDGETS/wts-itinerary-block/wts_itinerary_block.widget';
+import {BannerCommonComponent} from './_WIDGETS/wts-banner-common/wts_banner_common.widget';
+import {RatingMainComponent} from './_WIDGETS/wts-rating-main/wts_rating_main.widget';
+import {RatingOverallComponent} from './_WIDGETS/wts-rating-overall/wts_rating_overall.widget';
+import { ItineraryBook } from './agent-itinerary/itinerary-book/itinerary-book.component';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -49,7 +57,8 @@ export function tokenGetter() {
 @NgModule({
     entryComponents: [
         EditProfile,
-        CreateItinerary
+        CreateItinerary,
+        ItineraryBook
     ],
     declarations: [
         AppComponent,
@@ -64,7 +73,14 @@ export function tokenGetter() {
         AgentItineraryComponent,
         CreateItinerary,
         AgentItinerariesComponent,
-        FooterComponent
+        FooterComponent,
+        EventBlockComponent,
+        ImageGridComponent,
+        ItineraryComponent,
+        BannerCommonComponent,
+        RatingMainComponent,
+        RatingOverallComponent,
+        ItineraryBook
     ],
     imports: [
         BrowserModule,
@@ -105,6 +121,8 @@ export function tokenGetter() {
         // MatChipsModule,
         // MatAutocompleteModule,
         // MatFormFieldModule,
+        MatSelectModule,
+        MatOptionModule,
         FlexLayoutModule,
         NouisliderModule,
         ToasterModule

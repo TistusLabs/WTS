@@ -1,0 +1,44 @@
+@import "variables";
+
+$wts-rating-start-size: 35px;
+
+.wts-bnr-rating-main {
+  display: flex;
+  align-items: center;
+  .wts-rating-val {
+    font-size: $wts-size-icon-medium;
+    font-weight: 500;
+    padding: $wts-spacing-inner-primary;
+    align-items: center;
+    //color: #ffffff;
+    color: $wts-color-primary-dark;
+  }
+  .wts-rating-info {
+    .wts-rate-info-service {
+      padding: $wts-spacing-inner-third;
+      font-size: $wts-size-header-2;
+      //color: $wts-color-primary-dark;
+      color: #ffffff;
+    }
+    .wts-rate-info-stars {
+      padding: $wts-spacing-inner-third;
+      .mat-icon {
+        //color: #ffffff70;
+        color: $wts-color-highlight-gray;
+        font-size: $wts-rating-start-size;
+        width: $wts-rating-start-size;
+        height: $wts-rating-start-size;
+        &.rated_full {
+          background: -webkit-linear-gradient(-45deg, $wts-color-primary, $wts-color-secondary);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          color: $wts-color-secondary;
+          //text-shadow: -1px 0 $wts-color-secondary-dark, 0 1px $wts-color-secondary-dark, 1px 0 $wts-color-secondary-dark, 0 -1px $wts-color-secondary-dark;
+        }
+        &:not(last-child) {
+          margin-right: $wts-spacing-inner-secondary;
+        }
+      }
+    }
+  }
+}

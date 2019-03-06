@@ -152,7 +152,7 @@ export class GeneralComponent implements OnInit {
         // authenticated requests
         const user = this.authService.getAuthenticatedUser();
         if (user) {
-            debugger
+            // debugger
         }
     }
 

@@ -129,6 +129,7 @@ export class AgentItinerariesComponent implements OnInit {
             },
             error => {
                 this.toastr.pop('error', 'My Itineraries', 'Failed to load Itineraries');
+                this.loading = false;
             });
     }
 

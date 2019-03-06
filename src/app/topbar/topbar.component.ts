@@ -46,7 +46,7 @@ export class TopbarComponent implements OnInit {
         } else {
             this.userService.getProfile()
                 .subscribe(profile => {
-                    debugger
+                    // debugger
                     if (profile['IsSuccess']) {
                         this.profile = profile['Data'];
                         this.userService.setCurrentUserProfile(this.profile);

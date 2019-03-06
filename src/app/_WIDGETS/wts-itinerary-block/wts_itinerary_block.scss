@@ -1,0 +1,99 @@
+@import "variables";
+@import "helpers";
+
+.wts-itinerary-widget {
+  max-width: $wts-itinerary-widget;
+  width: $wts-itinerary-widget;
+  padding: $wts-spacing-inner-primary;
+  background: #ffffff;
+  border-radius: $wts-border-radius-secondary;
+  -webkit-box-shadow: $wts-shadow-card;
+  -moz-box-shadow: $wts-shadow-card;
+  box-shadow: $wts-shadow-card;
+  margin-bottom: $wts-spacing-inner-primary;
+  .wts-it-wid-backdrop {
+    height: $wts-banner-height;
+    position: relative;
+    @extend %flex-center;
+    overflow: hidden;
+    margin: (-$wts-spacing-inner-primary + 1) (-$wts-spacing-inner-primary + 1) 0 (-$wts-spacing-inner-primary + 1);
+    border-radius: $wts-border-radius-secondary $wts-border-radius-secondary 0 0;
+    img {
+      position: absolute;
+      width: 120%;
+    }
+  }
+  .wts-it-wid-info {
+    position: relative;
+    display: flex;
+    align-items: center;
+    .wts-it-wid-userinfo {
+      width: 80px;
+      padding: ($wts-spacing-inner-secondary * 3) $wts-spacing-inner-secondary 0 $wts-spacing-inner-secondary;
+      justify-content: center;
+      .wts-it-wid-userpic {
+        position: absolute;
+        top: -40px;
+        border-radius: 100%;
+        width: $wts-size-image-xs + 20;
+        height: $wts-size-image-xs + 20;
+        overflow: hidden;
+        @extend %flex-center;
+        img {
+          height: 100%;
+          width: auto;
+          position: absolute;
+        }
+      }
+      .wts-it-wid-username {
+        font-weight: 500;
+      }
+      .wts-it-wid-rate-stars {
+        .mat-icon {
+          color: $wts-color-secondary;
+          font-size: $wts-size-icon-small;
+          width: $wts-size-icon-small;
+          height: $wts-size-icon-small;
+        }
+      }
+    }
+    .wts-it-wid-desc {
+      flex: 1;
+      padding-top: $wts-spacing-inner-secondary;
+      height: 70px;
+      overflow-y: hidden;
+      .wts-it-wid-price {
+        position: absolute;
+        top: -40px;
+        right: -$wts-spacing-inner-primary;
+        color: #ffffff;
+        padding: $wts-spacing-inner-third $wts-spacing-inner-secondary;
+        background: $wts-color-primary;
+        border: solid 1px $wts-color-primary-light;
+        border-radius: $wts-border-radius-secondary 0 0 $wts-border-radius-secondary;
+      }
+      .wts-it-wid-about {
+        .wts-header-3 {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          width: auto;
+        }
+        p {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  &:hover {
+    -webkit-transition: box-shadow $wts-time-animation-primary;
+    -moz-transition: box-shadow $wts-time-animation-primary;
+    -ms-transition: box-shadow $wts-time-animation-primary;
+    -o-transition: box-shadow $wts-time-animation-primary;
+    transition: box-shadow $wts-time-animation-primary;
+    -webkit-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
+    -moz-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
+    box-shadow: 0 5px 10px $wts-color-shadow-secondary;
+    cursor: pointer;
+  }
+}

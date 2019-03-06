@@ -1,0 +1,37 @@
+@import "variables";
+
+$wts-rating-bar-height: 10px;
+
+.wts-rating-overall {
+  .wts-rating-bar-wrap {
+    display: flex;
+    align-items: center;
+    margin-bottom: $wts-spacing-inner-secondary;
+    .wts-rating-bar-title {
+      flex: 1;
+      font-weight: 500;
+    }
+    .wts-rating-bar-bar {
+      flex: 1;
+      height: $wts-rating-bar-height;
+      margin: 0 $wts-spacing-inner-secondary;
+      border-radius: $wts-border-radius-primary;
+      background: $wts-color-highlight-gray;
+      position: relative;
+      .wts-rating-bar-filled {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: $wts-rating-bar-height;
+        //width: 50px;
+        border-radius: $wts-border-radius-primary;
+        z-index: 1;
+        background: linear-gradient(-45deg, $wts-color-primary, $wts-color-secondary);
+      }
+    }
+    .wts-rating-bar-value {
+      width: 50px;
+      font-weight: 500;
+    }
+  }
+}

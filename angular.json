@@ -29,6 +29,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/_core/styles"
+              ]
+            },
             "scripts": ["node_modules/jquery/dist/jquery.min.js"]
           },
           "configurations": {
@@ -85,6 +90,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/_core/styles"
+              ]
+            },
             "scripts": [],
             "assets": [
               "src/favicon.ico",

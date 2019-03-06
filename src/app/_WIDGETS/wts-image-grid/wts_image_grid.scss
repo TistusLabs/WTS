@@ -1,0 +1,22 @@
+@import "variables";
+
+.wts-image-grid {
+  overflow: auto;
+  padding: $wts-spacing-inner-secondary;
+  .wts-image-grid-image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 149px;
+    min-width: 149px;
+    height: 149px;
+    overflow: hidden;
+    float: left;
+    margin: 3px;
+    img {
+      height: 150%;
+      position: absolute;
+    }
+  }
+}

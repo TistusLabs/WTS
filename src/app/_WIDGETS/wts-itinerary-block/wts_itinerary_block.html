@@ -1,0 +1,28 @@
+<div class="wts-itinerary-widget"
+     [fxFlex.gt-xs]="itemFlexSetter"
+     fxFlex.xs="100%">
+    <div class="wts-it-wid-backdrop">
+        <img src="{{ itinerary.backdrop }}" alt="{{ itinerary.title }}">
+    </div>
+    <div class="wts-it-wid-info">
+        <div class="wts-it-wid-userinfo">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <div class="wts-it-wid-userpic">
+                    <img src="{{itinerary.guide.picture}}" alt="{{itinerary.guide.name}}">
+                </div>
+                <div class="wts-it-wid-username">{{ itinerary.guide.name }}</div>
+                <div class="wts-it-wid-rate-stars">
+                    <mat-icon *ngFor="let s of itinerary.guide.stars">star</mat-icon>
+                </div>
+                <div class="wts-it-wid-rate-value">{{ itinerary.guide.rating | number : '1.1' }}</div>
+            </div>
+        </div>
+        <div class="wts-it-wid-desc">
+            <div class="wts-it-wid-price">${{ itinerary.price }}/ per Person</div>
+            <div class="wts-it-wid-about">
+                <h3 class="wts-header-3">{{ itinerary.title }}</h3>
+                <p>{{ itinerary.description.trim() | slice:0:80 }}...</p>
+            </div>
+        </div>
+    </div>
+</div>

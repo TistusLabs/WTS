@@ -1,0 +1,50 @@
+@import "variables";
+
+.wts-banner-common {
+  height: $wts-banner-height + $wts-banner-height/2;
+  position: relative;
+  margin-top: -$wts-topbar-height;
+  //background: linear-gradient($wts-banner-background);
+  background: url("../../../assets/backdrop_3.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  .wts-acc-bnr-img-wrap {
+    position: relative;
+    z-index: 1;
+  }
+  .wts-acc-bnr-img {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border: solid 7px $wts-color-secondary-light;
+    overflow: hidden;
+    border-radius: 100%;
+    -webkit-box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
+    -moz-box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
+    box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
+    margin: 100px auto 0 auto;
+    background: #fff;
+    img {
+      width: 105%;
+    }
+  }
+  .wts-acc-bnr-userinfo {
+    h1 {
+      margin: 0;
+      color: #ffffff;
+      text-shadow: $wts-shadow-text-secondary;
+    }
+  }
+  .wts-acc-bnr-content {
+    padding: ($wts-banner-height - ($wts-topbar-height + 20)) 0 0 0;
+    z-index: 1;
+    //background: radial-gradient(#00000030, #00000020, #00000000, #00000000);
+    .wts-acc-bnr-summary {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+    }
+  }
+}

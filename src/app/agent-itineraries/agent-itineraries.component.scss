@@ -1,60 +1,9 @@
-@import "../../_core/styles/variables";
-@import "../../_core/styles/helpers";
-
-.wts-banner {
-  .wts-acc-bnr-content {
-    .wts-acc-bnr-summary {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .wts-acc-bnr-sum-item {
-        text-align: center;
-        .wts-bnr-rating-block {
-          display: flex;
-          align-items: center;
-          .wts-rating-val {
-            font-size: $wts-size-icon-large;
-            font-weight: 500;
-            //padding: $wts-spacing-inner-primary;
-            margin-right: $wts-spacing-inner-secondary;
-            align-items: center;
-            color: #ffffff;
-          }
-          .wts-rating-info {
-            .wts-rate-info-service {
-              padding: $wts-spacing-inner-third;
-              font-size: $wts-size-header-2;
-              color: $wts-color-primary-dark;
-            }
-            .wts-rate-info-stars {
-              padding: $wts-spacing-inner-third;
-              .mat-icon {
-                color: #ffffff70;
-                &.rated_full {
-                  color: $wts-color-secondary;
-                  text-shadow: -1px 0 $wts-color-secondary-dark, 0 1px $wts-color-secondary-dark, 1px 0 $wts-color-secondary-dark, 0 -1px $wts-color-secondary-dark;
-                }
-                &:not(last-child) {
-                  margin-right: $wts-spacing-inner-secondary;
-                }
-              }
-            }
-          }
-        }
-        .wts-bnr-itm-value {
-          font-size: 2.5pc;
-          color: #ffffff;
-        }
-        .wts-bnr-itm-label {
-          color: $wts-color-primary-dark;
-        }
-      }
-    }
-  }
-}
+@import "variables";
+@import "helpers";
 
 .wts-itineraries {
-  padding: $wts-spacing-inner-primary;
+  background: $wts-color-highlight-lightgray;
+  padding: $wts-spacing-inner-primary * 3;
 }
 
 @media only screen and (max-width: 600px) {

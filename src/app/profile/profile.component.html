@@ -1,52 +1,30 @@
-<div class="wts-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
-    <div class="wts-acc-bnr-img-wrap" fxFlex="20%" fxFlex.sm="100%" fxFlex.xs="100%">
-        <div class="wts-acc-bnr-img">
-            <img src="{{user.image_url !== '' ? user.image_url : './assets/user_male.jpg'}}" alt="">
-        </div>
-    </div>
-    <div class="wts-acc-bnr-content" fxFlex="80%" fxFlex.sm="100%" fxFlex.xs="100%">
-        <div fxLayout="row" fxLayout.sm="row" fxLayout.xs="column">
-            <div class="wts-acc-bnr-userinfo" fxLayout="column" fxLayoutAlign.xs="start center">
-                <div class="wts-space-h-p">
-                    <h1>{{user.fname + ' ' + user.lname}}</h1>
-                </div>
-                <div>
-                    <div class="wts-pill wts-pill-general">
-                        <mat-icon>check</mat-icon> Verified
-                    </div>
-                </div>
-                <div class="wts-space-h-p">
-                    <button type="button" class="wts-button-secondary" (click)="goToItinerary()">View itinerary</button>
-                </div>
-            </div>
-            <div class="wts-acc-bnr-summary">
-                <div class="wts-acc-bnr-sum-item">
-                    <div class="wts-bnr-rating-block">
-                        <div class="wts-rating-val">
-                            0.0
-                        </div>
-                        <div class="wts-rating-info">
-                            <div class="wts-rate-info-service">
-                                Service Rating <b>(00)</b>
-                            </div>
-                            <div class="wts-rate-info-stars">
-                                <mat-icon>star</mat-icon>
-                                <mat-icon>star</mat-icon>
-                                <mat-icon>star</mat-icon>
-                                <mat-icon>star</mat-icon>
-                                <mat-icon>star</mat-icon>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<app-wts-banner-common [user]="user"></app-wts-banner-common>
 <div class="wts-profile">
     <div class="wts-main-wrap" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="center" fxLayoutWrap>
         <div fxFlex="80%" fxLayout="column" fxLayoutGap="20px">
-            <div class="wts-card">
+            <div>
+                <div class="wts-guide-acc-summary" fxLayout="row wrap" fxLayoutGap="20px" fxFlex>
+                    <div class="wts-card wts-guide-sum-item" fxFlex>
+                        <div class="wts-guide-sum-item-label">
+                            <mat-icon>thumb_up_alt_outlined</mat-icon>
+                        </div>
+                        <div class="wts-guide-sum-item-value">0</div>
+                    </div>
+                    <div class="wts-card wts-guide-sum-item" fxFlex>
+                        <div class="wts-guide-sum-item-label">
+                            <mat-icon>photo_album</mat-icon>
+                        </div>
+                        <div class="wts-guide-sum-item-value">0</div>
+                    </div>
+                    <div class="wts-card wts-guide-sum-item" fxFlex>
+                        <div class="wts-guide-sum-item-label">
+                            <mat-icon>star</mat-icon>
+                        </div>
+                        <div class="wts-guide-sum-item-value">0</div>
+                    </div>
+                </div>
+            </div>
+            <div class="wts-card wts-card-sunken wts-space-h-p">
                 <div class="wts-card-header">
                     <div class="wts-card-header-flex">
                         <h2 class="wts-header-2">About</h2>
@@ -54,7 +32,7 @@
                 </div>
                 <div class="wts-card-content">
                     <div class="wts-block">
-                        <h2 class="wts-header-3">{{user.tagline}}</h2>
+                        <h2 class="wts-header-3" style="text-align: center;font-weight: 300;font-size: 20px"><i>"{{user.tagline}}"</i></h2>
                     </div>
                     <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
                         <div class="wts-block" fxFlex="33.3%">
@@ -85,14 +63,26 @@
                     </div>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
-                    <div class="wts-event-block" *ngFor="let event of events">
-                        <div class="wts-event-date">{{event.date}}</div>
-                        <div class="wts-event-description">{{event.description}}</div>
-                        <div class="wts-event-footages" fxLayout="row wrap">
-                            <div class="wts-event-image" *ngFor="let image of event.images">
-                                <img src="{{image}}" alt="event.date">
-                            </div>
+                    <div class="wts-space-h-p">
+                        <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
+                        <div *ngIf="!loading" fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px" class="wts-itineraries-wrap">
+                            <app-wts-itinerary-block (click)="openItinerary(itinerary)" [itinerary]="itinerary" *ngFor="let itinerary of myitineraries"></app-wts-itinerary-block>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wts-card wts-card-sunken wts-space-h-p">
+                <div class="wts-card-header">
+                    <div class="wts-card-header-flex">
+                        <h2 class="wts-header-2">Customer Reviews</h2>
+                    </div>
+                </div>
+                <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign.gt-xs="start center">
+                    <div fxFlex>
+                        <app-wts-rating-main [rating]="3.7" ></app-wts-rating-main>
+                    </div>
+                    <div fxFlex>
+                        <app-wts-rating-overall [summery]="3" [service]="4" [organization]="2" [vfm]="3" [safety]="4"></app-wts-rating-overall>
                     </div>
                 </div>
             </div>

@@ -47,6 +47,7 @@ export class AuthComponent implements OnInit {
                 if (document.getElementById('name')) document.getElementById('name').innerText = "Signed in: " + googleUser.getBasicProfile().getName();
                 // localStorage.setItem('access_token', 'jwt');
                 // _self.authService.broadcastToken();
+                _self.authService.signUpGoogle_init(googleUser);
                 _self.router.navigateByUrl('/account');
             }, function(error) {
                 // alert(JSON.stringify(error, undefined, 2));
@@ -62,6 +63,7 @@ export class AuthComponent implements OnInit {
                 if (response.authResponse) {
                     // localStorage.setItem('access_token', 'jwt');
                     // _self.authService.broadcastToken();
+                    _self.authService.signUpFB_init(response.authResponse.accessToken);
                     _self.router.navigateByUrl('/account');
                 } else {
                     console.log('Facebook login failed');

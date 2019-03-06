@@ -1,0 +1,37 @@
+@import "variables";
+
+.wts-event-block {
+  max-width: $wts-itinerary-widget - 70;
+  padding: $wts-spacing-inner-third;
+  background: #ffffff;
+  border-radius: $wts-border-radius-secondary;
+  -webkit-box-shadow: $wts-shadow-card;
+  -moz-box-shadow: $wts-shadow-card;
+  box-shadow: $wts-shadow-card;
+  -webkit-transition: box-shadow $wts-time-animation-primary;
+  -moz-transition: box-shadow $wts-time-animation-primary;
+  -ms-transition: box-shadow $wts-time-animation-primary;
+  -o-transition: box-shadow $wts-time-animation-primary;
+  transition: box-shadow $wts-time-animation-primary;
+  .wts-event-date {
+    padding: $wts-spacing-inner-secondary;
+    font-weight: 500;
+  }
+  .wts-event-description {
+    padding: $wts-spacing-inner-third $wts-spacing-inner-secondary;
+    color: $wts-color-text-secondary;
+    height: 40px;
+  }
+
+  &:hover {
+    -webkit-transition: box-shadow $wts-time-animation-primary;
+    -moz-transition: box-shadow $wts-time-animation-primary;
+    -ms-transition: box-shadow $wts-time-animation-primary;
+    -o-transition: box-shadow $wts-time-animation-primary;
+    transition: box-shadow $wts-time-animation-primary;
+    -webkit-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
+    -moz-box-shadow: 0 5px 10px $wts-color-shadow-secondary;
+    box-shadow: 0 5px 10px $wts-color-shadow-secondary;
+    cursor: pointer;
+  }
+}

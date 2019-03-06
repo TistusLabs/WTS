@@ -8,6 +8,7 @@ import {any} from 'codelyzer/util/function';
 import {ToasterService} from 'angular2-toaster';
 import {MediaService} from '../services/media.service';
 import {catchError} from 'rxjs/internal/operators';
+import {ItineraryService} from '../services/itinerary.service';
 
 @Component({
     selector: 'app-profile',
@@ -16,6 +17,9 @@ import {catchError} from 'rxjs/internal/operators';
 })
 export class ProfileComponent implements OnInit {
 
+    loading = false;
+    profile = null;
+    myitineraries = [];
     events = [
         {
             date: moment(new Date()).format('MMMM Do YYYY'),
@@ -62,6 +66,7 @@ export class ProfileComponent implements OnInit {
                 private route: ActivatedRoute,
                 private userService: UserService,
                 private toasterService: ToasterService,
+                private itineraryService: ItineraryService,
                 public dialog: MatDialog) {
     }
 
@@ -88,6 +93,7 @@ export class ProfileComponent implements OnInit {
                 });
             // this.openCreateProfile();
         }
+        this.getAllItineraries();
     }
 
     goToItinerary() {
@@ -130,6 +136,28 @@ export class ProfileComponent implements OnInit {
                     });
             }
         });
+    }
+
+    getAllItineraries () {
+        this.loading = true;
+        this.itineraryService.getMyItineraries()
+            .subscribe(res => {
+                    this.myitineraries = res['Data'];
+                    for (const i_ of this.myitineraries) {
+                        i_.guide = {
+                            name : this.profile.fname,
+                            picture : './assets/user_male.jpg',
+                            stars : Array(4).fill(0).map((x, i) => i),
+                            rating : 5.0,
+                            languages: ['English', 'Mandarin']
+                        };
+                    }
+                    this.loading = false;
+                },
+                error => {
+                    this.toasterService.pop('error', 'My Itineraries', 'Failed to load Itineraries');
+                    this.loading = false;
+                });
     }
 
 }
