@@ -40,6 +40,7 @@ import { AgentItinerariesComponent, CreateItinerary } from './agent-itineraries/
 import {NouisliderModule} from 'ng2-nouislider';
 import {ToasterModule, ToasterService} from 'angular2-toaster';
 import {UserService} from './services/user.service';
+import {MessageService} from './services/message.service';
 import {HttpClient, HttpClientModule, HttpHandler} from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import {EventBlockComponent} from './_WIDGETS/wts-event-block/wts_event_block.widget';
@@ -132,6 +133,7 @@ export function tokenGetter() {
         AuthService,
         ToasterService,
         UserService,
+        MessageService,
         { provide: MAT_DIALOG_DATA, useValue: {} },
         { provide: MatDialogRef, useValue: {} }
     ],
