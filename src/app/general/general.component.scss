@@ -85,6 +85,8 @@
       }
     }
     .wts-search-footer {
+      position: relative;
+      height: 20px;
       padding: $wts-spacing-inner-primary;
       background: $wts-color-primary;
       color: #ffffff;

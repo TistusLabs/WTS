@@ -3,6 +3,9 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {Itinerary} from '../../data/itinerary.model';
 import {ToasterService} from 'angular2-toaster';
 import {BookingService} from '../../services/booking.service';
+import {Profile, Profile_} from '../../data/user.model';
+import {UserService} from '../../services/user.service';
+import {AuthService} from '../../services/auth.service';
 
 declare let StripeCheckout;
 @Component({
@@ -13,6 +16,7 @@ declare let StripeCheckout;
 export class ItineraryBook implements OnInit {
 
     itinerary: Itinerary;
+    user: Profile_;
     bookingTabs = [{
         number: 1,
         title: 'Tour Details',
@@ -29,9 +33,13 @@ export class ItineraryBook implements OnInit {
         active: false,
         done: false
     }];
+    bookingDone = false;
+    bookingPaused = false;
     activeBookingStep = 0;
+    form_invalid = false;
     bookingPayload = {
         number_of_travellers: 1,
+        number_of_travellers_prev: 1,
         travellers: [{
             first_name: '',
             last_name: '',
@@ -48,8 +56,9 @@ export class ItineraryBook implements OnInit {
             use_as_billing_address: false,
             create_profile: false
         }],
+        setProfileDisabled : false,
         payment: {
-            payment_type: 'WTX'
+            payment_type: 'card'
         }
     };
     countryCodes = [
@@ -1324,6 +1333,8 @@ export class ItineraryBook implements OnInit {
 
     constructor(public dialogRef: MatDialogRef<ItineraryBook>,
                 private toastr: ToasterService,
+                private userService: UserService,
+                private authService: AuthService,
                 private bookingService: BookingService,
                 @Inject(MAT_DIALOG_DATA) public data: Itinerary
     ) {
@@ -1331,12 +1342,30 @@ export class ItineraryBook implements OnInit {
     }
 
     ngOnInit() {
+        const user = this.authService.getAuthenticatedUser();
+        this.getProfileInfo(user['username']);
+    }
+
+    getProfileInfo (profileID) {
+        this.bookingPaused = true;
+        this.userService.getProfile(profileID)
+            .subscribe(profile => {
+                if (profile['IsSuccess']) {
+                    this.user = profile['Data'];
+                    this.bookingPayload.travellers[0].first_name = this.user.fname;
+                    this.bookingPayload.travellers[0].last_name = this.user.lname;
+                    this.bookingPayload.travellers[0].address_line_1 = this.user.address;
+                    this.bookingPayload.setProfileDisabled = true;
+                    this.bookingPaused = false;
+                }
+            });
     }
 
     onNoClick(): void {
         this.data = null;
         this.bookingPayload = {
             number_of_travellers: 1,
+            number_of_travellers_prev: 1,
             travellers: [{
                 first_name: '',
                 last_name: '',
@@ -1353,11 +1382,16 @@ export class ItineraryBook implements OnInit {
                 use_as_billing_address: false,
                 create_profile: false
             }],
+            setProfileDisabled : false,
             payment: {
-                payment_type: 'WTX'
+                payment_type: 'card'
             }
         };
         this.dialogRef.close();
+    }
+
+    trackByIndex(index: number, obj: any): any {
+        return index;
     }
 
     continueBooking() {
@@ -1375,11 +1409,8 @@ export class ItineraryBook implements OnInit {
         }
 
         if (this.activeBookingStep === this.bookingTabs.length) {
-            const _buddies = this.bookingPayload.travellers.map(traverller => {
-                return traverller.nic;
-            });
             if (this.bookingPayload.payment.payment_type === 'card') {
-                this.StripeInit(this.itinerary, _buddies);
+                this.StripeInit(this.itinerary.title);
             } else if (this.bookingPayload.payment.payment_type === 'WTX') {
 
             }
@@ -1399,7 +1430,7 @@ export class ItineraryBook implements OnInit {
         }
     }
 
-    StripeInit(itinerary, buddies) {
+    StripeInit(itinerary) {
         this.checkingOut = true;
         const _self = this;
         const handler = StripeCheckout.configure({
@@ -1407,8 +1438,7 @@ export class ItineraryBook implements OnInit {
             image: 'https://wtsingapore.com/assets/worldtrip_singapore.png',
             locale: 'auto',
             token: function(token) {
-                _self.onNoClick();
-                _self.checkOutBooking(itinerary, buddies);
+                _self.bookingDone = true;
             }
         });
 
@@ -1426,23 +1456,56 @@ export class ItineraryBook implements OnInit {
         });
     }
 
-    checkOutBooking (itinerary, buddies) {
+    submitTravellerInfo () {
+        this.checkOutBooking(this.itinerary);
+    }
+
+    checkOutBooking (itinerary) {
+        this.bookingPaused = true;
+        const _buddies = this.bookingPayload.travellers.map(traveller => {
+            if (traveller.first_name === '') {
+                this.form_invalid = true;
+                return;
+            } else {
+                return traveller.first_name;
+            }
+        });
+
+        if (this.form_invalid) {
+            this.bookingPaused = false;
+            this.toastr.pop('error', 'Empty Traveller details', 'You have unfilled traveller details. Please go through the form and fill all the traveller details.');
+            return -1;
+        }
         const _payload = {
             "itinerary_id": itinerary.itinerary_id,
-            "buddylist" : buddies,
+            "buddylist" : _buddies,
             "datetime" : "",
             "tourstartdatetime" : itinerary.from,
             "tourenddatetime" : itinerary.to
         };
 
         this.bookingService.createBooking(_payload)
-            .subscribe(res => {
-                this.toastr.pop('success', 'Booking Success', `Your booking of  ${itinerary.title} is successful.`);
-                this.checkingOut = false;
-            });
+            .subscribe(
+                res => {
+                    this.continueBooking();
+                    this.bookingPaused = false;
+                },
+                err => {
+                    this.toastr.pop('error', 'Booking Failed', `Failed to book  ${itinerary.title}. Please try again later.`);
+                    this.bookingPaused = false;
+                },
+                () => {
+                });
     }
 
-    handleNoOfUsers () {
+    downloadBookingReceipt() {
+
+    }
+    printBookingReceipt() {
+        window.print();
+    }
+
+    handleNoOfUsers (e) {
         const _traveler = {
             first_name: '',
             last_name: '',
@@ -1450,21 +1513,25 @@ export class ItineraryBook implements OnInit {
             phone_prefix: '',
             phone_number: null,
             email: '',
-            country: '',
-            postal_code: '',
-            address_line_1: '',
-            address_line_2: '',
-            address_line_3: '',
+            country: this.bookingPayload.travellers[0].country,
+            postal_code: this.bookingPayload.travellers[0].postal_code,
+            address_line_1: this.bookingPayload.travellers[0].address_line_1,
+            address_line_2: this.bookingPayload.travellers[0].address_line_2,
+            address_line_3: this.bookingPayload.travellers[0].address_line_3,
             main_traveller_address: true,
             use_as_billing_address: false,
             create_profile: false
         };
 
-        this.bookingPayload.travellers = [];
-        this.bookingPayload.travellers.push(_traveler);
-        for (let i = 1; i < this.bookingPayload.number_of_travellers; i++) {
+        if (this.bookingPayload.number_of_travellers > this.bookingPayload.number_of_travellers_prev) {
             this.bookingPayload.travellers.push(_traveler);
+        } else {
+            if (this.bookingPayload.travellers.length !== 1) {
+                this.bookingPayload.travellers.splice((this.bookingPayload.travellers.length - 1), 1);
+            }
         }
+
+        this.bookingPayload.number_of_travellers_prev = this.bookingPayload.number_of_travellers;
     }
 
 }

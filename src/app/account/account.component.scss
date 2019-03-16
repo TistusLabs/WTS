@@ -35,6 +35,27 @@
 
     }
   }
+  .-body {
+    padding: $wts-spacing-inner-primary 0;
+    .wts-booking-block {
+      position: relative;
+      padding: $wts-spacing-inner-secondary $wts-spacing-inner-primary $wts-spacing-inner-secondary $wts-spacing-inner-secondary;
+      background: $wts-color-highlight-lightgray;
+      .mat-icon {
+        position: absolute;
+        top: -5px;
+        left: 5px;
+        width: 40px;
+        height: 40px;
+        font-size: 40px;
+        color: $wts-color-primary-light;
+      }
+      h4 {
+        margin-top: 0;
+        padding-left: $wts-spacing-inner-primary * 3;
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: 600px) {

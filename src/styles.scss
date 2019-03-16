@@ -277,6 +277,14 @@ input[type="checkbox"]:not(:checked)+label:after {
 input[type="checkbox"]:checked+label:after {
   opacity: 1;
 }
+input[type="checkbox"]:disabled+label,
+input[type="radio"]:disabled+label {
+  color: $wts-color-highlight-darkgray;
+  &:before{
+    border-color: $wts-color-highlight-darkgray;
+  }
+}
+
 
 /* --------------------------------------------- */
 .wts-card {
@@ -745,5 +753,15 @@ button {
         }
       }
     }
+  }
+}
+
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #bookingReceipt {
+    visibility: visible!important;
   }
 }

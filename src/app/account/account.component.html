@@ -30,13 +30,13 @@
                         </div>
                     </div>
                     <div class="wts-textbox wts-textbox-clickable"
-                         (click)="activateSummaryTab('upcoming')"
+                         (click)="activateSummaryTab('bookings')"
                          [ngClass]="{'wts-textbox-horizontal' : summaryExpanded, 'wts-textbox-vertical' : !summaryExpanded, 'wts-sumtab-active' : activeSummaryTab == 'upcoming'}" fxFlex="33.3%">
                         <div class="wts-textbox-icon" [ngClass]="{'wts-txtbx-icon-medium' : summaryExpanded, 'wts-txtbx-icon-large' : !summaryExpanded}">
-                            <mat-icon>notifications</mat-icon>
+                            <mat-icon>book</mat-icon>
                         </div>
                         <div class="wts-textbox-text">
-                            Upcoming
+                            My Bookings
                         </div>
                     </div>
                 </div>
@@ -46,6 +46,23 @@
                         <!--<button class="wts-button">View all</button>-->
                     <!--</div>-->
                 <!--</div>-->
+
+                <div class="-body">
+                    <div *ngIf="activeSummaryTab === 'bookings'">
+                        <mat-spinner *ngIf="loading" diameter="30"></mat-spinner>
+                        <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let book of myBookings" style="background: #f5f5f5" class="wts-booking-block">
+                            <mat-icon>bookmark</mat-icon>
+                            <div fxFlex>
+                                <h4>{{book.userId}}</h4>
+                                <div>From : {{book.tourstartdatetime}}</div>
+                                <div>To : {{book.tourenddatetime}}</div>
+                            </div>
+                            <div>
+                                <button class="wts-button wts-button-primary">Pay Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="wts-card">
                 <div class="wts-card-header">

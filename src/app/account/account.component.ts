@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import {Profile_} from '../data/user.model';
 import { AuthService } from '../services/auth.service';
+import {BookingService} from '../services/booking.service';
+import {ToasterService} from 'angular2-toaster';
 
 @Component({
     selector: 'app-account',
@@ -13,10 +15,14 @@ export class AccountComponent implements OnInit {
     summaryExpanded = false;
     activeSummaryTab = null;
     profile: Profile_ = null;
+    myBookings = [];
+    loading = false;
 
     constructor(public router: Router,
         private userService: UserService,
-        private authService: AuthService
+        private authService: AuthService,
+        private bookingService: BookingService,
+        private toastrService: ToasterService
     ) { }
 
     ngOnInit() {
@@ -41,10 +47,31 @@ export class AccountComponent implements OnInit {
     activateSummaryTab(tab) {
         this.activeSummaryTab = tab;
         this.toggleSummary(true);
+
+        if (this.activeSummaryTab === 'bookings') this.myBookingsTab();
     }
 
     toggleSummary(s) {
         this.summaryExpanded = s;
+    }
+
+    myBookingsTab () {
+        this.loading = true;
+        this.bookingService.getAllBooking()
+            .subscribe(
+                res => {
+                    if (res['IsSuccess']) {
+                        this.loading = false;
+                        this.myBookings = res['Data'];
+                    } else {
+                        this.loading = false;
+                        this.toastrService.pop('error', 'My Bookings Failed', 'Failed to load My Bookings. Please try again later.');
+                    }
+                },
+                erres => {
+                    this.loading = false;
+                    this.toastrService.pop('error', 'My Bookings Failed', 'Failed to load My Bookings. Please try again later.');
+                });
     }
 
     goToProfile() {

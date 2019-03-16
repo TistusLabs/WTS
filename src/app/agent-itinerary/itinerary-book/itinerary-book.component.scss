@@ -92,4 +92,28 @@
       }
     }
   }
+  .wts-booking-done {
+    .-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: $wts-spacing-inner-primary + 10;
+      .mat-icon {
+        font-size: 50px;
+        width: 50px;
+        height: 50px;
+        margin-right: 30px;
+        color: limegreen;
+      }
+      h1 {
+        margin: 0;
+      }
+    }
+    .-body {
+      p {
+        text-align: center;
+        color: $wts-color-text-secondary;
+      }
+    }
+  }
 }

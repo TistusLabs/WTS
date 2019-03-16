@@ -156,6 +156,10 @@ export class GeneralComponent implements OnInit {
         }
     }
 
+    searchNow () {
+        window.scrollTo(0, 700);
+    }
+
     getAllItineraries() {
         //debugger
         this.loading = true;

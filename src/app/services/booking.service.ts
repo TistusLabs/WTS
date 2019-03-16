@@ -19,8 +19,8 @@ export class BookingService {
     ) { }
 
     private urls = {
-        'get_bookings' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary/all',
-        'create_booking' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary'
+        'get_bookings' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/booking',
+        'create_booking' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/booking'
     };
     private idToken = this.authService.getIdToken();
     private requestParams;
@@ -42,8 +42,10 @@ export class BookingService {
     };
 
     createBooking(payload) {
+        const idToken = this.authService.getIdToken();
         const headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': idToken
         };
 
         this.requestOptions = {
@@ -51,6 +53,23 @@ export class BookingService {
         };
 
         return this.http.post<Object>(this.urls.create_booking, payload, this.requestOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+    getAllBooking() {
+        const idToken = this.authService.getIdToken();
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': idToken
+        };
+
+        this.requestOptions = {
+            headers: new HttpHeaders(headers)
+        };
+
+        return this.http.get<Object>(this.urls.get_bookings, this.requestOptions)
             .pipe(
                 catchError(this.handleError)
             );
