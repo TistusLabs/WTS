@@ -15,12 +15,9 @@
             <!--</div>-->
         <!--</div>-->
         <div class="wts-banner-text" fxFlex fxShow.xs="false">
-            <h1>World Trip Singapore</h1>
+            <h3>Live Like Local</h3>
             <p>
-                Bridging Cultures - One eXperience at a Time. <br>
-                Building an Experiential Social Traveling Platform.<br>
-                Connecting travellers and tour guides to create<br>
-                Connecting travellers and tour guides to create unforgettable travel experiences/a brand-new modal of travel.
+                We connect travellers and locals directly for an unforgettable experience
             </p>
         </div>
         <div class="wts-search-dates">
@@ -42,7 +39,7 @@
     </div>
 </div>
 <div class="wts-general">
-    <div class="wts-card wts-card-sunken wts-card-top-guides">
+    <!-- <div class="wts-card wts-card-sunken wts-card-top-guides">
         <div class="wts-card-header">
             <div class="wts-card-header-flex">
                 <h2 class="wts-header-2">Top Guides</h2>
@@ -56,7 +53,7 @@
                 <span>{{ guide.fname }}</span>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="wts-card wts-card-sunken wts-card-hot-trips">
         <div class="wts-card-header">
             <div class="wts-card-header-flex">
@@ -68,7 +65,7 @@
             <app-wts-itinerary-block (click)="openItinerary(itinerary)" [itinerary]="itinerary" *ngFor="let itinerary of (itineraries ? itineraries.slice(0, 10) : [])"></app-wts-itinerary-block>
         </div>
     </div>
-    <div class="wts-card wts-card-sunken wts-card-hot-places">
+    <!-- <div class="wts-card wts-card-sunken wts-card-hot-places">
         <div class="wts-card-header">
             <div class="wts-card-header-flex">
                 <h2 class="wts-header-2">Hot Places</h2>
@@ -80,5 +77,5 @@
                 <img src="{{ loc.picture }}">
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
