@@ -1,23 +1,26 @@
-import { Component, OnInit, Inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {Profile, Profile_, User} from '../data/user.model';
-import {UserService} from '../services/user.service';
-import {any} from 'codelyzer/util/function';
-import {ToasterService} from 'angular2-toaster';
-import {MediaService} from '../services/media.service';
-import {catchError} from 'rxjs/internal/operators';
-import {ItineraryService} from '../services/itinerary.service';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Profile, Profile_, User } from '../data/user.model';
+import { UserService } from '../services/user.service';
+import { any } from 'codelyzer/util/function';
+import { ToasterService } from 'angular2-toaster';
+import { MediaService } from '../services/media.service';
+import { catchError } from 'rxjs/internal/operators';
+import { ItineraryService } from '../services/itinerary.service';
 import { AuthService } from '../services/auth.service';
+import { MessageService } from '../services/message.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
+    private subscription: Subscription;
     loading = false;
     profile = null;
     myitineraries = [];
@@ -72,18 +75,22 @@ export class ProfileComponent implements OnInit {
         private toasterService: ToasterService,
         private itineraryService: ItineraryService,
         private ref: ChangeDetectorRef,
-        public dialog: MatDialog) {
+        public dialog: MatDialog,
+        private msgService: MessageService
+    ) {
+        
     }
 
-    getProfileInfo (profileID){
+    getProfileInfo(profileID) {
         this.userService.getProfile(profileID)
-        .subscribe(profile => {
-            if (profile['IsSuccess']) {
-                this.user = profile['Data'];
-            } else {
-                this.openCreateProfile(false);
-            }
-        });
+            .subscribe(profile => {
+                if (profile['IsSuccess']) {
+                    this.user = profile['Data'];
+                    this.msgService.broadcast('profileObj', this.user);
+                } else {
+                    this.openCreateProfile(false);
+                }
+            });
     }
 
     ngOnInit() {
@@ -100,8 +107,10 @@ export class ProfileComponent implements OnInit {
         } else {
             this.getProfileInfo(this.profileID);
         }
-        this.ref.detectChanges();
-        this.getAllItineraries();
+
+
+        // this.ref.detectChanges();
+        // this.getAllItineraries();
         // const data = this.userService.getHomeUser();
         // if (data) {
         //     this.user.fname = data['fname'];
@@ -123,6 +132,10 @@ export class ProfileComponent implements OnInit {
         //         });
         //     // this.openCreateProfile();
         // }
+    }
+
+    ngOnDestroy() {
+        //unsubscribe();
     }
 
     goToItinerary() {
@@ -170,22 +183,22 @@ export class ProfileComponent implements OnInit {
         this.ref.detectChanges();
     }
 
-    getAllItineraries () {
+    getAllItineraries() {
         this.loading = true;
         this.itineraryService.getMyItineraries()
             .subscribe(res => {
-                    this.myitineraries = res['Data'];
-                    for (const i_ of this.myitineraries) {
-                        i_.guide = {
-                            name : this.profile.fname,
-                            picture : './assets/user_male.jpg',
-                            stars : Array(4).fill(0).map((x, i) => i),
-                            rating : 5.0,
-                            languages: ['English', 'Mandarin']
-                        };
-                    }
-                    this.loading = false;
-                },
+                this.myitineraries = res['Data'];
+                for (const i_ of this.myitineraries) {
+                    i_.guide = {
+                        name: this.profile.fname,
+                        picture: './assets/user_male.jpg',
+                        stars: Array(4).fill(0).map((x, i) => i),
+                        rating: 5.0,
+                        languages: ['English', 'Mandarin']
+                    };
+                }
+                this.loading = false;
+            },
                 error => {
                     this.toasterService.pop('error', 'My Itineraries', 'Failed to load Itineraries');
                     this.loading = false;
@@ -205,6 +218,7 @@ export class EditProfile implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: Profile_,
         private toasterService: ToasterService,
         private mediaService: MediaService,
+        private msgService: MessageService,
         private userService: UserService) {
     }
 
@@ -281,6 +295,8 @@ export class EditProfile implements OnInit {
                     this.onNoClick(true);
                     this.loading = false;
                     this.toasterService.pop('success', 'Profile created', 'You have successfully created your profile');
+                    this.msgService.broadcast('profileObj', res['Data']);
+                    this.userService.setCurrentUserProfile(res['Data']);
                 } else {
                     this.loading = false;
                     this.toasterService.pop('error', 'Profile creation', 'Failed to create profile. Please try again later.');
