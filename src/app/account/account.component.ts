@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
-import {Profile_} from '../data/user.model';
+import { Profile_ } from '../data/user.model';
 import { AuthService } from '../services/auth.service';
-import {BookingService} from '../services/booking.service';
-import {ToasterService} from 'angular2-toaster';
+import { BookingService } from '../services/booking.service';
+import { ToasterService } from 'angular2-toaster';
+import { MessageService } from '../services/message.service';
 
 @Component({
     selector: 'app-account',
@@ -14,15 +15,17 @@ import {ToasterService} from 'angular2-toaster';
 export class AccountComponent implements OnInit {
     summaryExpanded = false;
     activeSummaryTab = null;
-    profile: Profile_ = null;
+    user: Profile_ = null;
     myBookings = [];
     loading = false;
+    profileID = "";
 
     constructor(public router: Router,
         private userService: UserService,
         private authService: AuthService,
         private bookingService: BookingService,
-        private toastrService: ToasterService
+        private toastrService: ToasterService,
+        private msgService: MessageService
     ) { }
 
     ngOnInit() {
@@ -30,18 +33,24 @@ export class AccountComponent implements OnInit {
     }
 
     loadInformation() {
-        this.profile = this.userService.getCurrentUserProfile();
-        if (this.profile == null) {
+        debugger
+        const profile = this.userService.getCurrentUserProfile();
+        if (profile == null) {
             const user = this.authService.getAuthenticatedUser();
-            this.userService.getProfile(user['username'])
-                .subscribe(profile => {
-                    // debugger
-                    if (profile['IsSuccess']) {
-                        this.profile = profile['Data'];
-                       // this.userService.setCurrentUserProfile(this.profile);
-                    }
-                });
+            this.getProfileInfo(user['username']);
+        } else {
+            this.user = profile;
         }
+    }
+
+    getProfileInfo(profileID) {
+        this.userService.getProfile(profileID)
+            .subscribe(profile => {
+                if (profile['IsSuccess']) {
+                    this.user = profile['Data'];
+                    this.msgService.broadcast('profileObj', this.user);
+                }
+            });
     }
 
     activateSummaryTab(tab) {
@@ -55,7 +64,7 @@ export class AccountComponent implements OnInit {
         this.summaryExpanded = s;
     }
 
-    myBookingsTab () {
+    myBookingsTab() {
         this.loading = true;
         this.bookingService.getAllBooking()
             .subscribe(

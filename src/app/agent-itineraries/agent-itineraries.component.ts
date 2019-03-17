@@ -1,12 +1,14 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import {Router} from '@angular/router';
-import {ItineraryService} from '../services/itinerary.service';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Router } from '@angular/router';
+import { ItineraryService } from '../services/itinerary.service';
 import { UserService } from '../services/user.service';
-import {Itinerary} from '../data/itinerary.model';
-import {ToasterService} from 'angular2-toaster';
-import {MediaService} from '../services/media.service';
+import { Itinerary } from '../data/itinerary.model';
+import { ToasterService } from 'angular2-toaster';
+import { MediaService } from '../services/media.service';
 import { AuthService } from '../services/auth.service';
+import { Profile_ } from '../data/user.model';
+import { MessageService } from '../services/message.service';
 declare let google;
 
 @Component({
@@ -32,13 +34,13 @@ export class AgentItinerariesComponent implements OnInit {
         is_public: false
     };
     itineraries = [{
-        id : 'itinerary#1',
-        backdrop : './assets/event/singapore.jpg.jpg',
-        title : 'Historical Night Tour',
-        description : 'Come with me on a night tour and I will immerse you in the history and current affairs of Singapore! I am a qualified Singapore tour guide with a special interest in culture',
+        id: 'itinerary#1',
+        backdrop: './assets/event/singapore.jpg.jpg',
+        title: 'Historical Night Tour',
+        description: 'Come with me on a night tour and I will immerse you in the history and current affairs of Singapore! I am a qualified Singapore tour guide with a special interest in culture',
         activities: 'Join me on a journey through Singapore from past to present. Explore the historic Civic District before',
         conditions: 'Guests aged 6 and up can attend',
-        price : 129,
+        price: 129,
         services: [
             'Meal', 'Drinks', 'Ticket'
         ],
@@ -46,21 +48,21 @@ export class AgentItinerariesComponent implements OnInit {
         from: '4th January 2019',
         to: '10th January 2019',
         notes: 'You must be able to walk 6km to join this tour',
-        guide : {
-            name : 'Amelia',
-            picture : './assets/user_female.jpg',
-            stars : Array(3).fill(0).map((x, i) => i),
-            rating : 5.0,
+        guide: {
+            name: 'Amelia',
+            picture: './assets/user_female.jpg',
+            stars: Array(3).fill(0).map((x, i) => i),
+            rating: 5.0,
             languages: ['English', 'Mandarin']
         }
     }, {
-        id : 'itinerary#2',
-        backdrop : './assets/event/hokkien-mee-.jpg',
-        title : 'Singapore Shopping Trip',
-        description : 'Come with me on a night tour and I will immerse you in the history and current affairs of Singapore! I am a qualified Singapore tour guide with a special interest in culture',
+        id: 'itinerary#2',
+        backdrop: './assets/event/hokkien-mee-.jpg',
+        title: 'Singapore Shopping Trip',
+        description: 'Come with me on a night tour and I will immerse you in the history and current affairs of Singapore! I am a qualified Singapore tour guide with a special interest in culture',
         activities: 'Join me on a journey through Singapore from past to present. Explore the historic Civic District before',
         conditions: 'Guests aged 6 and up can attend',
-        price : 59,
+        price: 59,
         services: [
             'Meal', 'Drinks', 'Ticket'
         ],
@@ -68,11 +70,11 @@ export class AgentItinerariesComponent implements OnInit {
         from: '4th January 2019',
         to: '10th January 2019',
         notes: 'You must be able to walk 6km to join this tour',
-        guide : {
-            name : 'Austin',
-            picture : './assets/user_male.jpg',
-            stars : Array(4).fill(0).map((x, i) => i),
-            rating : 5.0,
+        guide: {
+            name: 'Austin',
+            picture: './assets/user_male.jpg',
+            stars: Array(4).fill(0).map((x, i) => i),
+            rating: 5.0,
             languages: ['English', 'Mandarin']
         }
     }];
@@ -81,6 +83,7 @@ export class AgentItinerariesComponent implements OnInit {
     loading = false;
     profile = null;
     itemFlexSetter = 31;
+    user: Profile_ = null;
 
     constructor(
         public dialog: MatDialog,
@@ -88,7 +91,8 @@ export class AgentItinerariesComponent implements OnInit {
         private itineraryService: ItineraryService,
         public toastr: ToasterService,
         private userService: UserService,
-        private authService: AuthService
+        private authService: AuthService,
+        private msgService: MessageService
     ) {
     }
 
@@ -97,43 +101,47 @@ export class AgentItinerariesComponent implements OnInit {
     }
 
     loadInformation() {
-        this.profile = this.userService.getCurrentUserProfile();
-        if (this.profile == null) {
+        const profile = this.userService.getCurrentUserProfile();
+        if (profile == null) {
             const user = this.authService.getAuthenticatedUser();
-            this.userService.getProfile(user['username'])
-                .subscribe(profile => {
-                    // debugger
-                    if (profile['IsSuccess']) {
-                        this.profile = profile['Data'];
-                        //this.userService.setCurrentUserProfile(this.profile);
-                    }
-                    this.getAllItineraries();
-                });
+            this.getProfileInfo(user['username']);
         } else {
-            this.getAllItineraries();
+            this.user = profile;
         }
+        this.profile = this.userService.getCurrentUserProfile();
+        this.getAllItineraries();
     }
 
-    getAllItineraries () {
+    getProfileInfo(profileID) {
+        this.userService.getProfile(profileID)
+            .subscribe(profile => {
+                if (profile['IsSuccess']) {
+                    this.user = profile['Data'];
+                    this.msgService.broadcast('profileObj', this.user);
+                }
+            });
+    }
+
+    getAllItineraries() {
         this.loading = true;
         this.itineraryService.getMyItineraries()
             .subscribe(res => {
                 this.myitineraries = res['Data'];
                 for (const i_ of this.myitineraries) {
                     i_.guide = {
-                        name : this.profile.fname,
-                        picture : './assets/user_male.jpg',
-                        stars : Array(4).fill(0).map((x, i) => i),
-                        rating : 5.0,
+                        name: this.profile.fname,
+                        picture: './assets/user_male.jpg',
+                        stars: Array(4).fill(0).map((x, i) => i),
+                        rating: 5.0,
                         languages: ['English', 'Mandarin']
                     };
                 }
                 this.loading = false;
             },
-            error => {
-                this.toastr.pop('error', 'My Itineraries', 'Failed to load Itineraries');
-                this.loading = false;
-            });
+                error => {
+                    this.toastr.pop('error', 'My Itineraries', 'Failed to load Itineraries');
+                    this.loading = false;
+                });
     }
 
     createItinerary(): void {
@@ -212,7 +220,7 @@ export class CreateItinerary implements OnInit {
         this.data['services'].splice(i, 1);
     }
 
-    handleProfileImage (files: FileList) {
+    handleProfileImage(files: FileList) {
         const reader = new FileReader();
         const _self = this;
         this.imageFile = files.item(0);
@@ -240,7 +248,7 @@ export class CreateItinerary implements OnInit {
         }
     }
 
-    createItinerary (payload) {
+    createItinerary(payload) {
         this.itineraryService.createItinerary(payload)
             .subscribe(res => {
                 if (res['IsSuccess']) {
