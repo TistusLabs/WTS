@@ -49,7 +49,7 @@ export class TopbarComponent implements OnInit {
 
     subscribe() {
         this.subscription = this.msgService.subscribe('profileObj', (payload) => {
-            debugger
+            //debugger
             this.user = payload;
             this.currentUser.logged = true;
         });
@@ -57,7 +57,7 @@ export class TopbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger
+        //debugger
         const user = this.authService.getAuthenticatedUser();
         if (user) {
             this.currentUser.logged = true;
