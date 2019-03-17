@@ -191,7 +191,8 @@ export class AuthService {
                 that.authDidFail.next(false);
                 that.authDidSuccess.next(true);
                 that.authIsLoading.next(false);
-                that.router.navigate(['/profile']);
+                //that.router.navigate(['/profile']);
+                that.router.navigate(['/']);
                 console.log(result);
             },
             onFailure(err) {
