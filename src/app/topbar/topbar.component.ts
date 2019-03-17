@@ -18,7 +18,7 @@ export class TopbarComponent implements OnInit {
     private subscription: Subscription;
 
     currentUser = {
-        logged : false
+        logged: false
     }
     user: Profile_ = {
         fname: '',
@@ -73,7 +73,9 @@ export class TopbarComponent implements OnInit {
         const profile = this.userService.getCurrentUserProfile();
         if (profile == null) {
             const user = this.authService.getAuthenticatedUser();
-            this.getProfileInfo(user['username']);
+            if (user != null) {
+                this.getProfileInfo(user['username']);
+            }
         } else {
             this.user = profile;
         }

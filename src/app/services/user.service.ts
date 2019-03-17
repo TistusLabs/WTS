@@ -71,10 +71,8 @@ export class UserService {
 
     getProfilesBulk(list) {
         //debugger
-        const idToken = this.authService.getIdToken();
         const headers = {
-            'Content-Type': 'application/json',
-            'Authorization': idToken
+            'Content-Type': 'application/json'
         };
 
         this.requestOptions = {
