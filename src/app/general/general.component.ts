@@ -4,6 +4,8 @@ import { AuthService } from '../services/auth.service';
 import { ItineraryService } from '../services/itinerary.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Profile_ } from '../data/user.model';
+import { MessageService } from '../services/message.service';
 
 @Component({
     selector: 'app-general',
@@ -11,6 +13,19 @@ import { UserService } from '../services/user.service';
     styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent implements OnInit {
+
+    user: Profile_ = {
+        fname: '',
+        tagline: '',
+        profile_type: 'guest',
+        interests: [],
+        lifestyle: [],
+        userId: '',
+        address: '',
+        lname: '',
+        image_url: 'https://www.tripwishlist.com/Media/BLPhotos/dummy_user.png'
+    };
+    
     pictures = [{
         'title': 'picture',
         'img': 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/8V46UZCS0V.jpg'
@@ -138,7 +153,8 @@ export class GeneralComponent implements OnInit {
         private authService: AuthService,
         private userService: UserService,
         private router: Router,
-        private itineraryService: ItineraryService
+        private itineraryService: ItineraryService,
+        private msgService: MessageService
     ) {
     }
     loading = false;
@@ -154,6 +170,31 @@ export class GeneralComponent implements OnInit {
         if (user) {
             // debugger
         }
+
+        this.tryGetProfile();
+    }
+
+    tryGetProfile() {
+        const profile = this.userService.getCurrentUserProfile();
+        if (profile == null) {
+            const user = this.authService.getAuthenticatedUser();
+            if (user != null) {
+                this.getProfileInfo(user['username']);
+            }
+        } else {
+            this.user = profile;
+        }
+    }
+
+    getProfileInfo(profileID) {
+        this.userService.getProfile(profileID)
+            .subscribe(profile => {
+                if (profile['IsSuccess']) {
+                    this.user = profile['Data'];
+                    this.msgService.broadcast('profileObj', this.user);
+                    this.userService.setCurrentUserProfile(this.user);
+                }
+            });
     }
 
     searchNow() {
@@ -199,7 +240,7 @@ export class GeneralComponent implements OnInit {
     setProfilesForItineries(list, itineraries) {
         this.userService.getProfilesBulk(list)
             .subscribe(res => {
-                debugger
+                //debugger
                 this.profiles = res['Data'];
                 for (const itin of itineraries) {
                     itin.guide = this.getProfileForID(itin.userId);

@@ -50,6 +50,7 @@ import {BannerCommonComponent} from './_WIDGETS/wts-banner-common/wts_banner_com
 import {RatingMainComponent} from './_WIDGETS/wts-rating-main/wts_rating_main.widget';
 import {RatingOverallComponent} from './_WIDGETS/wts-rating-overall/wts_rating_overall.widget';
 import { ItineraryBook } from './agent-itinerary/itinerary-book/itinerary-book.component';
+import { BodyComponent } from './body/body.component';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -63,6 +64,7 @@ export function tokenGetter() {
     ],
     declarations: [
         AppComponent,
+        BodyComponent,
         AuthComponent,
         TopbarComponent,
         AgentDashboardComponent,

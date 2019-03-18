@@ -70,6 +70,10 @@ export class TopbarComponent implements OnInit {
                 }
             });
 
+        this.tryGetProfile();
+    }
+
+    tryGetProfile() {
         const profile = this.userService.getCurrentUserProfile();
         if (profile == null) {
             const user = this.authService.getAuthenticatedUser();
@@ -79,21 +83,6 @@ export class TopbarComponent implements OnInit {
         } else {
             this.user = profile;
         }
-
-        // const data = this.userService.getCurrentUserProfile();
-        // if (data) {
-        //     this.profile = data;
-        // } else {
-        //     const user = this.authServide.getAuthenticatedUser();
-        //     this.userService.getProfile(user['username'])
-        //         .subscribe(profile => {
-        //             // debugger
-        //             if (profile['IsSuccess']) {
-        //                 this.profile = profile['Data'];
-        //                 //this.userService.setCurrentUserProfile(this.profile);
-        //             }
-        //         });
-        // }
     }
 
     getProfileInfo(profileID) {

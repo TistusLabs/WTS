@@ -1,12 +1,12 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
-import {GeneralComponent} from './general/general.component';
-import {AuthComponent} from './auth/auth.component';
-import {AccountComponent} from './account/account.component';
-import {ProfileComponent} from './profile/profile.component';
-import {AgentItineraryComponent} from './agent-itinerary/agent-itinerary.component';
-import {AuthGuard} from './auth.guard';
-import {AgentItinerariesComponent} from './agent-itineraries/agent-itineraries.component';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { GeneralComponent } from './general/general.component';
+import { AuthComponent } from './auth/auth.component';
+import { AccountComponent } from './account/account.component';
+import { ProfileComponent } from './profile/profile.component';
+import { AgentItineraryComponent } from './agent-itinerary/agent-itinerary.component';
+import { AuthGuard } from './auth.guard';
+import { AgentItinerariesComponent } from './agent-itineraries/agent-itineraries.component';
 
 const routes: Routes = [
     {
@@ -17,8 +17,17 @@ const routes: Routes = [
         path: 'search',
         component: GeneralComponent
     }, {
-        path: 'auth',
-        component: AuthComponent
+        path: 'auth/signin',
+        component: AuthComponent,
+        data: {
+            signin: true
+        }
+    }, {
+        path: 'auth/signup',
+        component: AuthComponent,
+        data: {
+            signin: false
+        }
     }, {
         path: 'account',
         component: AccountComponent,
@@ -26,7 +35,7 @@ const routes: Routes = [
     }, {
         path: 'profile',
         component: ProfileComponent
-    },{
+    }, {
         path: 'profile/:id',
         component: ProfileComponent
     }, {
@@ -37,7 +46,7 @@ const routes: Routes = [
         path: 'itinerary/:id',
         component: AgentItineraryComponent,
         data: {
-          itinerary : null
+            itinerary: null
         }
     }
 ];

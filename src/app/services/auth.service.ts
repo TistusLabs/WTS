@@ -234,7 +234,7 @@ export class AuthService {
     logout() {
         this.getAuthenticatedUser().signOut();
         this.authStatusChanged.next(false);
-        this.router.navigateByUrl('/auth');
+        this.router.navigateByUrl('/auth/signin');
     }
 
     isAuthenticated(): Observable<boolean> {

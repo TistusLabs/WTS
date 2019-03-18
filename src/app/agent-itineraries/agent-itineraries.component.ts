@@ -130,7 +130,7 @@ export class AgentItinerariesComponent implements OnInit {
                 for (const i_ of this.myitineraries) {
                     i_.guide = {
                         name: this.profile.fname,
-                        picture: './assets/user_male.jpg',
+                        picture: this.profile.image_url,
                         stars: Array(4).fill(0).map((x, i) => i),
                         rating: 5.0,
                         languages: ['English', 'Mandarin']
