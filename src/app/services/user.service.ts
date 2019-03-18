@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Profile } from '../data/user.model';
 import { catchError, retry } from 'rxjs/internal/operators';
-import { throwError } from 'rxjs';
+import { throwError, Subscription } from 'rxjs';
 import { AuthService } from './auth.service';
+import { MessageService } from './message.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,8 +13,13 @@ import { AuthService } from './auth.service';
 export class UserService {
     constructor(
         private http: HttpClient,
-        private authService: AuthService
-    ) { }
+        private authService: AuthService,
+        private msgService: MessageService
+    ) {
+        this.subscribe();
+    }
+
+    private subscription: Subscription;
 
     private urls = {
         'get_profile': 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/profile',
@@ -26,6 +32,13 @@ export class UserService {
     public idToken = this.authService.getIdToken();
     private myProfile = null;
     homeUser = null;
+
+    subscribe() {
+        this.subscription = this.msgService.subscribe('userloggedout', (payload) => {
+            this.myProfile = null;
+        });
+
+    }
 
     setHomeUser(user) {
         this.homeUser = user;
@@ -111,6 +124,10 @@ export class UserService {
 
     setCurrentUserProfile(profile) {
         this.myProfile = profile;
+    }
+
+    unsetCurrentUserProfile(){
+        this.myProfile = null;
     }
 
     getCurrentUserProfile() {

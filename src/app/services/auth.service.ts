@@ -16,6 +16,7 @@ import {MatSnackBar} from '@angular/material';
 import {ToasterService} from 'angular2-toaster';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError} from 'rxjs/internal/operators';
+import { MessageService } from './message.service';
 
 const urls = {
     // country : 'https://json.geoiplookup.io/api',
@@ -45,7 +46,8 @@ export class AuthService {
     constructor(
         private http: HttpClient,
         private router: Router,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        private msgService : MessageService
 ) { }
 
     private emitToken(val) {
@@ -233,6 +235,7 @@ export class AuthService {
 
     logout() {
         this.getAuthenticatedUser().signOut();
+        this.msgService.broadcast('userloggedout', true);
         this.authStatusChanged.next(false);
         this.router.navigateByUrl('/auth/signin');
     }
