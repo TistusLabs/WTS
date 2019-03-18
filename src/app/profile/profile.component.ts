@@ -277,6 +277,7 @@ export class EditProfile implements OnInit {
             _self.mediaService.uploadMedia(_self.imageFile, _self.profile['data'].image_url, 'profiles')
                 .subscribe(media => {
                     debugger;
+                    payload.image_url = media["Data"].Location;
                     this.createProfile(payload);
                 }, error => {
                     this.loading = false;

@@ -236,8 +236,10 @@ export class CreateItinerary implements OnInit {
         // payload.backdrop = "https://static.businessinsider.sg/2018/03/st-singapore-supertrees-4113.jpg";
         this.loading = true;
         if (this.imageFile) {
+            debugger
             this.mediaService.uploadMedia(_self.imageFile, payload['backdrop'], 'itinerary')
                 .subscribe(media => {
+                    payload.backdrop = media["Data"].Location;
                     _self.createItinerary(payload);
                 }, error => {
                     _self.loading = false;
@@ -255,6 +257,9 @@ export class CreateItinerary implements OnInit {
                     this.onNoClick();
                     this.toasterService.pop('success', 'Itinerary created', 'You have successfully created an Itinerary');
                     // this.router.navigateByUrl('/');
+                }else{
+                    this.toasterService.pop('error', 'Itinerary created failed', res["Message"]);
+                    this.loading = false;
                 }
             });
     }
