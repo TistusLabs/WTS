@@ -64,10 +64,10 @@ export class AgentItineraryComponent implements OnInit {
     }
 
     makePublic() {
+        debugger
         this.loading = true;
         const _payload = this.itinerary;
-        _payload.is_public = true;
-        this.itineraryService.editItinerary(_payload)
+        this.itineraryService.markItineraryPublic(_payload["itinerary_id"])
             .subscribe(
                 res => {
                     // debugger;

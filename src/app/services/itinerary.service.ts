@@ -23,7 +23,8 @@ export class ItineraryService {
         'get_itinerary' : '',
         'get_all_itinerary' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary/all',
         'get_my_itinerary' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary/my',
-        'create_itinerary' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary'
+        'create_itinerary' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary',
+        'mark_itinerary_public' : 'https://fbmp1ug0m2.execute-api.us-east-2.amazonaws.com/dev/itinerary/markpublic'
     };
     private idToken = this.authService.getIdToken();
     private requestParams;
@@ -112,6 +113,27 @@ export class ItineraryService {
         };
 
         return this.http.put<Itinerary>(this.urls.create_itinerary, itinerary, this.requestOptions)
+            .pipe(
+                catchError(this.handleError)
+            );
+    }
+
+    markItineraryPublic (itineraryID) {
+        // debugger
+        let payload = {
+            "itinerary_id": itineraryID
+        }
+        const idToken = this.authService.getIdToken();
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': idToken
+        };
+
+        this.requestOptions = {
+            headers: new HttpHeaders(headers)
+        };
+
+        return this.http.post<Itinerary>(this.urls.mark_itinerary_public, payload, this.requestOptions)
             .pipe(
                 catchError(this.handleError)
             );
