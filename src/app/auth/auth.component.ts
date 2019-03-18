@@ -180,7 +180,13 @@ export class AuthComponent implements OnInit {
     }
 
     goToSignup() {
-        this.signInOn = !this.signInOn;
+        // this.signInOn = false;
+        this.router.navigateByUrl('/auth/signup');
+    }
+
+    goToSignin() {
+        // this.signInOn = true;
+        this.router.navigateByUrl('/auth/signin');
     }
 
     onLogin(e) {
