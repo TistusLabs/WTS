@@ -25,6 +25,9 @@
     box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-primary;
     margin: 100px auto 0 auto;
     background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     img {
       width: 105%;
     }
@@ -45,6 +48,24 @@
       align-items: center;
       justify-content: center;
       flex: 1;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .wts-banner-common {
+    height: 345px;
+    .wts-acc-bnr-content {
+      padding: 0;
+      .wts-acc-bnr-summary {
+        background: #ffffff99;
+        margin-top: $wts-spacing-inner-primary;
+      }
+    }
+    .wts-acc-bnr-img {
+      width: 100px;
+      height: 100px;
+      margin: ($wts-spacing-inner-primary * 5) auto 0 auto;
     }
   }
 }

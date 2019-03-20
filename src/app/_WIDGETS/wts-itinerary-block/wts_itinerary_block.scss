@@ -97,3 +97,9 @@
     cursor: pointer;
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .wts-itinerary-widget {
+    width: 100%;
+  }
+}

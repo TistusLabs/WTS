@@ -113,6 +113,9 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .wts-banner {
+    padding: $wts-topbar-height $wts-spacing-inner-primary $wts-spacing-inner-primary;
+  }
   .wts-itinerary {
     .wts-itinerary-service {
       .wts-iti-service-loc,
@@ -125,6 +128,9 @@
   .wts-itinerary-cover {
     width: auto;
     height: 100%;
+  }
+  .wts-itinerary-summery {
+    width: 100%;
   }
 }
 

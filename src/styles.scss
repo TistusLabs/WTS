@@ -754,6 +754,12 @@ button {
       }
     }
   }
+  .wts-card {
+    padding: $wts-spacing-inner-primary!important;
+  }
+  app-wts-itinerary-block {
+    width: 100%;
+  }
 }
 
 

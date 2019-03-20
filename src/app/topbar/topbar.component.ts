@@ -33,6 +33,7 @@ export class TopbarComponent implements OnInit {
     };
 
     profile = {};
+    xsToolsOn = false;
     private profileID;
 
     constructor(
@@ -155,6 +156,10 @@ export class TopbarComponent implements OnInit {
     logOut() {
         this.authService.logout();
         this.currentUser.logged = false;
+    }
+
+    toggleXsMenu () {
+        this.xsToolsOn = !this.xsToolsOn;
     }
 
 }

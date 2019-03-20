@@ -15,7 +15,7 @@
             <!--</div>-->
         <!--</div>-->
         <div class="wts-banner-text" fxFlex fxShow.xs="false">
-            <h3>Live Like Local</h3>
+            <h3>Live <br> Like <br> Local</h3>
             <p>
                 We connect travellers and locals directly for an unforgettable experience
             </p>
@@ -62,7 +62,7 @@
                 <h2 class="wts-header-2">Hot Trips</h2>
             </div>
         </div>
-        <div fxLayout="row wrap" fxLayoutAlign="start start" class="wts-itineraries-wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+        <div fxLayout="row wrap" fxLayoutAlign="start start" class="wts-itineraries-wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.gt-xs="15px">
             <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
             <app-wts-itinerary-block (click)="openItinerary(itinerary)" [itinerary]="itinerary" *ngFor="let itinerary of (itineraries ? itineraries.slice(0, 10) : [])"></app-wts-itinerary-block>
         </div>

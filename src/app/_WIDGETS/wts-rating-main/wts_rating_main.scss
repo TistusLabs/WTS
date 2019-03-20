@@ -42,3 +42,16 @@ $wts-rating-start-size: 35px;
     }
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .wts-bnr-rating-main {
+    margin-bottom: ($wts-spacing-inner-primary*2);
+    .wts-rating-info {
+      .wts-rate-info-stars {
+        .mat-icon {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

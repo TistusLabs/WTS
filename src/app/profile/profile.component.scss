@@ -12,6 +12,9 @@
 }
 
 @media only screen and (max-width: 600px) {
+  .wts-profile {
+    padding: $wts-spacing-inner-primary;
+  }
   .wts-acc-bnr-summary {
     background: #ffffff30;
   }

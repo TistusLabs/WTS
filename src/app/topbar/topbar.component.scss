@@ -58,7 +58,43 @@
       .mat-icon {
         color: $wts-color-secondary;
         font-size: 25px;
+        height: 25px;
+        width: 25px;
         text-shadow: none;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .wts-topbar {
+    padding: 0;
+    background: #ffffff;
+    .wts-topbar-tools {
+      &.wts-topbar-tools-lg {
+        display: none;
+        &.-visible {
+          position: absolute;
+          padding: ($wts-spacing-inner-primary*2) $wts-spacing-inner-primary;
+          top: $wts-topbar-height;
+          left: 0;
+          width: 100%;
+          height: auto;
+          background: #fff;
+          display: flex;
+          flex-direction: column;
+          box-sizing: border-box;
+          -webkit-box-shadow: 0 ($wts-size-shadow-primary*3) ($wts-size-shadow-primary*3) $wts-color-shadow-secondary;
+          -moz-box-shadow: 0 ($wts-size-shadow-primary*3) ($wts-size-shadow-primary*3) $wts-color-shadow-secondary;
+          box-shadow: 0 ($wts-size-shadow-primary*3) ($wts-size-shadow-primary*3) $wts-color-shadow-secondary;
+        }
+      }
+      button {
+        color: $wts-color-text-secondary;
+        text-shadow: none;
+        &.wts-button-bordered {
+          margin: $wts-spacing-inner-primary 0;
+        }
       }
     }
   }
