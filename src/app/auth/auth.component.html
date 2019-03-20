@@ -46,7 +46,7 @@
                     <div class="_divider"></div>
                     <div class="wts-auth-signup-link">
                         <span *ngIf="signInOn">Don't have an account? <a (click)="goToSignup()">Sign Up</a></span>
-                        <span *ngIf="!signInOn">Go back to <a (click)="goToSignup()">Sign in</a></span>
+                        <span *ngIf="!signInOn">Go back to <a (click)="goToSignin()">Sign in</a></span>
                     </div>
                     <div class="wts-third-heading">
                         <h3>or..</h3>
@@ -62,7 +62,7 @@
           11.9-11.9V11.9C216 5.3 210.7 0 204.1 0z"></path>
                             </svg>
                             <div class="wts-button-fb-text">
-                                Sign in with Facebook
+                                {{ signInOn ? 'Sign in' : 'Continue'}} with Facebook
                             </div>
                         </button>
                     </div>
@@ -97,7 +97,7 @@
                                 </svg>
                             </div>
                             <div class="wts-button-fb-text">
-                                Sign in with Google
+                                {{ signInOn ? 'Sign in' : 'Continue'}} with Google
                             </div>
                         </button>
                     </div>

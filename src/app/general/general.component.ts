@@ -4,6 +4,8 @@ import { AuthService } from '../services/auth.service';
 import { ItineraryService } from '../services/itinerary.service';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { Profile_ } from '../data/user.model';
+import { MessageService } from '../services/message.service';
 
 @Component({
     selector: 'app-general',
@@ -11,6 +13,19 @@ import { UserService } from '../services/user.service';
     styleUrls: ['./general.component.scss']
 })
 export class GeneralComponent implements OnInit {
+
+    user: Profile_ = {
+        fname: '',
+        tagline: '',
+        profile_type: 'guest',
+        interests: [],
+        lifestyle: [],
+        userId: '',
+        address: '',
+        lname: '',
+        image_url: 'https://www.tripwishlist.com/Media/BLPhotos/dummy_user.png'
+    };
+    
     pictures = [{
         'title': 'picture',
         'img': 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/8V46UZCS0V.jpg'
@@ -138,7 +153,8 @@ export class GeneralComponent implements OnInit {
         private authService: AuthService,
         private userService: UserService,
         private router: Router,
-        private itineraryService: ItineraryService
+        private itineraryService: ItineraryService,
+        private msgService: MessageService
     ) {
     }
     loading = false;
@@ -154,9 +170,34 @@ export class GeneralComponent implements OnInit {
         if (user) {
             // debugger
         }
+
+        this.tryGetProfile();
     }
 
-    searchNow () {
+    tryGetProfile() {
+        const profile = this.userService.getCurrentUserProfile();
+        if (profile == null) {
+            const user = this.authService.getAuthenticatedUser();
+            if (user != null) {
+                this.getProfileInfo(user['username']);
+            }
+        } else {
+            this.user = profile;
+        }
+    }
+
+    getProfileInfo(profileID) {
+        this.userService.getProfile(profileID)
+            .subscribe(profile => {
+                if (profile['IsSuccess']) {
+                    this.user = profile['Data'];
+                    this.msgService.broadcast('profileObj', this.user);
+                    this.userService.setCurrentUserProfile(this.user);
+                }
+            });
+    }
+
+    searchNow() {
         window.scrollTo(0, 700);
     }
 
@@ -165,16 +206,46 @@ export class GeneralComponent implements OnInit {
         this.loading = true;
         this.itineraryService.getAllItineraries()
             .subscribe(res => {
-                this.itineraries = res['Data'];
-                for (const i_ of this.itineraries) {
-                    i_.guide = {
-                        name: 'Austin',
-                        picture: './assets/user_male.jpg',
-                        stars: Array(4).fill(0).map((x, i) => i),
-                        rating: 5.0,
-                        languages: ['English', 'Mandarin']
-                    };
+                // get profiles before setting data to the object
+                let temp_itineraries = res['Data'];
+                let userIdList = [];
+                for (const i_ of res['Data']) {
+                    if (userIdList.includes(i_.userId) == false) {
+                        userIdList.push(i_.userId);
+                    }
                 }
+                this.setProfilesForItineries(userIdList, temp_itineraries);
+            });
+    }
+
+    profiles = [];
+    getProfileForID(userId) {
+        let returnObj = {
+            name: 'Austin',
+            picture: './assets/user_male.jpg',
+            stars: Array(4).fill(0).map((x, i) => i),
+            rating: 5.0,
+            languages: ['English', 'Mandarin']
+        };
+        for (const profile of this.profiles) {
+            if (profile.userId == userId) {
+                returnObj.name = profile.fname;
+                returnObj.picture = profile.image_url;
+                break;
+            }
+        }
+        return returnObj;
+    }
+
+    setProfilesForItineries(list, itineraries) {
+        this.userService.getProfilesBulk(list)
+            .subscribe(res => {
+                //debugger
+                this.profiles = res['Data'];
+                for (const itin of itineraries) {
+                    itin.guide = this.getProfileForID(itin.userId);
+                }
+                this.itineraries = itineraries;
                 this.loading = false;
             });
     }

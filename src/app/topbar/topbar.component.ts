@@ -18,7 +18,7 @@ export class TopbarComponent implements OnInit {
     private subscription: Subscription;
 
     currentUser = {
-        logged : false
+        logged: false
     }
     user: Profile_ = {
         fname: '',
@@ -50,7 +50,7 @@ export class TopbarComponent implements OnInit {
 
     subscribe() {
         this.subscription = this.msgService.subscribe('profileObj', (payload) => {
-            debugger
+            //debugger
             this.user = payload;
             this.currentUser.logged = true;
         });
@@ -58,7 +58,7 @@ export class TopbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        debugger
+        //debugger
         const user = this.authService.getAuthenticatedUser();
         if (user) {
             this.currentUser.logged = true;
@@ -71,28 +71,19 @@ export class TopbarComponent implements OnInit {
                 }
             });
 
+        this.tryGetProfile();
+    }
+
+    tryGetProfile() {
         const profile = this.userService.getCurrentUserProfile();
         if (profile == null) {
             const user = this.authService.getAuthenticatedUser();
-            this.getProfileInfo(user['username']);
+            if (user != null) {
+                this.getProfileInfo(user['username']);
+            }
         } else {
             this.user = profile;
         }
-
-        // const data = this.userService.getCurrentUserProfile();
-        // if (data) {
-        //     this.profile = data;
-        // } else {
-        //     const user = this.authServide.getAuthenticatedUser();
-        //     this.userService.getProfile(user['username'])
-        //         .subscribe(profile => {
-        //             // debugger
-        //             if (profile['IsSuccess']) {
-        //                 this.profile = profile['Data'];
-        //                 //this.userService.setCurrentUserProfile(this.profile);
-        //             }
-        //         });
-        // }
     }
 
     getProfileInfo(profileID) {

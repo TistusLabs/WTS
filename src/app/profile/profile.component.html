@@ -1,6 +1,7 @@
 <app-wts-banner-common [user]="user"></app-wts-banner-common>
 <div class="wts-profile">
-    <div class="wts-main-wrap" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="center" fxLayoutWrap>
+    <div class="wts-main-wrap" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px"
+        fxLayoutAlign="center" fxLayoutWrap>
         <div fxFlex="80%" fxLayout="column" fxLayoutGap="20px">
             <div>
                 <div class="wts-guide-acc-summary" fxLayout="row wrap" fxLayoutGap="20px" fxFlex>
@@ -32,7 +33,8 @@
                 </div>
                 <div class="wts-card-content">
                     <div class="wts-block">
-                        <h2 class="wts-header-3" style="text-align: center;font-weight: 300;font-size: 20px"><i>"{{user.tagline}}"</i></h2>
+                        <h2 class="wts-header-3" style="text-align: center;font-weight: 300;font-size: 20px">
+                            <i>"{{user.tagline}}"</i></h2>
                     </div>
                     <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
                         <div class="wts-block" fxFlex="33.3%">
@@ -62,11 +64,14 @@
                         <h2 class="wts-header-2">Highlights</h2>
                     </div>
                 </div>
-                <div fxLayout="row" fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayout.sm="column" fxLayout.xs="column"
+                    fxLayoutGap="15px">
                     <div class="wts-space-h-p">
                         <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
-                        <div *ngIf="!loading" fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px" class="wts-itineraries-wrap">
-                            <app-wts-itinerary-block (click)="openItinerary(itinerary)" [itinerary]="itinerary" *ngFor="let itinerary of myitineraries"></app-wts-itinerary-block>
+                        <div *ngIf="!loading" fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.sm="column"
+                            fxLayout.xs="column" fxLayoutGap="15px" class="wts-itineraries-wrap">
+                            <app-wts-itinerary-block (click)="openItinerary(itinerary)" [itinerary]="itinerary"
+                                *ngFor="let itinerary of myitineraries"></app-wts-itinerary-block>
                         </div>
                     </div>
                 </div>
@@ -79,10 +84,11 @@
                 </div>
                 <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutAlign.gt-xs="start center">
                     <div fxFlex>
-                        <app-wts-rating-main [rating]="3.7" ></app-wts-rating-main>
+                        <app-wts-rating-main [rating]="3.7"></app-wts-rating-main>
                     </div>
                     <div fxFlex>
-                        <app-wts-rating-overall [summery]="3" [service]="4" [organization]="2" [vfm]="3" [safety]="4"></app-wts-rating-overall>
+                        <app-wts-rating-overall [summery]="3" [service]="4" [organization]="2" [vfm]="3" [safety]="4">
+                        </app-wts-rating-overall>
                     </div>
                 </div>
             </div>
@@ -92,7 +98,9 @@
                 <div class="wts-card-header-flex">
                     <h2 class="wts-header-2">
                         <div class="wts-textbox wts-textbox-horizontal">
-                            <div class="wts-textbox-icon"><mat-icon>settings</mat-icon></div>
+                            <div class="wts-textbox-icon">
+                                <mat-icon>settings</mat-icon>
+                            </div>
                             Settings
                         </div>
                     </h2>
@@ -102,7 +110,9 @@
                 <ul class="wts-list">
                     <li class="wts-list-item wts-clickable" (click)="openCreateProfile(true)">
                         <div class="wts-textbox wts-textbox-horizontal">
-                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>edit</mat-icon></div> Edit profile
+                            <div class="wts-textbox-icon wts-txtbx-icon-small">
+                                <mat-icon>edit</mat-icon>
+                            </div> Edit profile
                         </div>
                     </li>
                 </ul>

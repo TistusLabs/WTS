@@ -1,10 +1,10 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as $ from 'jquery';
-import {Router} from '@angular/router';
-import {AuthService} from '../services/auth.service';
-import {NgForm} from '@angular/forms';
-import {MatSnackBar} from '@angular/material';
-import {ToasterService} from 'angular2-toaster';
+import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { NgForm } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+import { ToasterService } from 'angular2-toaster';
 declare var FB: any, gapi: any;
 
 @Component({
@@ -34,6 +34,7 @@ export class AuthComponent implements OnInit {
 
     constructor(
         private router: Router,
+        private route: ActivatedRoute,
         private authService: AuthService,
         private toasterService: ToasterService
     ) {
@@ -43,13 +44,13 @@ export class AuthComponent implements OnInit {
         console.log(element.id);
         const _self = this;
         this.auth2.attachClickHandler(element, {},
-            function(googleUser) {
+            function (googleUser) {
                 if (document.getElementById('name')) document.getElementById('name').innerText = "Signed in: " + googleUser.getBasicProfile().getName();
                 // localStorage.setItem('access_token', 'jwt');
                 // _self.authService.broadcastToken();
                 _self.authService.signUpGoogle_init(googleUser);
                 _self.router.navigateByUrl('/account');
-            }, function(error) {
+            }, function (error) {
                 // alert(JSON.stringify(error, undefined, 2));
                 console.log("Google login cancelled");
             });
@@ -76,28 +77,29 @@ export class AuthComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.signInOn = this.route.snapshot.data['signin'];
         const self = this;
         // FACEBOOK auth initialization
-        (window as any).fbAsyncInit = function() {
+        (window as any).fbAsyncInit = function () {
             FB.init({
-                appId      : '318190032367222',
-                cookie     : true,
-                xfbml      : true,
-                version    : 'v3.2'
+                appId: '318190032367222',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.2'
             });
             FB.AppEvents.logPageView();
         };
 
-        (function(d, s, id) {
+        (function (d, s, id) {
             let js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
+            if (d.getElementById(id)) { return; }
             js = d.createElement(s); js.id = id;
             js.src = 'https://connect.facebook.net/en_US/sdk.js';
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
 
         // GOOGLE auth initialization
-        gapi.load('auth2', function() {
+        gapi.load('auth2', function () {
             // Retrieve the singleton for the GoogleAuth library and set up the client.
             self.auth2 = gapi.auth2.init({
                 client_id: '1078066678608-7uruq11vo35le57ovs9tv3ierb8c10af.apps.googleusercontent.com',
@@ -178,7 +180,13 @@ export class AuthComponent implements OnInit {
     }
 
     goToSignup() {
-        this.signInOn = !this.signInOn;
+        // this.signInOn = false;
+        this.router.navigateByUrl('/auth/signup');
+    }
+
+    goToSignin() {
+        // this.signInOn = true;
+        this.router.navigateByUrl('/auth/signin');
     }
 
     onLogin(e) {
@@ -195,7 +203,7 @@ export class AuthComponent implements OnInit {
         const email = this.form.value.email;
         this.temp_email = this.form.value.email;
         const password = this.form.value.password;
-        this.authService.signUp(email, password, mobile.replace(/ /g,''));
+        this.authService.signUp(email, password, mobile.replace(/ /g, ''));
     }
 
     onDoConfirm() {
