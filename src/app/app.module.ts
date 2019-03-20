@@ -51,6 +51,8 @@ import {RatingMainComponent} from './_WIDGETS/wts-rating-main/wts_rating_main.wi
 import {RatingOverallComponent} from './_WIDGETS/wts-rating-overall/wts_rating_overall.widget';
 import { ItineraryBook } from './agent-itinerary/itinerary-book/itinerary-book.component';
 import { BodyComponent } from './body/body.component';
+import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
+import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -83,7 +85,9 @@ export function tokenGetter() {
         BannerCommonComponent,
         RatingMainComponent,
         RatingOverallComponent,
-        ItineraryBook
+        ItineraryBook,
+        PrivacypolicyComponent,
+        TermsofserviceComponent
     ],
     imports: [
         BrowserModule,
