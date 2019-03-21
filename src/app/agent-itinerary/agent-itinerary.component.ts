@@ -5,6 +5,7 @@ import {Itinerary} from '../data/itinerary.model';
 import {ToasterService} from 'angular2-toaster';
 import {MatDialog} from '@angular/material';
 import {ItineraryBook} from './itinerary-book/itinerary-book.component';
+import { CreateItinerary } from '../agent-itineraries/agent-itineraries.component';
 
 declare let google;
 
@@ -79,6 +80,19 @@ export class AgentItineraryComponent implements OnInit {
                     this.loading = false;
                     this.toastr.pop('error', 'My Itineraries', 'Failed to make public.');
                 });
+    }
+
+    editItinerary(): void {
+        const dialogRef = this.dialog.open(CreateItinerary, {
+            width: '80%',
+            disableClose: true,
+            data: this.itinerary
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            // console.log('The dialog was closed');
+            // this.animal = result;
+        });
     }
 
 }

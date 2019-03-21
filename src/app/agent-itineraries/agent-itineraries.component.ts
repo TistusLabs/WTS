@@ -174,6 +174,7 @@ export class AgentItinerariesComponent implements OnInit {
 })
 export class CreateItinerary implements OnInit {
 
+    minDate = new Date();
     serviceInput = '';
     loading = false;
     imageFile = null;
@@ -186,6 +187,7 @@ export class CreateItinerary implements OnInit {
         private router: Router,
         @Inject(MAT_DIALOG_DATA) public data: Itinerary) {
     }
+
 
     ngOnInit() {
         const myLatlng = new google.maps.LatLng(1.3521, 103.8198);
@@ -265,5 +267,4 @@ export class CreateItinerary implements OnInit {
     }
 
 }
-
 /* --------------------------------------------------------------------------------------------- */

@@ -7,7 +7,7 @@
   height: $wts-banner-height + ($wts-banner-height / 2);
   margin-top: -$wts-topbar-height;
   //@extend %flex-center;
-  align-items: center;
+  align-items: flex-end;
   .wts-itinerary-cover {
     width: 100%;
     z-index: 0;
@@ -93,8 +93,8 @@
     }
   }
   .wts-itinerary-price {
-    font-size: 30px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 700;
     .wts-iti-price-per {
       font-size: 16px;
       font-weight: 300;

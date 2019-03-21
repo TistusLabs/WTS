@@ -1,4 +1,15 @@
-<div class="wts-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+<div class="wts-banner" id="general-comp-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
+    <!--<div class="fade">-->
+        <!--<div>-->
+            <!--<img src="./assets/istockphoto-618530614-2048x2048.jpg" alt="">-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<img src="./assets/istockphoto-983921608-2048x2048.jpg" alt="">-->
+        <!--</div>-->
+        <!--<div>-->
+            <!--<img src="./assets/istockphoto-958045158-2048x2048.jpg" alt="">-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="wts-banner-gen-search" fxLayout="row">
         <!--<div class="wts-space-h-p wts-search-type">-->
             <!--<div fxLayout="row" fxFlex="60%" fxFlex.sm="100%" fxFlex.xs="100%">-->
@@ -24,9 +35,9 @@
             <h3>Book a Tour Guide</h3>
             <div class="wts-search-label-upper">Select tour start date</div>
             <div class="wts-input-wrap" fxLayout="row" style="margin-bottom: 15px">
-                <input type="text" name="itineraryPeriodFrom" placeholder="On.." [matDatepicker]="fromPicker" [(ngModel)]="searchAttr.start" fxFlex>
+                <input type="text" name="itineraryPeriodFrom" placeholder="On.." [matDatepicker]="fromPicker" [(ngModel)]="searchAttr.start" [min]="minDate" fxFlex>
                 <button class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
-                <mat-datepicker #fromPicker></mat-datepicker>
+                <mat-datepicker #fromPicker md-min-date></mat-datepicker>
             </div>
             <div class="wts-search-label-upper">Travellers</div>
             <div class="wts-input-wrap" fxLayout="row">
@@ -63,7 +74,7 @@
             </div>
         </div>
         <div fxLayout="row wrap" fxLayoutAlign="start start" class="wts-itineraries-wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.gt-xs="15px">
-            <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
+            <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
             <app-wts-itinerary-block (click)="openItinerary(itinerary)" [itinerary]="itinerary" *ngFor="let itinerary of (itineraries ? itineraries.slice(0, 10) : [])"></app-wts-itinerary-block>
         </div>
     </div>

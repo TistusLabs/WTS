@@ -94,7 +94,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        debugger
         this.profileID = this.route.snapshot.paramMap.get("id")
         if (this.profileID == null) {
             const profile = this.userService.getCurrentUserProfile();

@@ -132,7 +132,7 @@
         </div>
         <div class="wts-card" fxFlex="20%">
             <div fxLayout="column" fxLayoutAlign="center" style="text-align: center">
-                <div class="wts-itinerary-price">${{ itinerary.price }} SGD</div>
+                <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' }} SGD</div>
                 <span class="wts-iti-price-per">per Person</span>
                 <div class="wts-space-h-p">
                     <button class="wts-button-primary" (click)="requestToBook(itinerary)">Request to book</button>
@@ -152,8 +152,13 @@
                 </div>
             </div>
             <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-            <ul class="wts-list" *ngIf="!loading && !itinerary.is_public">
-                <li class="wts-list-item wts-clickable" (click)="makePublic()">
+            <ul class="wts-list" *ngIf="!loading">
+                <li class="wts-list-item wts-clickable" (click)="editItinerary()">
+                    <div class="wts-textbox wts-textbox-horizontal">
+                        <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>edit</mat-icon></div> Edit Itinerary
+                    </div>
+                </li>
+                <li class="wts-list-item wts-clickable" (click)="makePublic()" *ngIf="!itinerary.is_public">
                     <div class="wts-textbox wts-textbox-horizontal">
                         <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>language</mat-icon></div> Make Public
                     </div>

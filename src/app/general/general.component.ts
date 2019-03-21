@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import * as $ from 'jquery';
+// import * as slick from 'slick';
 import { AuthService } from '../services/auth.service';
 import { ItineraryService } from '../services/itinerary.service';
 import { Router } from '@angular/router';
@@ -14,6 +16,7 @@ import { MessageService } from '../services/message.service';
 })
 export class GeneralComponent implements OnInit {
 
+    minDate = new Date();
     user: Profile_ = {
         fname: '',
         tagline: '',
@@ -163,7 +166,7 @@ export class GeneralComponent implements OnInit {
     ngOnInit() {
         // non authenticated requests
         this.getAllItineraries();
-        this.getTopGuides();
+        // this.getTopGuides();
 
         // authenticated requests
         const user = this.authService.getAuthenticatedUser();
@@ -172,6 +175,22 @@ export class GeneralComponent implements OnInit {
         }
 
         this.tryGetProfile();
+        this.adjustBannerHeight();
+        // this.initBanner();
+    }
+
+    // initBanner() {
+    //     $('.fade').slick({
+    //         dots: true,
+    //         infinite: true,
+    //         speed: 500,
+    //         fade: true,
+    //         cssEase: 'linear'
+    //     });
+    // }
+    adjustBannerHeight () {
+        const height = window.innerHeight;
+        document.getElementById("general-comp-banner").setAttribute("style", "height:" + height+"px");
     }
 
     tryGetProfile() {

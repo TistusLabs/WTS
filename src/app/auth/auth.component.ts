@@ -145,10 +145,10 @@ export class AuthComponent implements OnInit {
 
         // Geolocation
         const _self = this;
+        _self.geolocloading = true;
         navigator.geolocation.getCurrentPosition(pos => {
             const lat = pos.coords.latitude;
             const lon = pos.coords.longitude;
-            _self.geolocloading = true;
             this.authService.getCountry(lat, lon).subscribe(country => {
                 if (country['status'] === 'OK') {
                     let _country = null;

@@ -68,12 +68,12 @@
             <h3 class="wts-header-3">Period</h3>
             <div  fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
-                    <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="data.tour_from" fxFlex>
+                    <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="data.tour_from" [min]="minDate" fxFlex>
                     <button type="button" class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
                     <mat-datepicker #fromPicker></mat-datepicker>
                 </div>
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
-                    <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="data.tour_to" fxFlex>
+                    <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="data.tour_to" [min]="minDate" fxFlex>
                     <button type="button" class="mat-button-circle" (click)="toPicker.open()"><mat-icon>date_range</mat-icon></button>
                     <mat-datepicker #toPicker></mat-datepicker>
                 </div>
@@ -83,7 +83,7 @@
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Traveller conditions</h3>
             <div class="wts-input-wrap">
-                <input type="text" name="itineraryTravellerType" placeholder="Condition for the traveller.. eg: Age from 6 and above" [(ngModel)]="data.guest_condition" class="wts-input-block-half">
+                <input type="text" name="itineraryTravellerCondition" placeholder="Condition for the traveller.. eg: Age from 6 and above" [(ngModel)]="data.guest_condition" class="wts-input-block-half">
             </div>
         </div>
 

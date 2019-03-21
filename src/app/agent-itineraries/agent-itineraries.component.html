@@ -32,7 +32,7 @@
                     </div>
                 </div>
                 <div class="wts-space-h-p">
-                    <mat-spinner diameter="50" *ngIf="loading"></mat-spinner>
+                    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
                     <div *ngIf="!loading" fxLayout="row wrap" fxLayoutAlign="start start" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="15px" class="wts-itineraries-wrap">
                         <app-wts-itinerary-block (click)="openItinerary(itinerary)" [itinerary]="itinerary" *ngFor="let itinerary of myitineraries"></app-wts-itinerary-block>
                     </div>

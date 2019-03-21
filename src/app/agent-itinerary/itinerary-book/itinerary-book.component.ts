@@ -6,6 +6,7 @@ import {BookingService} from '../../services/booking.service';
 import {Profile, Profile_} from '../../data/user.model';
 import {UserService} from '../../services/user.service';
 import {AuthService} from '../../services/auth.service';
+import * as moment from 'moment';
 
 declare let StripeCheckout;
 @Component({
@@ -48,7 +49,7 @@ export class ItineraryBook implements OnInit {
             phone_number: null,
             email: '',
             country: '',
-            postal_code: '',
+            postal_code: null,
             address_line_1: '',
             address_line_2: '',
             address_line_3: '',
@@ -1374,7 +1375,7 @@ export class ItineraryBook implements OnInit {
                 phone_number: null,
                 email: '',
                 country: '',
-                postal_code: '',
+                postal_code: null,
                 address_line_1: '',
                 address_line_2: '',
                 address_line_3: '',
@@ -1461,6 +1462,7 @@ export class ItineraryBook implements OnInit {
     }
 
     checkOutBooking (itinerary) {
+        this.form_invalid = false;
         this.bookingPaused = true;
         const _buddies = this.bookingPayload.travellers.map(traveller => {
             if (traveller.first_name === '') {
@@ -1501,6 +1503,7 @@ export class ItineraryBook implements OnInit {
     downloadBookingReceipt() {
 
     }
+
     printBookingReceipt() {
         window.print();
     }

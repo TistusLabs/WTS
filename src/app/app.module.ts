@@ -28,7 +28,8 @@ import {
     // MatChipsModule,
     MatDialogModule, MatDialogRef, MatDividerModule, MatFormFieldModule,
     // MatFormFieldModule,
-    MatIconModule, MatMenuModule, MatNativeDateModule, MatOptionModule, MatPaginatorModule, MatProgressSpinnerModule, MatSelectModule,
+    MatIconModule, MatMenuModule, MatNativeDateModule, MatOptionModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule,
+    MatSelectModule,
     MatSnackBarModule,
     MatTabsModule,
     // MatToolbarModule
@@ -121,6 +122,7 @@ export function tokenGetter() {
         MatSnackBarModule,
         MatDividerModule,
         MatProgressSpinnerModule,
+        MatProgressBarModule,
         // MatChipsModule,
         // MatAutocompleteModule,
         // MatFormFieldModule,
