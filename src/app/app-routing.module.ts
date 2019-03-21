@@ -7,6 +7,8 @@ import { ProfileComponent } from './profile/profile.component';
 import { AgentItineraryComponent } from './agent-itinerary/agent-itinerary.component';
 import { AuthGuard } from './auth.guard';
 import { AgentItinerariesComponent } from './agent-itineraries/agent-itineraries.component';
+import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
+import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
 
 const routes: Routes = [
     {
@@ -48,6 +50,12 @@ const routes: Routes = [
         data: {
             itinerary: null
         }
+    }, {
+        path: 'privacypolicy',
+        component: PrivacypolicyComponent
+    }, {
+        path: 'termsofservice',
+        component: TermsofserviceComponent
     }
 ];
 
