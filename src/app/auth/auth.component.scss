@@ -8,7 +8,10 @@
   padding-top: $wts-topbar-height;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom right, $wts-color-primary-light, $wts-color-secondary-light);
+  //background: linear-gradient(to bottom right, $wts-color-primary-light, $wts-color-secondary-light);
+  background: url("../../assets/6369.jpg");
+  background-position: center;
+  background-size: cover;
   &:after {
     content: '';
     margin-top: -$wts-topbar-height;
@@ -26,19 +29,24 @@
     justify-content: center;
     z-index: 1;
     .wts-auth-banner {
+      display: flex;
       flex: 3;
       box-sizing: border-box;
       //height: 100%;
-      padding: $wts-spacing-inner-primary;
-      background: url("../../assets/worldtrip_bg_onboarding.svg");
+      padding: $wts-spacing-inner-primary*2;
+      //background: url("../../assets/worldtrip_bg_onboarding.svg");
       background-repeat: no-repeat;
       -webkit-background-size: contain;
       background-size: contain;
       background-position: bottom;
+      align-items: flex-end;
+      justify-content: flex-end;
       h1 {
         margin: 0;
-        font-size: 50px;
-        font-weight: 300;
+        font-size: 30px;
+        text-align: right;
+        font-weight: 500;
+        font-style: italic;
         color: #fff;
         text-shadow: 0 3px 10px $wts-color-shadow-secondary;
       }
@@ -53,8 +61,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      background: #ffffff50;
       .wts-auth-card {
         max-width: 500px;
+        background: #ffffff;
       }
       h1 {
         text-align: center;
@@ -111,6 +121,9 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        -webkit-box-shadow: 0 1px 3px #00000035;
+        -moz-box-shadow: 0 1px 3px #00000035;
+        box-shadow: 0 1px 3px #00000035;
         .wts-button-g-icon {
           position: relative;
           height: 24px;

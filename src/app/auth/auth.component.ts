@@ -41,7 +41,7 @@ export class AuthComponent implements OnInit {
     }
 
     _initGoogleSignin(element) {
-        console.log(element.id);
+        // console.log(element.id);
         const _self = this;
         this.auth2.attachClickHandler(element, {},
             function (googleUser) {
@@ -177,6 +177,13 @@ export class AuthComponent implements OnInit {
                 }
             });
         });
+
+        this.adjustBannerHeight();
+    }
+
+    adjustBannerHeight () {
+        const height = window.innerHeight;
+        document.getElementById("wts-onboarding").setAttribute("style", "height:" + (height-50) +"px");
     }
 
     goToSignup() {

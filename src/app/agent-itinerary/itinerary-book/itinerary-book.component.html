@@ -47,7 +47,7 @@
                 </div>
             </div>
             <div *ngIf="activeBookingStep === 1" class="wts-booking-step wts-booking-traveller">
-                <div id="bookingForm">
+                <div [formGroup]="form" id="bookingForm">
                     <div class="wts-space-h-p">
                         <h3 class="wts-header-3">No of Travellers</h3>
                         <div class="wts-input-wrap">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="wts-card" *ngFor="let traveller of bookingPayload.travellers;let i = index; trackBy: trackByIndex">
+                    <div class="wts-card" *ngFor="let traveller of bookingPayload.travellers;let i = index;trackBy :trackByIndex">
                         <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 15px">
                             <h3 class="wts-header-3">Traveller {{i + 1}} {{i === 0 ? '(Main)' : ''}}</h3>
                             <div class="wts-textbox wts-textbox-horizontal" *ngIf="i === 0">
@@ -65,7 +65,7 @@
                         </div>
                         <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
                             <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                <input type="text" placeholder="First name" [(ngModel)]="bookingPayload.travellers[i].first_name" fxFlex required>
+                                <input type="text" placeholder="First name" id="'firstName' + i" [name]="'firstName' + i" [(ngModel)]="bookingPayload.travellers[i].first_name" fxFlex required>
                             </div>
                             <div class="wts-input-wrap" fxFlex fxLayout="row">
                                 <input type="text" placeholder="Last name" [(ngModel)]="bookingPayload.travellers[i].last_name" fxFlex required>

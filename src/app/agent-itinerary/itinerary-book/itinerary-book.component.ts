@@ -1526,12 +1526,9 @@ export class ItineraryBook implements OnInit {
             create_profile: false
         };
 
-        if (this.bookingPayload.number_of_travellers > this.bookingPayload.number_of_travellers_prev) {
+        this.bookingPayload.travellers.length = 1;
+        for (let i = 1; i < this.bookingPayload.number_of_travellers; i++) {
             this.bookingPayload.travellers.push(_traveler);
-        } else {
-            if (this.bookingPayload.travellers.length !== 1) {
-                this.bookingPayload.travellers.splice((this.bookingPayload.travellers.length - 1), 1);
-            }
         }
 
         this.bookingPayload.number_of_travellers_prev = this.bookingPayload.number_of_travellers;

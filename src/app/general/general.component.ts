@@ -190,7 +190,7 @@ export class GeneralComponent implements OnInit {
     // }
     adjustBannerHeight () {
         const height = window.innerHeight;
-        document.getElementById("general-comp-banner").setAttribute("style", "height:" + height+"px");
+        document.getElementById('general-comp-banner').setAttribute('style', 'height:' + height + 'px');
     }
 
     tryGetProfile() {

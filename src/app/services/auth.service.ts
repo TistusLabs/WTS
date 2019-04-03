@@ -24,11 +24,13 @@ const urls = {
     geocode : 'https://maps.googleapis.com/maps/api/geocode/json?',
     countryCodes : 'assets/countrycodes.json'
 };
+const IDENTITY_POOL_ID = 'us-east-2:be9aa792-b112-456b-9f91-0a9a99cd7961';
 const POOL_DATA = {
     UserPoolId: 'us-east-2_TzwFGMfr5',
     ClientId: '7adv02bn3463bhu558eelrthsr'
 };
 const userPool = new CognitoUserPool(POOL_DATA);
+AWS.config.region = 'us-east-2';
 
 @Injectable({
     providedIn: 'root'
@@ -47,7 +49,7 @@ export class AuthService {
         private http: HttpClient,
         private router: Router,
         private toasterService: ToasterService,
-        private msgService : MessageService
+        private msgService: MessageService
 ) { }
 
     private emitToken(val) {
@@ -80,41 +82,57 @@ export class AuthService {
     }
 
     signUpFB_init (accessToken) {
-
         // Add the Facebook access token to the Cognito credentials login map.
+        const t = accessToken;
+        const _self = this;
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: POOL_DATA.UserPoolId,
+            IdentityPoolId: IDENTITY_POOL_ID,
             Logins: {
                 'graph.facebook.com': accessToken
             }
         });
 
         // Obtain AWS credentials
-        AWS.config.getCredentials(function() {
-            debugger
-            this.authDidFail.next(false);
-            this.authConfirmOn.next(true);
-            this.authIsLoading.next(false);
-            // this.registeredUser = result.user;
+        AWS.config.getCredentials(function(err) {
+            if (err) {
+                _self.authDidFail.next(true);
+                _self.authIsLoading.next(false);
+                console.log(err);
+                _self.toasterService.pop('error', 'Login from Google failed', 'Please try again later');
+            } else {
+                _self.authStatusChanged.next(true);
+                _self.authDidFail.next(false);
+                _self.authDidSuccess.next(true);
+                _self.authIsLoading.next(false);
+                _self.router.navigate(['/']);
+            }
         });
     }
 
     signUpGoogle_init (gUser) {
         // Add the Google access token to the Cognito credentials login map.
+        const _self = this;
         AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            IdentityPoolId: POOL_DATA.UserPoolId,
+            IdentityPoolId: IDENTITY_POOL_ID,
             Logins: {
-                'accounts.google.com': gUser['id_token']
+                'accounts.google.com': gUser['Zi']['id_token']
             }
         });
 
         // Obtain AWS credentials
-        AWS.config.getCredentials(function() {
-            debugger
-            this.authDidFail.next(false);
-            this.authConfirmOn.next(true);
-            this.authIsLoading.next(false);
-            // this.registeredUser = result.user;
+        AWS.config.getCredentials(function(err) {
+            if (err) {
+                _self.authDidFail.next(true);
+                _self.authIsLoading.next(false);
+                console.log(err);
+                _self.toasterService.pop('error', 'Login from Google failed', 'Please try again later');
+            } else {
+                _self.authStatusChanged.next(true);
+                _self.authDidFail.next(false);
+                _self.authDidSuccess.next(true);
+                _self.authIsLoading.next(false);
+                _self.router.navigate(['/']);
+            }
         });
     }
 

@@ -1,9 +1,9 @@
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="822032164383-qqbmt84lubtd9c3niaoblpcpbfoq0qis.apps.googleusercontent.com">
-<div class="wts-onboarding">
+<div class="wts-onboarding" id="wts-onboarding">
     <div class="wts-auth-wrap" fxLayout="row" fxLayout.xs="column" fxLayoutWrap fxLayoutAlign="center">
         <div class="wts-flex-1 wts-auth-banner" fxShow.xs="false">
-            <h1>Join with us to experience the best of Worldtrip Singapore.</h1>
+            <h1>One experience, <br> at a time..</h1>
         </div>
         <div class="wts-auth-body">
             <div class="wts-card wts-card-fill wts-auth-card">
@@ -68,8 +68,8 @@
                     </div>
                     <div id="googleLogin">
                         <!--<div class="g-signin2" data-onsuccess="onSignIn" data-longtitle="true"></div>-->
-                        <button type="button" class="wts-button-g" id="wts-button-g" mat-raised-button
-                                (click)="_initGoogleSignin(this);">
+                        <button type="button" #gbtn class="wts-button-g" id="wts-button-g" mat-raised-button
+                                (click)="_initGoogleSignin(gbtn);">
                             <div class="wts-button-g-icon">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
                                      xmlns:xlink="http://www.w3.org/1999/xlink"

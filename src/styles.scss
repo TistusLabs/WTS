@@ -762,6 +762,10 @@ button {
   }
 }
 
+.mat-progress-bar-fill::after {
+  background: linear-gradient(45deg, transparent, $wts-color-primary, transparent);
+}
+
 
 @media print {
   body * {
