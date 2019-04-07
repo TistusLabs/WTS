@@ -6,6 +6,7 @@
     width: 295px;
     .wts-search-advanced {
       position: fixed;
+      max-width: 295px;
       bottom: $wts-spacing-inner-primary;
       right: $wts-spacing-inner-primary;
       padding: $wts-spacing-inner-primary * 2;

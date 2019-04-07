@@ -20,7 +20,7 @@ import {AccountComponent} from './account/account.component';
 import {GeneralComponent} from './general/general.component';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {
-    MAT_DIALOG_DATA,
+    MAT_DIALOG_DATA, MatAutocompleteModule, MatChipsModule,
     MatDatepickerModule, MatDatepickerToggle,
     // MatAutocompleteModule,
     // MatCardImage,
@@ -138,6 +138,8 @@ export function tokenGetter() {
         // MatChipsModule,
         // MatAutocompleteModule,
         // MatFormFieldModule,
+        MatChipsModule,
+        MatAutocompleteModule,
         MatSelectModule,
         MatOptionModule,
         FlexLayoutModule,

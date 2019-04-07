@@ -46,26 +46,29 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 
 //Nouislider
 nouislider {
-  width: 100%;
+  width: 95%;
 }
 .noUi-horizontal {
-  height: 15px;
+  height: 10px;
 }
 .noUi-connect {
   background: $wts-color-primary-light;
 }
 .noUi-target {
-  background: #ffffff30;
+  background: #00000010;
   border: none;
   -webkit-box-shadow: none;
   -moz-box-shadow: none;
   box-shadow: none;
 }
 .noUi-horizontal .noUi-handle {
-  border-radius: $wts-border-radius-secondary;
-  width: $wts-topbar-height - 20;
-  height: $wts-topbar-height - 20;
-  top: -8px;
+  border-radius: 50%;
+  box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
+  border: none;
+  width: $wts-topbar-height - 30;
+  height: $wts-topbar-height - 30;
+  top: -5px;
+  outline: none;
 }
 .noUi-tooltip {
   padding: 0px 8px;
@@ -77,10 +80,17 @@ nouislider {
   border: none;
 }
 .noUi-handle:before {
-  left: 10px;
+  left: 7px;
+}
+.noUi-handle:after {
+  left: 12px;
+}
+.noUi-handle:before,
+.noUi-handle:after {
+  height: 10px;
 }
 .noUi-handle:after, .noUi-handle:before {
-  top: 8px;
+  top: 5px;
 }
 .mat-menu-panel.wts-topbar-menu {
   width: 200px;
@@ -624,6 +634,12 @@ button {
     bottom: 0;
     margin: $wts-spacing-inner-primary;
     box-shadow: 0 35px 50px $wts-color-shadow-secondary;
+  }
+  .wts-search-pricerange {
+    box-sizing: border-box;
+    padding-top: $wts-spacing-inner-primary;
+    width: 100%;
+    text-align: center;
   }
 }
 /* --------------------------------------------- */
