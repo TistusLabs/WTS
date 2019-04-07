@@ -1,0 +1,27 @@
+<div class="wts-general-search" fxLayout="row">
+    <div class="wts-card wts-card-sunken wts-card-hot-trips" fxFlex>
+        <div fxLayout="row wrap" fxLayoutAlign="start start" class="wts-itineraries-wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.gt-xs="15px">
+            <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+            <app-wts-itinerary-block (click)="openItinerary(itinerary)" [itinerary]="itinerary" *ngFor="let itinerary of (itineraries ? itineraries.slice(0, 10) : [])"></app-wts-itinerary-block>
+        </div>
+    </div>
+    <div class="wts-search-filters">
+        <div class="wts-search-dates wts-search-advanced">
+            <h3>Book a Tour Guide</h3>
+            <div class="wts-search-label-upper">Select tour start date</div>
+            <div class="wts-input-wrap" fxLayout="row" style="margin-bottom: 15px">
+                <input type="text" name="itineraryPeriodFrom" placeholder="On.." [matDatepicker]="fromPicker" [(ngModel)]="searchAttr.start" [min]="minDate" fxFlex>
+                <button class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
+                <mat-datepicker #fromPicker md-min-date></mat-datepicker>
+            </div>
+            <div class="wts-search-label-upper">Travellers</div>
+            <div class="wts-input-wrap" fxLayout="row">
+                <input type="number" name="itineraryPeriodTo" placeholder="1"  [(ngModel)]="searchAttr.people" fxFlex>
+                <button class="mat-button-circle"><mat-icon class="mat-button-circle">wc</mat-icon></button>
+            </div>
+            <div class="wts-search-footer">
+                <button class="wts-button wts-button-primary" (click)="searchNow()" style="position: absolute;top: 0;left: 0;height: 100%;width: 100%">Search Now</button>
+            </div>
+        </div>
+    </div>
+</div>

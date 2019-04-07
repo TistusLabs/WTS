@@ -9,6 +9,7 @@ import { AuthGuard } from './auth.guard';
 import { AgentItinerariesComponent } from './agent-itineraries/agent-itineraries.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
+import {GeneralItineriesSearch} from './general/general-itineraries-search/general.itineraries.search';
 
 const routes: Routes = [
     {
@@ -18,6 +19,9 @@ const routes: Routes = [
     }, {
         path: 'search',
         component: GeneralComponent
+    }, {
+        path: 'search/advanced',
+        component: GeneralItineriesSearch
     }, {
         path: 'auth/signin',
         component: AuthComponent,

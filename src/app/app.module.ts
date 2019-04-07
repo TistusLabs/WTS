@@ -54,6 +54,10 @@ import { ItineraryBook } from './agent-itinerary/itinerary-book/itinerary-book.c
 import { BodyComponent } from './body/body.component';
 import { PrivacypolicyComponent } from './privacypolicy/privacypolicy.component';
 import { TermsofserviceComponent } from './termsofservice/termsofservice.component';
+import {TourSummary} from './agent-itinerary/itinerary-book/book-tour-toursum/book.toursum';
+import {TourTravellers} from './agent-itinerary/itinerary-book/book-tour-travellers/book.travellers';
+import { TourFinish } from './agent-itinerary/itinerary-book/book-tour-finish/book.tourfinish';
+import {GeneralItineriesSearch} from './general/general-itineraries-search/general.itineraries.search';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -74,6 +78,7 @@ export function tokenGetter() {
         TravellerDashboardComponent,
         AccountComponent,
         GeneralComponent,
+        GeneralItineriesSearch,
         ProfileComponent,
         EditProfile,
         AgentItineraryComponent,
@@ -88,7 +93,10 @@ export function tokenGetter() {
         RatingOverallComponent,
         ItineraryBook,
         PrivacypolicyComponent,
-        TermsofserviceComponent
+        TermsofserviceComponent,
+        TourSummary,
+        TourTravellers,
+        TourFinish
     ],
     imports: [
         BrowserModule,

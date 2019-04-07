@@ -1,0 +1,70 @@
+<div class="-header">
+    <mat-icon>check_circle</mat-icon>
+    <h1>You are all on board! Start packing!</h1>
+</div>
+<div class="-body">
+    <p>Below is the receipt of your booking.</p>
+    <div fxLayout="row">
+        <div fxFlex="10%"></div>
+        <div id="bookingReceipt" fxFlex="80%" fxLayoutAlign="center start">
+            <div class="wts-space-h-p wts-card" fxFlex="40%">
+                <div>{{itinerary.title}}</div>
+                <div class="wts-textbox wts-textbox-horizontal">
+                    {{itinerary.activities}}
+                </div>
+                <div class="wts-textbox wts-textbox-horizontal">
+                    {{itinerary.services}}
+                </div>
+                <div class="wts-textbox wts-textbox-horizontal" *ngIf="itinerary.guest_condition">
+                    {{itinerary.guest_condition}}
+                </div>
+                <!--<div class="wts-textbox wts-textbox-horizontal" *ngIf="itinerary.guest_type">-->
+                <!--<div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>language</mat-icon></div> {{itinerary.guest_type}}-->
+                <!--</div>-->
+                <div class="wts-space-h-p">
+                    <mat-divider></mat-divider>
+                </div>
+
+                <table style="width: 100%;table-layout: fixed">
+                    <tr>
+                        <td>
+                            <b>Adults</b>
+                        </td>
+                        <td>
+                            {{summary.adults.count}} * {{itinerary.price_adult}}
+                        </td>
+                        <td style="text-align: right">
+                            {{summary.adults.subtotal}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Children</b>
+                        </td>
+                        <td>
+                            {{summary.children.count}} * {{itinerary.price_child}}
+                        </td>
+                        <td style="text-align: right">
+                            {{summary.children.subtotal}}
+                        </td>
+                    </tr>
+                </table>
+                <div class="wts-space-h-p">
+                    <mat-divider></mat-divider>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <h2 class="wts-header-2" fxFlex>Total</h2>
+                    <h2 class="wts-header-2" fxFlex style="text-align: right">{{summary.total}}</h2>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="10%">
+            <button class="mat-button-circle" (click)="downloadBookingReceipt()">
+                <mat-icon>save_alt</mat-icon>
+            </button>
+            <button class="mat-button-circle" (click)="printBookingReceipt()">
+                <mat-icon>print</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

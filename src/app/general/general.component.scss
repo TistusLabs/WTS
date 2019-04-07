@@ -41,9 +41,11 @@
   }
   .wts-banner-gen-search {
     width: 100%;
+    height: 100%;
     z-index: 1;
     padding: 0 $wts-spacing-inner-primary * 5;
     background: linear-gradient(#00000000, #00000050);
+    overflow: hidden;
     .wts-label {
       color: $wts-color-text-secondary;
     }
@@ -53,53 +55,6 @@
     justify-content: center;
     padding-left: $wts-spacing-inner-primary;
     padding-right: $wts-spacing-inner-primary;
-  }
-  .wts-search-dates {
-    padding: $wts-spacing-inner-primary * 2;
-    background: #ffffff;
-    box-shadow: 0 5px $wts-size-shadow-secondary $wts-color-shadow-secondary;
-    text-align: center;
-    &>h3 {
-      margin-top: 0;
-    }
-    .wts-label {
-      margin-top: $wts-spacing-inner-primary;
-    }
-    .wts-search-label-upper {
-      text-transform: uppercase;
-      font-size: 10px;
-      text-align: left;
-      margin: $wts-spacing-inner-primary 0 $wts-spacing-inner-third 0;
-    }
-    .wts-input-wrap {
-      padding: 0 $wts-spacing-inner-third;
-      background: #ffffff30;
-      border-radius: $wts-border-radius-secondary;
-      box-shadow: 0 1px $wts-size-shadow-primary $wts-color-shadow-secondary;
-      input {
-        background: transparent;
-        padding: $wts-spacing-inner-secondary;
-        border: none;
-        width: auto;
-      }
-      .mat-button-circle {
-        background: transparent;
-        .mat-icon {
-          color: $wts-color-primary;
-        }
-      }
-    }
-    .wts-search-footer {
-      position: relative;
-      height: 20px;
-      padding: $wts-spacing-inner-primary;
-      background: $wts-color-primary;
-      color: #ffffff;
-      margin-top: $wts-spacing-inner-primary * 2;
-      margin-right: -$wts-spacing-inner-primary * 2;
-      margin-left: -$wts-spacing-inner-primary * 2;
-      margin-bottom: -$wts-spacing-inner-primary * 2;
-    }
   }
   .wts-search-pricerange {
     box-sizing: border-box;
@@ -124,6 +79,8 @@
     &.wts-card-hot-places {
       background: #ffffff;
       padding: $wts-spacing-inner-primary * 3;
+      position: relative;
+      z-index: 100;
     }
   }
   .wts-itinerary-guide-img {

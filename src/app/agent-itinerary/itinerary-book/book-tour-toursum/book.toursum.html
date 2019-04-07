@@ -1,0 +1,29 @@
+<div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="15px">
+    <div class="wts-itinerary-image" fxFlex>
+        <img src="{{tourSummary.backdrop}}" alt="">
+    </div>
+    <div class="wts-itinerary-info" fxFlex>
+        <h4>{{tourSummary.title}}</h4>
+        <div class="wts-textbox" style="text-align: left; margin-bottom: 20px">
+            {{tourSummary.description}}
+        </div>
+        <div class="wts-textbox wts-textbox-horizontal">
+            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>event</mat-icon></div> {{tourSummary.from | date: 'longDate'}} - {{tourSummary.to | date: 'longDate'}}
+        </div>
+        <div class="wts-textbox wts-textbox-horizontal">
+            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>location_on</mat-icon></div> {{tourSummary.area }}
+        </div>
+        <div class="wts-textbox wts-textbox-horizontal">
+            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>rowing</mat-icon></div> {{tourSummary.activities}}
+        </div>
+        <div class="wts-textbox wts-textbox-horizontal">
+            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>fastfood</mat-icon></div> {{tourSummary.services}}
+        </div>
+        <div class="wts-textbox wts-textbox-horizontal" *ngIf="tourSummary.guest_condition">
+            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>accessible</mat-icon></div> {{tourSummary.guest_condition}}
+        </div>
+        <!--<div class="wts-textbox wts-textbox-horizontal" *ngIf="tourSummary.guest_type">-->
+        <!--<div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>language</mat-icon></div> {{tourSummary.guest_type}}-->
+        <!--</div>-->
+    </div>
+</div>

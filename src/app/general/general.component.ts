@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import * as $ from 'jquery';
 // import * as slick from 'slick';
@@ -14,7 +14,7 @@ import { MessageService } from '../services/message.service';
     templateUrl: './general.component.html',
     styleUrls: ['./general.component.scss']
 })
-export class GeneralComponent implements OnInit {
+export class GeneralComponent implements OnInit, OnDestroy {
 
     minDate = new Date();
     user: Profile_ = {
@@ -28,7 +28,8 @@ export class GeneralComponent implements OnInit {
         lname: '',
         image_url: 'https://www.tripwishlist.com/Media/BLPhotos/dummy_user.png'
     };
-    
+    profiles = [];
+    el = null;
     pictures = [{
         'title': 'picture',
         'img': 'https://d2lm6fxwu08ot6.cloudfront.net/img-thumbs/960w/8V46UZCS0V.jpg'
@@ -47,6 +48,7 @@ export class GeneralComponent implements OnInit {
         places: ['Singapore', 'Malaysia'],
         start: new Date(),
         end: new Date(),
+        people: 1,
         pricerange: [0, 150]
     };
     itineraries = [];
@@ -151,7 +153,7 @@ export class GeneralComponent implements OnInit {
         name: 'Haji Lane',
         picture: './assets/locations/haji_lane.jpg'
     }];
-
+    eh = null;
     constructor(
         private authService: AuthService,
         private userService: UserService,
@@ -164,7 +166,6 @@ export class GeneralComponent implements OnInit {
     itemFlexSetter = 32;
 
     ngOnInit() {
-        // non authenticated requests
         this.getAllItineraries();
         // this.getTopGuides();
 
@@ -175,8 +176,11 @@ export class GeneralComponent implements OnInit {
         }
 
         this.tryGetProfile();
-        this.adjustBannerHeight();
-        // this.initBanner();
+        this.adjustBannerHeight(0);
+        window.addEventListener('scroll', this.initAdjustments, true);
+    }
+    ngOnDestroy() {
+        window.removeEventListener('scroll', this.initAdjustments, true);
     }
 
     // initBanner() {
@@ -188,7 +192,15 @@ export class GeneralComponent implements OnInit {
     //         cssEase: 'linear'
     //     });
     // }
-    adjustBannerHeight () {
+    initAdjustments() {
+        const sp = $(document).scrollTop();
+        if (sp >= 200) {
+            $('.wts-search-dates').addClass('wts-search-float');
+        } else {
+            $('.wts-search-dates').removeClass('wts-search-float');
+        }
+    }
+    adjustBannerHeight (sh) {
         const height = window.innerHeight;
         document.getElementById('general-comp-banner').setAttribute('style', 'height:' + height + 'px');
     }
@@ -217,7 +229,10 @@ export class GeneralComponent implements OnInit {
     }
 
     searchNow() {
-        window.scrollTo(0, 700);
+        this.router.navigate(['/search/advanced', {
+            start : this.searchAttr.start,
+            people : this.searchAttr.people
+        }]);
     }
 
     getAllItineraries() {
@@ -237,7 +252,6 @@ export class GeneralComponent implements OnInit {
             });
     }
 
-    profiles = [];
     getProfileForID(userId) {
         let returnObj = {
             name: 'Austin',

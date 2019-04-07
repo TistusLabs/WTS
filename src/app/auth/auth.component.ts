@@ -102,12 +102,12 @@ export class AuthComponent implements OnInit {
         gapi.load('auth2', function () {
             // Retrieve the singleton for the GoogleAuth library and set up the client.
             self.auth2 = gapi.auth2.init({
-                client_id: '822032164383-qqbmt84lubtd9c3niaoblpcpbfoq0qis.apps.googleusercontent.com',
+                client_id: '1078066678608-7uruq11vo35le57ovs9tv3ierb8c10af.apps.googleusercontent.com',
                 cookiepolicy: 'single_host_origin',
                 // Request scopes in addition to 'profile' and 'email'
                 // scope: 'additional_scope'
             });
-            // self._initGoogleSignin(document.getElementById('wts-button-g'));
+            // self._initGoogleSignin(document.getElementById('wts-button-g'));̀
         });
 
         this.authService.authIsLoading.subscribe(

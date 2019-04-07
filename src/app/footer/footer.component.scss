@@ -2,6 +2,9 @@
 
 .wts-footer {
   padding: 0 ($wts-spacing-inner-primary * 3) ($wts-spacing-inner-primary * 3) ($wts-spacing-inner-primary * 3);
+  background: #ffffff;
+  position: relative;
+  z-index: 100;
   .wts-footer-social {
     ul {
       padding: 0;

@@ -1,5 +1,6 @@
 <div class="wts-booking-setup">
-    <div *ngIf="!bookingDone">
+    <!--<div *ngIf="!bookingDone">-->
+    <div>
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <h2>Almost ready to get on board.</h2>
             <button type="button" (click)="onNoClick(false)" class="wts-button-third">Cancel</button>
@@ -15,128 +16,8 @@
             </div>
         </div>
         <mat-dialog-content class="wts-dialog">
-            <div *ngIf="activeBookingStep === 0" class="wts-booking-step wts-booking-summary">
-                <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="15px">
-                    <div class="wts-itinerary-image" fxFlex>
-                        <img src="{{itinerary.backdrop}}" alt="">
-                    </div>
-                    <div class="wts-itinerary-info" fxFlex>
-                        <h4>{{itinerary.title}}</h4>
-                        <div class="wts-textbox" style="text-align: left; margin-bottom: 20px">
-                            {{itinerary.description}}
-                        </div>
-                        <div class="wts-textbox wts-textbox-horizontal">
-                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>event</mat-icon></div> {{itinerary.from | date: 'longDate'}} - {{itinerary.to | date: 'longDate'}}
-                        </div>
-                        <div class="wts-textbox wts-textbox-horizontal">
-                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>location_on</mat-icon></div> {{itinerary.area }}
-                        </div>
-                        <div class="wts-textbox wts-textbox-horizontal">
-                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>rowing</mat-icon></div> {{itinerary.activities}}
-                        </div>
-                        <div class="wts-textbox wts-textbox-horizontal">
-                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>fastfood</mat-icon></div> {{itinerary.services}}
-                        </div>
-                        <div class="wts-textbox wts-textbox-horizontal" *ngIf="itinerary.guest_condition">
-                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>accessible</mat-icon></div> {{itinerary.guest_condition}}
-                        </div>
-                        <!--<div class="wts-textbox wts-textbox-horizontal" *ngIf="itinerary.guest_type">-->
-                        <!--<div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>language</mat-icon></div> {{itinerary.guest_type}}-->
-                        <!--</div>-->
-                    </div>
-                </div>
-            </div>
-            <div *ngIf="activeBookingStep === 1" class="wts-booking-step wts-booking-traveller">
-                <div [formGroup]="form" id="bookingForm">
-                    <div class="wts-space-h-p">
-                        <h3 class="wts-header-3">No of Travellers</h3>
-                        <div class="wts-input-wrap">
-                            <div fxFlex="50%">
-                                <input type="number" min="1" id="noOfTravellers" class="wts-input-block-half" [(ngModel)]="bookingPayload.number_of_travellers" (change)="handleNoOfUsers($event)">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="wts-card" *ngFor="let traveller of bookingPayload.travellers;let i = index;trackBy :trackByIndex">
-                        <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 15px">
-                            <h3 class="wts-header-3">Traveller {{i + 1}} {{i === 0 ? '(Main)' : ''}}</h3>
-                            <div class="wts-textbox wts-textbox-horizontal" *ngIf="i === 0">
-                                <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>information</mat-icon></div> Primary traveller must be over 18.
-                            </div>
-                        </div>
-                        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
-                            <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                <input type="text" placeholder="First name" id="'firstName' + i" [name]="'firstName' + i" [(ngModel)]="bookingPayload.travellers[i].first_name" fxFlex required>
-                            </div>
-                            <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                <input type="text" placeholder="Last name" [(ngModel)]="bookingPayload.travellers[i].last_name" fxFlex required>
-                            </div>
-                            <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                <input type="text" placeholder="NIC/PP No" [(ngModel)]="bookingPayload.travellers[i].nic" fxFlex required>
-                            </div>
-                        </div>
-
-                        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
-                            <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                <mat-select placeholder="Dial code" [(ngModel)]="bookingPayload.travellers[i].phone_prefix">
-                                    <mat-option *ngFor="let code of countryCodes" [value]="code.dial_code">
-                                        {{code.dial_code}}
-                                    </mat-option>
-                                </mat-select>
-                            </div>
-                            <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                <input type="number" placeholder="Phone number" [(ngModel)]="bookingPayload.travellers[i].phone_number" fxFlex>
-                            </div>
-                            <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                <input type="email" placeholder="Email" [(ngModel)]="bookingPayload.travellers[i].email" fxFlex>
-                            </div>
-                        </div>
-                        <div *ngIf="i === 0 || !bookingPayload.travellers[i].main_traveller_address">
-                            <div style="margin-top: 15px" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
-                                <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                    <mat-select placeholder="Country" [(ngModel)]="bookingPayload.travellers[i].country">
-                                        <mat-option *ngFor="let country of countryCodes" [value]="country.name">
-                                            {{country.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                </div>
-                                <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                    <input type="number" placeholder="Postal code" [(ngModel)]="bookingPayload.travellers[i].postal_code" fxFlex>
-                                </div>
-                                <div class="wts-input-wrap" fxFlex fxLayout="row"></div>
-                            </div>
-                            <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
-                                <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                    <input type="text" placeholder="Address line 1" [(ngModel)]="bookingPayload.travellers[i].address_line_1" fxFlex >
-                                </div>
-                                <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                    <input type="text" placeholder="Address line 2" [(ngModel)]="bookingPayload.travellers[i].address_line_2" fxFlex >
-                                </div>
-                                <div class="wts-input-wrap" fxFlex fxLayout="row">
-                                    <input type="text" placeholder="Address line 3" [(ngModel)]="bookingPayload.travellers[i].address_line_3" fxFlex >
-                                </div>
-                            </div>
-                        </div>
-
-                        <div style="line-height: 25px" *ngIf="i === 0">
-                            <input type="checkbox" name="useAsBillingAddress{{i}}" id="useAsBillingAddress{{i}}" [(ngModel)]="bookingPayload.travellers[i].use_as_billing_address">
-                            <label for="useAsBillingAddress{{i}}">Use as billing address</label>
-                        </div>
-                        <div style="line-height: 25px" *ngIf="i > 0">
-                            <input type="checkbox" name="useMainAddress{{i}}" id="useMainAddress{{i}}" [(ngModel)]="bookingPayload.travellers[i].main_traveller_address">
-                            <label for="useMainAddress{{i}}">Use main traveller's address</label>
-                        </div>
-                        <div *ngIf="i === 0">
-                            <div class="wts-space-h-p">
-                                <mat-divider></mat-divider>
-                            </div>
-                            <div style="line-height: 25px">
-                                <input type="checkbox" name="createProfile{{i}}" id="createProfile{{i}}" [(ngModel)]="bookingPayload.travellers[i].create_profile" disabled="{{setProfileDisabled}}">
-                                <label for="createProfile{{i}}">Use above information to create my account</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <book-tour-summary *ngIf="activeBookingStep === 0" class="wts-booking-step wts-booking-summary" [tourSummary]="itinerary"></book-tour-summary>
+            <book-tour-travellers *ngIf="activeBookingStep === 1" class="wts-booking-step wts-booking-traveller" (handleNoOfUsers)="handleNoOfUsers($event)"></book-tour-travellers>
             <div *ngIf="activeBookingStep >= 2" class="wts-booking-step wts-booking-checkout">
                 <div fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="start start">
                     <div fxFlex="60%">
@@ -215,78 +96,7 @@
             </div>
         </mat-dialog-content>
     </div>
-    <div *ngIf="bookingDone" fxLayout="column" class="wts-booking-done">
-        <div class="-header">
-            <mat-icon>check_circle</mat-icon>
-            <h1>You are all on board! Start packing!</h1>
-        </div>
-        <div class="-body">
-            <p>Below is the receipt of your booking.</p>
-            <div fxLayout="row">
-                <div fxFlex="10%"></div>
-                <div id="bookingReceipt" fxFlex="80%" fxLayoutAlign="center start">
-                    <div class="wts-space-h-p wts-card" fxFlex="40%">
-                        <div>{{itinerary.title}}</div>
-                        <div class="wts-textbox wts-textbox-horizontal">
-                            {{itinerary.activities}}
-                        </div>
-                        <div class="wts-textbox wts-textbox-horizontal">
-                            {{itinerary.services}}
-                        </div>
-                        <div class="wts-textbox wts-textbox-horizontal" *ngIf="itinerary.guest_condition">
-                            {{itinerary.guest_condition}}
-                        </div>
-                        <!--<div class="wts-textbox wts-textbox-horizontal" *ngIf="itinerary.guest_type">-->
-                        <!--<div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>language</mat-icon></div> {{itinerary.guest_type}}-->
-                        <!--</div>-->
-                        <div class="wts-space-h-p">
-                            <mat-divider></mat-divider>
-                        </div>
-
-                        <table style="width: 100%;table-layout: fixed">
-                            <tr>
-                                <td>
-                                    <b>Adults</b>
-                                </td>
-                                <td>
-                                    {{summary.adults.count}} * {{itinerary.price_adult}}
-                                </td>
-                                <td style="text-align: right">
-                                    {{summary.adults.subtotal}}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <b>Children</b>
-                                </td>
-                                <td>
-                                    {{summary.children.count}} * {{itinerary.price_child}}
-                                </td>
-                                <td style="text-align: right">
-                                    {{summary.children.subtotal}}
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="wts-space-h-p">
-                            <mat-divider></mat-divider>
-                        </div>
-                        <div fxLayout="row" fxLayoutAlign="space-between center">
-                            <h2 class="wts-header-2" fxFlex>Total</h2>
-                            <h2 class="wts-header-2" fxFlex style="text-align: right">{{summary.total}}</h2>
-                        </div>
-                    </div>
-                </div>
-                <div fxFlex="10%">
-                    <button class="mat-button-circle" (click)="downloadBookingReceipt()">
-                        <mat-icon>save_alt</mat-icon>
-                    </button>
-                    <button class="mat-button-circle" (click)="printBookingReceipt()">
-                        <mat-icon>print</mat-icon>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!--<book-tour-finish [itinerary]="itinerary" [summary]="summary" *ngIf="bookingDone" fxLayout="column" class="wts-booking-done"></book-tour-finish>-->
 </div>
 <div mat-dialog-actions style="justify-content: space-between">
     <div>

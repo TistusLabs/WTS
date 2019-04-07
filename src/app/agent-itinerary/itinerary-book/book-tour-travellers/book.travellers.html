@@ -1,0 +1,172 @@
+<form [formGroup]="bookingForm" id="bookingForm">
+    <div class="wts-space-h-p">
+        <h3 class="wts-header-3">No of Travellers</h3>
+        <div class="wts-input-wrap">
+            <div fxFlex="50%">
+                <input type="number" min="1" formControlName="number_of_travellers" class="wts-input-block-half" (change)="addTraveller($event)">
+            </div>
+        </div>
+    </div>
+    <div formArrayName="travellers">
+        <div [formGroupName]="i" class="wts-card" *ngFor="let t of travellers.controls; let i = index;">
+            <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 15px">
+                <h3 class="wts-header-3">Traveller {{i + 1}} {{i === 0 ? '(Main)' : ''}}</h3>
+                <div class="wts-textbox wts-textbox-horizontal" *ngIf="i === 0">
+                    <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>information</mat-icon></div> Primary traveller must be over 18.
+                </div>
+            </div>
+            <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+                <div class="wts-input-wrap" fxFlex fxLayout="row">
+                    <input type="text" placeholder="First name" formControlName="first_name" fxFlex required>
+                </div>
+                <div class="wts-input-wrap" fxFlex fxLayout="row">
+                    <input type="text" placeholder="Last name" formControlName="last_name" fxFlex required>
+                </div>
+                <div class="wts-input-wrap" fxFlex fxLayout="row">
+                    <input type="text" placeholder="NIC/PP No" formControlName="nic" fxFlex required>
+                </div>
+            </div>
+
+            <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+                <div class="wts-input-wrap" fxFlex fxLayout="row">
+                    <mat-select placeholder="Dial code" formControlName="phone_prefix">
+                        <mat-option *ngFor="let code of countryCodes" [value]="code.dial_code">
+                            {{code.dial_code}}
+                        </mat-option>
+                    </mat-select>
+                </div>
+                <div class="wts-input-wrap" fxFlex fxLayout="row">
+                    <input type="number" formControlName="phone_number" placeholder="Phone number" fxFlex>
+                </div>
+                <div class="wts-input-wrap" fxFlex fxLayout="row">
+                    <input type="email" placeholder="Email" formControlName="email" fxFlex>
+                </div>
+            </div>
+            <div *ngIf="i === 0 || travellers.controls[i].main_traveller_address" style="margin-top: 15px">
+                <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+                    <div class="wts-input-wrap" fxFlex fxLayout="row">
+                        <mat-select placeholder="Country" formControlName="country">
+                            <mat-option *ngFor="let country of countryCodes" [value]="country.name">
+                                {{country.name}}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                    <div class="wts-input-wrap" fxFlex fxLayout="row">
+                        <input type="number" placeholder="Postal code" formControlName="postal_code" fxFlex>
+                    </div>
+                    <div class="wts-input-wrap" fxFlex fxLayout="row"></div>
+                </div>
+                <div formGroupName="address" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+                    <div class="wts-input-wrap" fxFlex fxLayout="row">
+                        <input type="text" placeholder="Address line 1" formControlName="address1" fxFlex >
+                    </div>
+                    <div class="wts-input-wrap" fxFlex fxLayout="row">
+                        <input type="text" placeholder="Address line 2" formControlName="address2" fxFlex >
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="i === 0">
+                <div style="line-height: 25px">
+                    <input type="checkbox" name="useAsBillingAddress{{i}}" id="useAsBillingAddress{{i}}" formControlName="use_as_billing_address">
+                    <label for="useAsBillingAddress{{i}}">Use as billing address</label>
+                </div>
+                <div class="wts-space-h-p">
+                    <mat-divider></mat-divider>
+                </div>
+                <div style="line-height: 25px">
+                    <input type="checkbox" name="createProfile{{i}}" id="createProfile{{i}}" formControlName="create_profile" disabled="{{setProfileDisabled}}">
+                    <label for="createProfile{{i}}">Use above information to create my account</label>
+                </div>
+            </div>
+            <div style="line-height: 25px" *ngIf="i > 0">
+                <input type="checkbox" name="useMainAddress{{i}}" id="useMainAddress{{i}}" formControlName="main_traveller_address">
+                <label for="useMainAddress{{i}}">Use main traveller's address</label>
+            </div>
+        </div>
+    </div>
+    <!--{{bookingForm.value | json}}-->
+
+    <!--<div formArrayName="travellers">-->
+        <!--<div class="wts-card" *ngFor="let traveller of bookingForm.travellers;let i = index;">-->
+            <!--<div fxLayout="row" fxLayoutAlign="space-between center" style="margin-bottom: 15px">-->
+                <!--<h3 class="wts-header-3">Traveller {{i + 1}} {{i === 0 ? '(Main)' : ''}}</h3>-->
+                <!--<div class="wts-textbox wts-textbox-horizontal" *ngIf="i === 0">-->
+                    <!--<div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>information</mat-icon></div> Primary traveller must be over 18.-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">-->
+                <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                    <!--<input type="text" placeholder="First name" formControlName="i" fxFlex required>-->
+                <!--</div>-->
+                <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                    <!--<input type="text" placeholder="Last name"  formControlName="i" fxFlex required>-->
+                <!--</div>-->
+                <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                    <!--<input type="text" placeholder="NIC/PP No" formControlName="i" fxFlex required>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">-->
+                <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                    <!--<mat-select placeholder="Dial code" formControlName="i">-->
+                        <!--<mat-option *ngFor="let code of countryCodes" [value]="code.dial_code">-->
+                            <!--{{code.dial_code}}-->
+                        <!--</mat-option>-->
+                    <!--</mat-select>-->
+                <!--</div>-->
+                <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                    <!--<input type="number" formControlName="i" placeholder="Phone number" fxFlex>-->
+                <!--</div>-->
+                <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                    <!--<input type="email" placeholder="Email" formControlName="i" fxFlex>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div *ngIf="i === 0 || !bookingPayload.travellers[i].main_traveller_address">-->
+                <!--<div style="margin-top: 15px" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">-->
+                    <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                        <!--<mat-select placeholder="Country" [(ngModel)]="bookingPayload.travellers[i].country">-->
+                            <!--<mat-option *ngFor="let country of countryCodes" [value]="country.name">-->
+                                <!--{{country.name}}-->
+                            <!--</mat-option>-->
+                        <!--</mat-select>-->
+                    <!--</div>-->
+                    <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                        <!--<input type="number" placeholder="Postal code" [(ngModel)]="bookingPayload.travellers[i].postal_code" fxFlex>-->
+                    <!--</div>-->
+                    <!--<div class="wts-input-wrap" fxFlex fxLayout="row"></div>-->
+                <!--</div>-->
+                <!--<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">-->
+                    <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                        <!--<input type="text" placeholder="Address line 1" [(ngModel)]="bookingPayload.travellers[i].address_line_1" fxFlex >-->
+                    <!--</div>-->
+                    <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                        <!--<input type="text" placeholder="Address line 2" [(ngModel)]="bookingPayload.travellers[i].address_line_2" fxFlex >-->
+                    <!--</div>-->
+                    <!--<div class="wts-input-wrap" fxFlex fxLayout="row">-->
+                        <!--<input type="text" placeholder="Address line 3" [(ngModel)]="bookingPayload.travellers[i].address_line_3" fxFlex >-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<div style="line-height: 25px" *ngIf="i === 0">-->
+                <!--<input type="checkbox" name="useAsBillingAddress{{i}}" id="useAsBillingAddress{{i}}" [(ngModel)]="bookingPayload.travellers[i].use_as_billing_address">-->
+                <!--<label for="useAsBillingAddress{{i}}">Use as billing address</label>-->
+            <!--</div>-->
+            <!--<div style="line-height: 25px" *ngIf="i > 0">-->
+                <!--<input type="checkbox" name="useMainAddress{{i}}" id="useMainAddress{{i}}" [(ngModel)]="bookingPayload.travellers[i].main_traveller_address">-->
+                <!--<label for="useMainAddress{{i}}">Use main traveller's address</label>-->
+            <!--</div>-->
+            <!--<div *ngIf="i === 0">-->
+                <!--<div class="wts-space-h-p">-->
+                    <!--<mat-divider></mat-divider>-->
+                <!--</div>-->
+                <!--<div style="line-height: 25px">-->
+                    <!--<input type="checkbox" name="createProfile{{i}}" id="createProfile{{i}}" [(ngModel)]="bookingPayload.travellers[i].create_profile" disabled="{{setProfileDisabled}}">-->
+                    <!--<label for="createProfile{{i}}">Use above information to create my account</label>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+</form>

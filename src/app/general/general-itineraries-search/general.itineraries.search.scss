@@ -1,0 +1,15 @@
+@import "variables";
+
+.wts-general-search {
+  //padding: $wts-spacing-inner-primary*5;
+  .wts-search-filters {
+    width: 295px;
+    .wts-search-advanced {
+      position: fixed;
+      bottom: $wts-spacing-inner-primary;
+      right: $wts-spacing-inner-primary;
+      padding: $wts-spacing-inner-primary * 2;
+    }
+  }
+
+}

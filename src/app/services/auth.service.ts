@@ -17,6 +17,7 @@ import {ToasterService} from 'angular2-toaster';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {catchError} from 'rxjs/internal/operators';
 import { MessageService } from './message.service';
+import { debug } from 'util';
 
 const urls = {
     // country : 'https://json.geoiplookup.io/api',
@@ -82,6 +83,7 @@ export class AuthService {
     }
 
     signUpFB_init (accessToken) {
+        debugger
         // Add the Facebook access token to the Cognito credentials login map.
         const t = accessToken;
         const _self = this;
@@ -190,6 +192,8 @@ export class AuthService {
             // that.router.navigate(['/profile']);
         });
     }
+
+
 
     signIn(username: string, password: string): void {
         // debugger

@@ -1,6 +1,6 @@
 @import "variables";
 
-.wts-booking-setup {
+.wts-booking-setup::ng-deep {
   h2 {
     margin-top: 0;
   }
@@ -61,6 +61,7 @@
     }
   }
   .wts-booking-step {
+    display: block;
     padding: $wts-spacing-inner-primary*2 0;
     &.wts-booking-summary {
       .wts-itinerary-image {
