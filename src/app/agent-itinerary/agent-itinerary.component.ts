@@ -8,7 +8,7 @@ import {ToasterService} from 'angular2-toaster';
 import {MatDialog} from '@angular/material';
 import {ItineraryBook} from './itinerary-book/itinerary-book.component';
 import { CreateItinerary } from '../agent-itineraries/agent-itineraries.component';
-import {CalendarEvent, CalendarMonthViewBeforeRenderEvent, CalendarMonthViewDay} from 'angular-calendar';
+import {CalendarEvent, CalendarMonthViewBeforeRenderEvent, CalendarMonthViewDay, CalendarView} from 'angular-calendar';
 import { addDays } from 'date-fns';
 import { DayViewHour } from 'calendar-utils';
 
@@ -23,6 +23,7 @@ declare let google;
 export class AgentItineraryComponent implements OnInit, AfterViewChecked {
     itinerary: Itinerary;
     loading = false;
+    view: CalendarView = CalendarView.Month;
     viewDate: Date = new Date();
     today = new Date();
     tomorrow = this.today.setDate(this.today.getDate() + 1);
@@ -33,14 +34,17 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
     selectedDayViewDate: Date;
     selectedDays: any = [];
     dayView: DayViewHour[];
+    activeDayIsOpen: boolean = true;
 
     constructor(private itineraryService: ItineraryService,
                 private toastr: ToasterService,
+                private router: Router,
                 public dialog: MatDialog) {
     }
 
     ngOnInit() {
         this.itinerary = this.itineraryService.getItinerary();
+        if (!this.itinerary) { this.router.navigateByUrl('/search'); }
         const myLatlng = new google.maps.LatLng(1.3521, 103.8198);
         const mapOptions = {
             zoom: 12,
@@ -63,8 +67,7 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
             arrows: false,
             fade: true,
             centerMode: true,
-            asNavFor: '.slider-nav',
-            autoplay: true
+            asNavFor: '.slider-nav'
         });
         $('.slider-nav').slick({
             slidesToShow: 3,
@@ -72,13 +75,20 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
             asNavFor: '.slider-for',
             dots: false,
             centerMode: true,
-            focusOnSelect: true
+            autoplaySpeed: 2000,
+            focusOnSelect: true,
+            variableWidth: true
         });
+
+
     }
     ngAfterViewChecked() {
         // $(document).ready(() => {
             const galwidth = $('#wts-itinerary-gal').width();
             $('.slider-for').css({
+                width : (galwidth)
+            });
+            $('.slider-nav').css({
                 width : (galwidth)
             });
         // });
@@ -144,6 +154,7 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
         });
     }
     dayClicked(day: CalendarMonthViewDay): void {
+        debugger
         this.selectedMonthViewDay = day;
         const selectedDateTime = this.selectedMonthViewDay.date.getTime();
         const dateIndex = this.selectedDays.findIndex(
@@ -170,16 +181,6 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
     //     });
     // }
 
-    hourSegmentClicked(date: Date) {
-        this.selectedDayViewDate = date;
-        this.addSelectedDayViewClass();
-    }
-
-    beforeDayViewRender(dayView: DayViewHour[]) {
-        this.dayView = dayView;
-        this.addSelectedDayViewClass();
-    }
-
     private addSelectedDayViewClass() {
         this.dayView.forEach(hourSegment => {
             hourSegment.segments.forEach(segment => {
@@ -193,6 +194,8 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
             });
         });
     }
-
+    closeOpenMonthViewDay() {
+        this.activeDayIsOpen = false;
+    }
 }
 

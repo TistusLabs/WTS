@@ -167,6 +167,7 @@ mwl-calendar-month-view {
 }
 .cal-day-disabled {
   background-color: $wts-color-highlight-lightgray!important;
+  pointer-events: none!important;
   &.cal-day-selected{
     .cal-cell-top {
       .cal-day-number {
@@ -195,10 +196,13 @@ mwl-calendar-month-view {
   height: 350px;
   margin: 0px auto 1px;
   overflow: hidden;
+  //border-radius: $wts-border-radius-primary;
 }
-img{
+.slick-list {
   width: 100%;
-  min-height: 100%;
+}
+.slick-slide img {
+  width: 100%;
 }
 .slider-nav{
   width: 500px;
@@ -207,6 +211,14 @@ img{
 }
 .slider-nav .slick-track{
   height: 85px;
+}
+.slider-nav .item {
+  display: flex;
+  justify-content: center;
+}
+.slider-nav .item img{
+  height: 85px;
+  width: auto;
 }
 .slick-arrow{
   position: absolute;
@@ -432,7 +444,8 @@ input[type="radio"]:disabled+label {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-  background: #ffffff90;
+  //background: #ffffff90;
+  background: #ffffff;
   -webkit-box-shadow: $wts-shadow-card;
   -moz-box-shadow: $wts-shadow-card;
   box-shadow: $wts-shadow-card;

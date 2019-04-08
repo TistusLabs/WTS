@@ -60,7 +60,8 @@
 }
 
 .wts-itinerary {
-  padding: $wts-spacing-inner-primary;
+  padding: $wts-spacing-inner-primary * 3;
+  background: #f8f8f8;
   .wts-itinerary-service {
     display: flex;
     .wts-iti-service-loc,
@@ -85,6 +86,7 @@
     border-radius: 100%;
     overflow: hidden;
     border: solid 3px #eee;
+    background-color: $wts-color-highlight-gray;
     padding: 2px;
     box-sizing: border-box;
     img {
@@ -108,6 +110,28 @@
         width: 17px;
         height: 17px;
         color: $wts-color-text-secondary;
+      }
+    }
+  }
+  #wts-itinerary-gal {
+    background: $wts-color-highlight-lightgray;
+  }
+  .wts-rotate-month {
+    .-rotate-control {
+      cursor: pointer;
+      color: $wts-color-highlight-gray;
+      &:hover {
+        font-weight: 700;
+        color: $wts-color-text-secondary;
+      }
+      &.-rotate-left {
+
+      }
+      &.-rotate-today {
+        text-align: center;
+      }
+      &.-rotate-right {
+        text-align: right;
       }
     }
   }

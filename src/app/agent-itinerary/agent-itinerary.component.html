@@ -31,22 +31,22 @@
 <div class="wts-itinerary">
     <div fxLayout="row" class="wts-main-wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="center" fxLayoutWrap>
         <div fxFlex fxLayout="column" fxLayoutGap="20px">
-            <div class="wts-card wts-card-sunken">
-                <div class="wts-space-h-p">
-                    <div class="wts-itinerary-service" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.xs="15px">
-                        <div class="wts-iti-service-loc">
-                            <mat-icon>location_on</mat-icon> {{ itinerary.area }}
-                        </div>
-                        <div class="wts-iti-service-duration" fxFlex>
-                            <mat-icon>event</mat-icon> {{ itinerary.from | date: 'longDate'}} - {{ itinerary.to | date: 'longDate'}}
-                        </div>
-                        <div class="wts-iti-service-lang">
-                            <mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']; let i = index"> {{l}}{{i !== itinerary.guide['languages'].length-1 ? ',  ' : null}}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="wts-card">
+            <!--<div class="wts-card wts-card-sunken">-->
+                <!--<div class="wts-space-h-p">-->
+                    <!--<div class="wts-itinerary-service" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.xs="15px">-->
+                        <!--<div class="wts-iti-service-loc">-->
+                            <!--<mat-icon>location_on</mat-icon> {{ itinerary.area }}-->
+                        <!--</div>-->
+                        <!--<div class="wts-iti-service-duration" fxFlex>-->
+                            <!--<mat-icon>event</mat-icon> {{ itinerary.from | date: 'longDate'}} - {{ itinerary.to | date: 'longDate'}}-->
+                        <!--</div>-->
+                        <!--<div class="wts-iti-service-lang">-->
+                            <!--<mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']; let i = index"> {{l}}{{i !== itinerary.guide['languages'].length-1 ? ',  ' : null}}</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="wts-card wts-card-sunken" style="padding: 0">
                 <div id="wts-itinerary-gal">
                     <div class="slider-for">
                         <div class="item">
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div fxLayout="row" style="margin-top: 15px">
+                <div fxLayout="row" class="wts-space-h-p">
                     <div fxFlex>
                         <div class="wts-card-header">
                             <div class="wts-card-header-flex">
@@ -96,7 +96,6 @@
                         <div class="wts-itinerary-guide-img">
                             <img src="{{itinerary.guide['picture']}}" alt="{{itinerary.guide['name']}}">
                         </div>
-                        <button class="wts-button mat-button-flat-p"> <mat-icon>chat_outline</mat-icon> AirChat</button>
                     </div>
                 </div>
             </div>
@@ -191,19 +190,22 @@
                     </div>
                 </li>
             </ul>
-            <div class="wts-space-h-p"><div class="_divider"></div></div>
 
-            <div fxLayout="row" fxLayoutAlign="center" style="text-align: center">
-                <div fxFlex>
-                    <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' | currency:'SGD' }}</div>
-                    <span class="wts-iti-price-per">Adults</span>
+            <div class="wts-space-h-p">
+                <div class="wts-space-h-p"><div class="_divider"></div></div>
+                <div fxLayout="row" fxLayoutAlign="center" style="text-align: center">
+                    <div fxFlex>
+                        <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' | currency:'SGD' }}</div>
+                        <span class="wts-iti-price-per">Adults</span>
+                    </div>
+                    <div fxFlex>
+                        <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' | currency:'SGD' }}</div>
+                        <span class="wts-iti-price-per">Children</span>
+                    </div>
                 </div>
-                <div fxFlex>
-                    <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' | currency:'SGD' }}</div>
-                    <span class="wts-iti-price-per">Children</span>
-                </div>
+                <div class="wts-space-h-p"><div class="_divider"></div></div>
             </div>
-            <div class="wts-space-h-p"><div class="_divider"></div></div>
+
             <div class="wts-space-h-p">
                 <h2 class="wts-header-2">
                     <div class="wts-textbox wts-textbox-horizontal">
@@ -213,6 +215,27 @@
                         Available dates
                     </div>
                 </h2>
+                <div class="wts-rotate-month" fxLayout="row" fxLayoutAlign="center">
+                    <div fxFlex class="-rotate-left -rotate-control"
+                         mwlCalendarPreviousView
+                         [view]="view"
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="closeOpenMonthViewDay()">
+                        <mat-icon>keyboard_arrow_left</mat-icon>
+                    </div>
+                    <div fxFlex class="-rotate-today -rotate-control"
+                         mwlCalendarToday
+                         [(viewDate)]="viewDate">
+                        Today
+                    </div>
+                    <div fxFlex class="-rotate-right -rotate-control"
+                         mwlCalendarNextView
+                         [view]="view"
+                         [(viewDate)]="viewDate"
+                         (viewDateChange)="closeOpenMonthViewDay()">
+                        <mat-icon>keyboard_arrow_right</mat-icon>
+                    </div>
+                </div>
                 <div style="display: flex;justify-content: center">
                     <mwl-calendar-month-view
                         [viewDate]="viewDate"
@@ -222,7 +245,8 @@
                     </mwl-calendar-month-view>
                 </div>
             </div>
-            <div class="wts-space-h-p" style="text-align: center">
+            <div class="wts-space-h-p" style="text-align: center" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="15px">
+                <button class="wts-button mat-button-flat-p"> <mat-icon>chat_outline</mat-icon>Chat</button>
                 <button class="wts-button-primary" (click)="requestToBook(itinerary)">Request to book</button>
             </div>
         </div>
