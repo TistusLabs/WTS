@@ -9,7 +9,20 @@
       max-width: 295px;
       bottom: $wts-spacing-inner-primary;
       right: $wts-spacing-inner-primary;
-      padding: $wts-spacing-inner-primary * 2;
+      box-sizing: border-box;
+      padding: 0;
+      .wts-search-body {
+        h4 {
+          margin: 0;
+        }
+        padding: $wts-spacing-inner-primary;
+        overflow-y: scroll;
+      }
+      .wts-search-footer {
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-bottom: 0px;
+      }
     }
   }
 

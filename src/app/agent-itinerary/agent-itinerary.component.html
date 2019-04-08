@@ -5,7 +5,6 @@
         border-radius: 10px;
     }
 </style>
-
 <div class="wts-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap>
     <img class="wts-itinerary-cover" src="{{ itinerary.backdrop }}" alt="{{ itinerary.title }}">
     <div class="wts-itinerary-summery" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.xs="15px" fxFlex>
@@ -13,7 +12,7 @@
             <h3 class="wts-header-3 wts-itinerary-place">Singapore</h3>
             <h2 class="wts-header-2 wts-itinerary-title">{{ itinerary.title }}</h2>
             <div class="wts-iti-service-sum">
-                <span class="wts-pill wts-pill-general" *ngFor="let s of itinerary.services.values">{{s}}</span>
+                <!--<span class="wts-pill wts-pill-general" *ngFor="let s of itinerary.services.values">{{s}}</span>-->
             </div>
         </div>
         <div class="wts-itinerary-service" fxFlex="40%" fxShow.xs="false">
@@ -48,7 +47,43 @@
                 </div>
             </div>
             <div class="wts-card">
-                <div fxLayout="row">
+                <div id="wts-itinerary-gal">
+                    <div class="slider-for">
+                        <div class="item">
+                            <img src="assets/13.jpg" alt="image"  draggable="false"/>
+                        </div>
+                        <div class="item">
+                            <img src="assets/52df12e0c5393.jpg" alt="image" draggable="false"/>
+                        </div>
+                        <div class="item">
+                            <img src="assets/backdrop_1.jpg" alt="image" draggable="false"/>
+                        </div>
+                        <div class="item">
+                            <img src="assets/backdrop_2.jpg" alt="image" draggable="false"/>
+                        </div>
+                        <div class="item">
+                            <img src="assets/backdrop_3.jpg" alt="image" draggable="false"/>
+                        </div>
+                    </div>
+                    <div class="slider-nav">
+                        <div class="item">
+                            <img src="assets/13.jpg" alt="image"  draggable="false"/>
+                        </div>
+                        <div class="item">
+                            <img src="assets/52df12e0c5393.jpg" alt="image" draggable="false"/>
+                        </div>
+                        <div class="item">
+                            <img src="assets/backdrop_1.jpg" alt="image" draggable="false"/>
+                        </div>
+                        <div class="item">
+                            <img src="assets/backdrop_2.jpg" alt="image" draggable="false"/>
+                        </div>
+                        <div class="item">
+                            <img src="assets/backdrop_3.jpg" alt="image" draggable="false"/>
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" style="margin-top: 15px">
                     <div fxFlex>
                         <div class="wts-card-header">
                             <div class="wts-card-header-flex">
@@ -130,15 +165,8 @@
                 <p fxLayout="row" fxLayoutAlign="start center"> <mat-icon>error_outline</mat-icon> {{ itinerary.notes }}</p>
             </div>
         </div>
-        <div class="wts-card" fxFlex="20%">
-            <div fxLayout="column" fxLayoutAlign="center" style="text-align: center">
-                <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' }} SGD</div>
-                <span class="wts-iti-price-per">per Person</span>
-                <div class="wts-space-h-p">
-                    <button class="wts-button-primary" (click)="requestToBook(itinerary)">Request to book</button>
-                </div>
-            </div>
-            <div class="_divider"></div>
+        <div class="wts-card" fxFlex="30%">
+            <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
             <div class="wts-card-header" style="margin-top: 10px">
                 <div class="wts-card-header-flex">
                     <h2 class="wts-header-2">
@@ -151,7 +179,6 @@
                     </h2>
                 </div>
             </div>
-            <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
             <ul class="wts-list" *ngIf="!loading">
                 <li class="wts-list-item wts-clickable" (click)="editItinerary()">
                     <div class="wts-textbox wts-textbox-horizontal">
@@ -164,6 +191,40 @@
                     </div>
                 </li>
             </ul>
+            <div class="wts-space-h-p"><div class="_divider"></div></div>
+
+            <div fxLayout="row" fxLayoutAlign="center" style="text-align: center">
+                <div fxFlex>
+                    <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' | currency:'SGD' }}</div>
+                    <span class="wts-iti-price-per">Adults</span>
+                </div>
+                <div fxFlex>
+                    <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' | currency:'SGD' }}</div>
+                    <span class="wts-iti-price-per">Children</span>
+                </div>
+            </div>
+            <div class="wts-space-h-p"><div class="_divider"></div></div>
+            <div class="wts-space-h-p">
+                <h2 class="wts-header-2">
+                    <div class="wts-textbox wts-textbox-horizontal">
+                        <div class="wts-textbox-icon">
+                            <mat-icon>date_range</mat-icon>
+                        </div>
+                        Available dates
+                    </div>
+                </h2>
+                <div style="display: flex;justify-content: center">
+                    <mwl-calendar-month-view
+                        [viewDate]="viewDate"
+                        [events]="events"
+                        (beforeViewRender)="beforeMonthViewRender($event)"
+                        (dayClicked)="dayClicked($event.day)">
+                    </mwl-calendar-month-view>
+                </div>
+            </div>
+            <div class="wts-space-h-p" style="text-align: center">
+                <button class="wts-button-primary" (click)="requestToBook(itinerary)">Request to book</button>
+            </div>
         </div>
     </div>
 </div>

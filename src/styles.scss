@@ -5,6 +5,9 @@
 //@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "~nouislider/distribute/nouislider.min.css";
 @import '../node_modules/angular2-toaster/src/toaster';
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "../node_modules/slick-carousel/slick/slick.css";
+@import "../node_modules/slick-carousel/slick/slick-theme.css";
 
 html,
 body {
@@ -94,6 +97,134 @@ nouislider {
 }
 .mat-menu-panel.wts-topbar-menu {
   width: 200px;
+}
+
+//Angular-calendar ovwrites
+$ang-cal-maxwidth : 321px;
+$ang-cal-cel-size : 45px;
+$ang-cal-disabled : $wts-color-highlight-lightgray;
+mwl-calendar-month-view {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+}
+.cal-days {
+  max-width: $ang-cal-maxwidth;
+}
+.cal-month-view .cal-header {
+  font-weight: normal;
+  max-width: $ang-cal-maxwidth;
+}
+.cal-month-view .cal-header .cal-cell {
+  font-size: 13px;
+  padding: 4px;
+}
+.cal-month-view .cal-day-cell {
+  min-height: $ang-cal-cel-size;
+  min-width: $ang-cal-cel-size;
+  max-width: $ang-cal-cel-size;
+}
+.cal-month-view .cal-day-cell.cal-has-events .cal-day-badge {
+  display: none!important;
+}
+.cal-month-view .cal-day-cell.cal-has-events .cal-cell-top {
+  //color: #ffffff;
+}
+.cal-month-view .cal-cell {
+  position: relative;
+}
+.cal-month-view .cal-events {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  color: $ang-cal-disabled;
+  background-color: $ang-cal-disabled;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  .cal-event {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    display: inline-block;
+    margin: 0;
+  }
+}
+.cal-month-view .cal-cell-top {
+  min-height: $ang-cal-cel-size;
+  min-width: $ang-cal-cel-size;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+.cal-month-view .cal-day-number {
+  font-size: 14px;
+  margin: 0;
+  float: none;
+}
+.cal-month-view .cal-day-cell.cal-today .cal-day-number {
+  font-size: 14px;
+}
+.cal-day-disabled {
+  background-color: $wts-color-highlight-lightgray!important;
+  &.cal-day-selected{
+    .cal-cell-top {
+      .cal-day-number {
+        color: inherit;
+      }
+    }
+  }
+}
+.cal-day-selected {
+  background-color: $wts-color-primary-light!important;
+  .cal-cell-top {
+    .cal-day-number {
+      color: #ffffff;
+    }
+  }
+}
+//Angular-calendar ovwrites
+
+//Slick
+.slick-slider {
+  display: flex;
+  align-items: center;
+}
+.slider-for{
+  width: 500px;
+  height: 350px;
+  margin: 0px auto 1px;
+  overflow: hidden;
+}
+img{
+  width: 100%;
+  min-height: 100%;
+}
+.slider-nav{
+  width: 500px;
+  height: 85px;
+  margin: auto;
+}
+.slider-nav .slick-track{
+  height: 85px;
+}
+.slick-arrow{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 50;
+  margin: auto;
+  -webkit-transform: none;
+  -moz-transform: none;
+  -ms-transform: none;
+  -o-transform: none;
+  transform: none;
+}
+.slick-prev{
+  left: 0;
+}
+.slick-next{
+  right: 0;
 }
 
 /* COMMON
@@ -637,7 +768,7 @@ button {
   }
   .wts-search-pricerange {
     box-sizing: border-box;
-    padding-top: $wts-spacing-inner-primary;
+    padding: $wts-spacing-inner-primary $wts-spacing-inner-secondary $wts-spacing-inner-third $wts-spacing-inner-secondary;
     width: 100%;
     text-align: center;
   }

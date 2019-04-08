@@ -7,7 +7,8 @@
     </div>
     <div class="wts-search-filters">
         <div class="wts-search-dates wts-search-advanced" fxLayout="column">
-            <div fxFlex>
+            <div class="wts-search-body" fxFlex>
+                <h4>Search for what you want</h4>
                 <div class="wts-search-label-upper">Start date</div>
                 <div class="wts-input-wrap" fxLayout="row" style="margin-bottom: 15px">
                     <input type="text" name="itineraryPeriodFrom" placeholder="Starts.." [matDatepicker]="fromPicker" [(ngModel)]="searchAttr.start" [min]="minDate" fxFlex>
@@ -25,7 +26,7 @@
                     <input type="number" name="itineraryPeriodTo" placeholder="1"  [(ngModel)]="searchAttr.people" fxFlex>
                     <button class="mat-button-circle"><mat-icon class="mat-button-circle">wc</mat-icon></button>
                 </div>
-                <div class="wts-search-label-upper">Type</div>
+                <div class="wts-search-label-upper">Interests</div>
                 <div>
                     <div style="width: 100%">
                         <mat-chip-list #chipList>
@@ -38,7 +39,7 @@
                                 <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                             </mat-chip>
                             <input
-                                    placeholder="Add types.."
+                                    placeholder="Add here.."
                                     #fruitInput
                                     [formControl]="fruitCtrl"
                                     [matAutocomplete]="auto"

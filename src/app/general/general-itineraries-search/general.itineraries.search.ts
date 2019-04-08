@@ -2,7 +2,7 @@ import {Component, ElementRef, Input, OnDestroy, OnInit, ViewChild} from '@angul
 import {ItineraryService} from '../../services/itinerary.service';
 import {UserService} from '../../services/user.service';
 import * as $ from 'jquery';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
@@ -45,7 +45,8 @@ export class GeneralItineriesSearch implements OnInit, OnDestroy{
     constructor(
         public itineraryService: ItineraryService,
         public userService: UserService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {
         this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
             startWith(null),
@@ -159,5 +160,9 @@ export class GeneralItineriesSearch implements OnInit, OnDestroy{
             }
         }
         return returnObj;
+    }
+    openItinerary(itinerary) {
+        this.itineraryService.setItinerary(itinerary);
+        this.router.navigateByUrl('/itinerary/' + itinerary.itinerary_id);
     }
 }

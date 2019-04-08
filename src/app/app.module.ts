@@ -58,6 +58,8 @@ import {TourSummary} from './agent-itinerary/itinerary-book/book-tour-toursum/bo
 import {TourTravellers} from './agent-itinerary/itinerary-book/book-tour-travellers/book.travellers';
 import { TourFinish } from './agent-itinerary/itinerary-book/book-tour-finish/book.tourfinish';
 import {GeneralItineriesSearch} from './general/general-itineraries-search/general.itineraries.search';
+import {CalendarModule, DateAdapter} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 
 export function tokenGetter() {
     return localStorage.getItem('access_token');
@@ -102,6 +104,10 @@ export function tokenGetter() {
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory
+        }),
         FormsModule,
         HttpClientModule,
         ReactiveFormsModule,

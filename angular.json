@@ -27,8 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.scss",
-              "node_modules/slick-carousel/slick/slick.css"
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
@@ -37,7 +36,7 @@
             },
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/slick-carousel/slick/slick.min.js"
+              "src/assets/lib/slick.min.js"
             ]
           },
           "configurations": {
