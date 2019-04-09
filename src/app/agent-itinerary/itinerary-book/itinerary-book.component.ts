@@ -160,79 +160,17 @@ export class ItineraryBook implements OnInit {
         // this.checkOutBooking(this.itinerary);
     }
 
-    // checkOutBooking (itinerary) {
-    //     this.form_invalid = false;
-    //     this.bookingPaused = true;
-    //     const _buddies = this.bookingPayload.travellers.map(traveller => {
-    //         if (traveller.first_name === '') {
-    //             this.form_invalid = true;
-    //             return;
-    //         } else {
-    //             return traveller.first_name;
-    //         }
-    //     });
-    //
-    //     if (this.form_invalid) {
-    //         this.bookingPaused = false;
-    //         this.toastr.pop('error', 'Empty Traveller details', 'You have unfilled traveller details. Please go through the form and fill all the traveller details.');
-    //         return -1;
-    //     }
-    //     const _payload = {
-    //         "itinerary_id": itinerary.itinerary_id,
-    //         "buddylist" : _buddies,
-    //         "datetime" : "",
-    //         "tourstartdatetime" : itinerary.from,
-    //         "tourenddatetime" : itinerary.to
-    //     };
-    //
-    //     this.bookingService.createBooking(_payload)
-    //         .subscribe(
-    //             res => {
-    //                 this.continueBooking();
-    //                 this.bookingPaused = false;
-    //             },
-    //             err => {
-    //                 this.toastr.pop('error', 'Booking Failed', `Failed to book  ${itinerary.title}. Please try again later.`);
-    //                 this.bookingPaused = false;
-    //             },
-    //             () => {
-    //             });
-    // }
-
     downloadBookingReceipt() {
 
     }
 
-    printBookingReceipt() {
-        window.print();
+    forwardBooking (e) {
+        debugger
+        this.continueBooking();
     }
 
-    handleNoOfUsers (e) {
-        // this.addTraveller();
-
-        // const _traveler = {
-        //     first_name: '',
-        //     last_name: '',
-        //     nic: '',
-        //     phone_prefix: '',
-        //     phone_number: null,
-        //     email: '',
-        //     country: this.bookingPayload.travellers[0].country,
-        //     postal_code: this.bookingPayload.travellers[0].postal_code,
-        //     address_line_1: this.bookingPayload.travellers[0].address_line_1,
-        //     address_line_2: this.bookingPayload.travellers[0].address_line_2,
-        //     address_line_3: this.bookingPayload.travellers[0].address_line_3,
-        //     main_traveller_address: true,
-        //     use_as_billing_address: false,
-        //     create_profile: false
-        // };
-        //
-        // this.bookingPayload.travellers.length = 1;
-        // for (let i = 1; i < this.bookingPayload.number_of_travellers; i++) {
-        //     this.bookingPayload.travellers.push(_traveler);
-        // }
-        //
-        // this.bookingPayload.number_of_travellers_prev = this.bookingPayload.number_of_travellers;
+    printBookingReceipt() {
+        window.print();
     }
 
 }

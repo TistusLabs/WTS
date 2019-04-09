@@ -1,12 +1,15 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {BookingService} from '../../../services/booking.service';
+import {ToasterService} from 'angular2-toaster';
 
 @Component({
     'selector': 'book-tour-travellers',
     'templateUrl': './book.travellers.html'
 })
-export class TourTravellers implements OnInit{
-    @Output() private handleNoOfUsers = new EventEmitter();
+export class TourTravellers implements OnInit {
+    @Input() private itinerary;
+    @Output() public bookingSubmissionStat: EventEmitter<any> = new EventEmitter();
 
     countryCodes = [
         {
@@ -1267,16 +1270,22 @@ export class TourTravellers implements OnInit{
     ];
     traveller: FormGroup;
     bookingForm: FormGroup;
+    no_of_travellers_temp = 1;
+    get noOfTravellers() {
+        return this.bookingForm.get('number_of_travellers');
+    }
     get travellers() {
         return this.bookingForm.get('travellers') as FormArray;
     }
 
-    constructor(private fb: FormBuilder) {
-
-    }
+    constructor(
+        private fb: FormBuilder,
+        private bookingService: BookingService,
+        private toastr: ToasterService
+    ) {}
     ngOnInit() {
         this.bookingForm = this.fb.group({
-            number_of_travellers : [1],
+            number_of_travellers : [1, Validators.min(1)],
             travellers : this.fb.array([this.getTraveller()]),
             setProfileDisabled : [true]
         });
@@ -1284,35 +1293,82 @@ export class TourTravellers implements OnInit{
     trackByIndex(index: number, obj: any): any {
         return index;
     }
-    submit() {
-        debugger
-    }
     getTraveller() {
         return this.fb.group({
             first_name: ['', Validators.required],
             last_name: [''],
-            nic: ['', Validators.required],
-            phone_prefix: ['', Validators.required],
-            phone_number: ['', Validators.required],
-            email: ['', Validators.required],
-            country: ['', Validators.required],
-            postal_code: ['', Validators.required],
+            nic: [''],
+            phone_prefix: [''],
+            phone_number: [''],
+            email: [''],
             address: this.fb.group({
-                address1 : ['', Validators.required],
+                country: [''],
+                postal_code: [''],
+                address1 : [''],
                 address2 : ['']
             }),
             main_traveller_address: [true],
-            different_address: [false],
             use_as_billing_address: [false],
             create_profile: [false]
         });
     }
-    addTraveller() {
-        this.travellers.push(this.getTraveller());
+    updateTravellers(e) {
+        const n = this.noOfTravellers.value;
+        if (n > 0) {
+            const n_ = this.no_of_travellers_temp;
+            if (n_ > n) {
+                for (let i = 0; i < (n_ - n); i++) {
+                    this.travellers.controls.splice(-1, 1);
+                }
+            } else {
+                for (let i = 0; i < (n - n_); i++) {
+                    this.travellers.push(this.getTraveller());
+                }
+            }
+            this.no_of_travellers_temp = n;
+        }
     }
-    validateAddress(traveller) {
-        traveller.patchValue({
-            different_address : !traveller.value.main_traveller_address
-        });
+    submit(e) {
+        debugger
+        if (this.bookingForm.valid) {
+            e.preventDefault();
+            const formdata = this.bookingForm.value;
+            const mainaddress = formdata.travellers[0].address;
+            const buddies = [];
+            formdata.travellers.map(t => {
+                if (t.main_traveller_address) {
+                    t.address = mainaddress;
+                }
+                buddies.push(t.first_name);
+            });
+            const _payload = {
+                'itinerary_id': this.itinerary.itinerary_id,
+                'buddylist' : buddies,
+                'datetime' : this.itinerary.from,
+                'tourstartdatetime' : this.itinerary.from,
+                'tourenddatetime' : this.itinerary.to
+            };
+
+            this.bookingService.createBooking(_payload)
+                .subscribe(
+                    res => {
+                        debugger
+                        this.bookingCompletion(true, res['Data']);
+                    },
+                    err => {
+                        debugger
+                        this.bookingCompletion(false, null);
+                    },
+                    () => {
+                    });
+        }
+    }
+
+    bookingCompletion(stat, summary) {
+        if (stat) {
+            this.bookingSubmissionStat.emit(summary);
+        } else {
+            this.toastr.pop('error', 'Booking Failed', `Failed to book  ${this.itinerary.title}. Please try again later.`);
+        }
     }
 }

@@ -40,6 +40,8 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
                 private toastr: ToasterService,
                 private router: Router,
                 public dialog: MatDialog) {
+        const i = this.itineraryService.getItinerary();
+        if (!i) { this.router.navigateByUrl('/search'); }
     }
 
     ngOnInit() {

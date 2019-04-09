@@ -17,7 +17,7 @@
         </div>
         <mat-dialog-content class="wts-dialog">
             <book-tour-summary *ngIf="activeBookingStep === 0" class="wts-booking-step wts-booking-summary" [tourSummary]="itinerary"></book-tour-summary>
-            <book-tour-travellers *ngIf="activeBookingStep === 1" class="wts-booking-step wts-booking-traveller" (handleNoOfUsers)="handleNoOfUsers($event)"></book-tour-travellers>
+            <book-tour-travellers *ngIf="activeBookingStep === 1" class="wts-booking-step wts-booking-traveller" [itinerary]="itinerary" (bookingSubmissionStat)="forwardBooking($event)"></book-tour-travellers>
             <div *ngIf="activeBookingStep >= 2" class="wts-booking-step wts-booking-checkout">
                 <div fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="start start">
                     <div fxFlex="60%">
@@ -108,7 +108,7 @@
         <span *ngIf="!bookingPaused">{{activeBookingStep >= 2 ? 'Checkout' : 'Continue'}}</span>
     </button>
     <!--. . . . . . . . . . . . . . . . . . . . . . . -->
-    <button type="submit" *ngIf="activeBookingStep === 1" id="bookingInfoSubmit" class="wts-button-primary" (click)="submitTravellerInfo()"  [disabled]="bookingPaused">
+    <button type="submit" *ngIf="activeBookingStep === 1" id="bookingInfoSubmit" form="bookingForm" class="wts-button-primary" (click)="submitTravellerInfo()"  [disabled]="bookingPaused">
         <mat-spinner diameter="18" *ngIf="bookingPaused" style="color: #fff;margin: 0 20px"></mat-spinner>
         <span *ngIf="!bookingPaused">Continue</span>
     </button>

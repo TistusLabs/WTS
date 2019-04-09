@@ -1,9 +1,9 @@
-<form [formGroup]="bookingForm" id="bookingForm">
+<form [formGroup]="bookingForm" id="bookingForm" (submit)="submit($event)">
     <div class="wts-space-h-p">
         <h3 class="wts-header-3">No of Travellers</h3>
         <div class="wts-input-wrap">
             <div fxFlex="50%">
-                <input type="number" min="1" formControlName="number_of_travellers" class="wts-input-block-half" (change)="addTraveller($event)">
+                <input type="number" formControlName="number_of_travellers" class="wts-input-block-half" (change)="updateTravellers($event)">
             </div>
         </div>
     </div>
@@ -17,13 +17,13 @@
             </div>
             <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
-                    <input type="text" placeholder="First name" formControlName="first_name" fxFlex required>
+                    <input type="text" placeholder="First name" formControlName="first_name" fxFlex>
                 </div>
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
-                    <input type="text" placeholder="Last name" formControlName="last_name" fxFlex required>
+                    <input type="text" placeholder="Last name" formControlName="last_name" fxFlex>
                 </div>
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
-                    <input type="text" placeholder="NIC/PP No" formControlName="nic" fxFlex required>
+                    <input type="text" placeholder="NIC/PP No" formControlName="nic" fxFlex>
                 </div>
             </div>
 
@@ -42,21 +42,21 @@
                     <input type="email" placeholder="Email" formControlName="email" fxFlex>
                 </div>
             </div>
-            <div *ngIf="i === 0 || travellers.controls[i].main_traveller_address" style="margin-top: 15px">
-                <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
-                    <div class="wts-input-wrap" fxFlex fxLayout="row">
-                        <mat-select placeholder="Country" formControlName="country">
-                            <mat-option *ngFor="let country of countryCodes" [value]="country.name">
-                                {{country.name}}
-                            </mat-option>
-                        </mat-select>
-                    </div>
-                    <div class="wts-input-wrap" fxFlex fxLayout="row">
-                        <input type="number" placeholder="Postal code" formControlName="postal_code" fxFlex>
-                    </div>
-                    <div class="wts-input-wrap" fxFlex fxLayout="row"></div>
-                </div>
+            <div *ngIf="!travellers.controls[i].main_traveller_address" style="margin-top: 15px">
                 <div formGroupName="address" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+                    <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+                        <div class="wts-input-wrap" fxFlex fxLayout="row">
+                            <mat-select placeholder="Country" formControlName="country">
+                                <mat-option *ngFor="let country of countryCodes" [value]="country.name">
+                                    {{country.name}}
+                                </mat-option>
+                            </mat-select>
+                        </div>
+                        <div class="wts-input-wrap" fxFlex fxLayout="row">
+                            <input type="number" placeholder="Postal code" formControlName="postal_code" fxFlex>
+                        </div>
+                        <div class="wts-input-wrap" fxFlex fxLayout="row"></div>
+                    </div>
                     <div class="wts-input-wrap" fxFlex fxLayout="row">
                         <input type="text" placeholder="Address line 1" formControlName="address1" fxFlex >
                     </div>
@@ -80,8 +80,8 @@
                 </div>
             </div>
             <div style="line-height: 25px" *ngIf="i > 0">
-                <input type="checkbox" name="useMainAddress{{i}}" id="useMainAddress{{i}}" formControlName="main_traveller_address">
-                <label for="useMainAddress{{i}}">Use main traveller's address</label>
+                <input type="checkbox" name="useMainAddress{{i}}" id="useMainAddress{{i}}" formControlName="main_traveller_address" [(ngModel)]="travellers.controls[i].main_traveller_address">
+                <label for="useMainAddress{{i}}">Use main travellers address</label>
             </div>
         </div>
     </div>
