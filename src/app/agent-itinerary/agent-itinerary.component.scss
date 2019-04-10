@@ -19,8 +19,8 @@
   .wts-itinerary-summery {
     z-index: 1;
     color: #ffffff;
-    padding: $wts-spacing-inner-primary;
-    background: linear-gradient(#00000000, #00000050, #00000050, #00000000);
+    padding: 40px $wts-spacing-inner-primary $wts-spacing-inner-primary;
+    background: linear-gradient(#00000000, #00000070, #000000a5);
     .wts-itinerary-info-main {
       .wts-itinerary-place {
         text-shadow: 0 1px 3px #000000;

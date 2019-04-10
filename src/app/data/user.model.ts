@@ -44,3 +44,9 @@ export interface Profile_ {
     lname: string;
     image_url: string;
 }
+
+export interface FederatedUserModel {
+    accessKeyId: string;
+    secretAccessKey: string;
+    sessionToken: string;
+}

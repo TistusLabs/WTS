@@ -10,6 +10,7 @@ import {ToasterService} from 'angular2-toaster';
 export class TourTravellers implements OnInit {
     @Input() private itinerary;
     @Output() public bookingSubmissionStat: EventEmitter<any> = new EventEmitter();
+    @Output() public preloadBooking: EventEmitter<any> = new EventEmitter();
 
     countryCodes = [
         {
@@ -1329,7 +1330,8 @@ export class TourTravellers implements OnInit {
         }
     }
     submit(e) {
-        debugger
+        // debugger
+        this.preloadBooking.emit(true);
         if (this.bookingForm.valid) {
             e.preventDefault();
             const formdata = this.bookingForm.value;
@@ -1348,15 +1350,14 @@ export class TourTravellers implements OnInit {
                 'tourstartdatetime' : this.itinerary.from,
                 'tourenddatetime' : this.itinerary.to
             };
-
             this.bookingService.createBooking(_payload)
                 .subscribe(
                     res => {
-                        debugger
+                        // debugger
                         this.bookingCompletion(true, res['Data']);
                     },
                     err => {
-                        debugger
+                        // debugger
                         this.bookingCompletion(false, null);
                     },
                     () => {

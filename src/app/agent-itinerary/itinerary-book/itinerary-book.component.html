@@ -1,6 +1,6 @@
 <div class="wts-booking-setup">
     <!--<div *ngIf="!bookingDone">-->
-    <div>
+    <div *ngIf="!bookingDone">
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <h2>Almost ready to get on board.</h2>
             <button type="button" (click)="onNoClick(false)" class="wts-button-third">Cancel</button>
@@ -17,7 +17,7 @@
         </div>
         <mat-dialog-content class="wts-dialog">
             <book-tour-summary *ngIf="activeBookingStep === 0" class="wts-booking-step wts-booking-summary" [tourSummary]="itinerary"></book-tour-summary>
-            <book-tour-travellers *ngIf="activeBookingStep === 1" class="wts-booking-step wts-booking-traveller" [itinerary]="itinerary" (bookingSubmissionStat)="forwardBooking($event)"></book-tour-travellers>
+            <book-tour-travellers *ngIf="activeBookingStep === 1" class="wts-booking-step wts-booking-traveller" [itinerary]="itinerary" (bookingSubmissionStat)="forwardBooking($event)" (preloadBooking)="togglePreload($event)"></book-tour-travellers>
             <div *ngIf="activeBookingStep >= 2" class="wts-booking-step wts-booking-checkout">
                 <div fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="start start">
                     <div fxFlex="60%">
@@ -96,7 +96,7 @@
             </div>
         </mat-dialog-content>
     </div>
-    <!--<book-tour-finish [itinerary]="itinerary" [summary]="summary" *ngIf="bookingDone" fxLayout="column" class="wts-booking-done"></book-tour-finish>-->
+    <book-tour-finish [itinerary]="itinerary" [summary]="summary" *ngIf="bookingDone" fxLayout="column" class="wts-booking-done"></book-tour-finish>
 </div>
 <div mat-dialog-actions style="justify-content: space-between">
     <div>

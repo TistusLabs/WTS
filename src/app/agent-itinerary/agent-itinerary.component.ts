@@ -63,37 +63,36 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
         });
         window.scrollTo(0, 0);
 
-        $('.slider-for').slick({
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            arrows: false,
-            fade: true,
-            centerMode: true,
-            asNavFor: '.slider-nav'
-        });
-        $('.slider-nav').slick({
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            asNavFor: '.slider-for',
-            dots: false,
-            centerMode: true,
-            autoplaySpeed: 2000,
-            focusOnSelect: true,
-            variableWidth: true
-        });
-
-
-    }
-    ngAfterViewChecked() {
-        // $(document).ready(() => {
+        $(document).ready(() => {
             const galwidth = $('#wts-itinerary-gal').width();
+            $('.slider-for').slick({
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                arrows: false,
+                fade: true,
+                centerMode: true,
+                asNavFor: '.slider-nav'
+            });
+            $('.slider-nav').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                asNavFor: '.slider-for',
+                dots: false,
+                centerMode: true,
+                autoplaySpeed: 2000,
+                focusOnSelect: true,
+                variableWidth: true
+            });
             $('.slider-for').css({
                 width : (galwidth)
             });
             $('.slider-nav').css({
                 width : (galwidth)
             });
-        // });
+        });
+    }
+    ngAfterViewChecked() {
+
     }
     initMap() {
 

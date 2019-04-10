@@ -75,7 +75,7 @@ export class ItineraryBook implements OnInit {
     }
 
     getProfileInfo (profileID) {
-        this.bookingPaused = true;
+        this.togglePreload(true);
         this.userService.getProfile(profileID)
             .subscribe(profile => {
                 if (profile['IsSuccess']) {
@@ -84,7 +84,7 @@ export class ItineraryBook implements OnInit {
                     // this.bookingPayload.travellers[0].last_name = this.user.lname;
                     // this.bookingPayload.travellers[0].address_line_1 = this.user.address;
                     // this.bookingPayload.setProfileDisabled = true;
-                    this.bookingPaused = false;
+                    this.togglePreload(false);
                 }
             });
     }
@@ -131,13 +131,14 @@ export class ItineraryBook implements OnInit {
     }
 
     StripeInit(itinerary) {
-        this.checkingOut = true;
+        this.bookingPaused = true;
         const _self = this;
         const handler = StripeCheckout.configure({
             key: 'pk_test_TYooMQauvdEDq54NiTphI7jx',
-            image: 'https://wtsingapore.com/assets/worldtrip_singapore.png',
+            image: 'https://wtsing.herokuapp.com/assets/worldtrip_singapore.png',
             locale: 'auto',
             token: function(token) {
+                _self.bookingPaused = false;
                 _self.bookingDone = true;
             }
         });
@@ -151,7 +152,7 @@ export class ItineraryBook implements OnInit {
 
         // Close Checkout on page navigation:
         window.addEventListener('popstate', function() {
-            _self.checkingOut = false;
+            _self.bookingPaused = false;
             handler.close();
         });
     }
@@ -163,9 +164,11 @@ export class ItineraryBook implements OnInit {
     downloadBookingReceipt() {
 
     }
-
+    togglePreload(val) {
+        this.bookingPaused = val;
+    }
     forwardBooking (e) {
-        debugger
+        this.togglePreload(false);
         this.continueBooking();
     }
 

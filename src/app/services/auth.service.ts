@@ -1,3 +1,5 @@
+import {FederatedUser} from 'aws-sdk/clients/sts';
+
 declare const Buffer;
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Subject, Observable, throwError} from 'rxjs';
@@ -10,7 +12,7 @@ import {
     CognitoUserSession
 } from 'amazon-cognito-identity-js';
 
-import {AuthUser, User} from '../data/user.model';
+import {AuthUser, FederatedUserModel, User} from '../data/user.model';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {ToasterService} from 'angular2-toaster';
@@ -43,7 +45,11 @@ export class AuthService {
     authConfirmOn = new BehaviorSubject<boolean>(false);
     authStatusChanged = new Subject<boolean>();
     registeredUser: CognitoUser;
-
+    feduser = {
+        accessKeyId : '',
+        secretAccessKey : '',
+        sessionToken : ''
+    };
     public token = new Subject<number>();
 
     constructor(
@@ -56,7 +62,6 @@ export class AuthService {
     private emitToken(val) {
         this.token.next(val);
     }
-
     private handleError(error: HttpErrorResponse) {
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
@@ -72,7 +77,6 @@ export class AuthService {
         return throwError(
             'Something bad happened; please try again later.');
     }
-
     broadcastToken() {
         const token = localStorage.getItem('access_token');
         if (token) {
@@ -81,7 +85,6 @@ export class AuthService {
             this.emitToken(false);
         }
     }
-
     signUpFB_init (accessToken) {
         debugger
         // Add the Facebook access token to the Cognito credentials login map.
@@ -95,22 +98,24 @@ export class AuthService {
         });
 
         // Obtain AWS credentials
-        AWS.config.getCredentials(function(err) {
+        AWS.config.credentials['get'](function(err) {
             if (err) {
                 _self.authDidFail.next(true);
                 _self.authIsLoading.next(false);
                 console.log(err);
-                _self.toasterService.pop('error', 'Login from Google failed', 'Please try again later');
+                _self.toasterService.pop('error', 'Login with Facebook failed', 'Please try again later');
             } else {
+                _self.feduser.accessKeyId = AWS.config.credentials.accessKeyId;
+                _self.feduser.secretAccessKey = AWS.config.credentials.secretAccessKey;
+                _self.feduser.sessionToken = AWS.config.credentials.sessionToken;
+
                 _self.authStatusChanged.next(true);
                 _self.authDidFail.next(false);
                 _self.authDidSuccess.next(true);
                 _self.authIsLoading.next(false);
-                _self.router.navigate(['/']);
             }
         });
     }
-
     signUpGoogle_init (gUser) {
         // Add the Google access token to the Cognito credentials login map.
         const _self = this;
@@ -122,22 +127,24 @@ export class AuthService {
         });
 
         // Obtain AWS credentials
-        AWS.config.getCredentials(function(err) {
+        AWS.config.credentials['get'](function(err) {
             if (err) {
                 _self.authDidFail.next(true);
                 _self.authIsLoading.next(false);
                 console.log(err);
-                _self.toasterService.pop('error', 'Login from Google failed', 'Please try again later');
+                _self.toasterService.pop('error', 'Login with Google failed', 'Please try again later');
             } else {
+                _self.feduser.accessKeyId = AWS.config.credentials.accessKeyId;
+                _self.feduser.secretAccessKey = AWS.config.credentials.secretAccessKey;
+                _self.feduser.sessionToken = AWS.config.credentials.sessionToken;
+
                 _self.authStatusChanged.next(true);
                 _self.authDidFail.next(false);
                 _self.authDidSuccess.next(true);
                 _self.authIsLoading.next(false);
-                _self.router.navigate(['/']);
             }
         });
     }
-
     signUp(email: string, password: string, mobile: string): void {
         this.authIsLoading.next(true);
         const user: AuthUser = {
@@ -168,7 +175,6 @@ export class AuthService {
         });
         return;
     }
-
     confirmUser(username: string, code: string) {
         this.authIsLoading.next(true);
         const userData = {
@@ -192,9 +198,6 @@ export class AuthService {
             // that.router.navigate(['/profile']);
         });
     }
-
-
-
     signIn(username: string, password: string): void {
         // debugger
         this.authIsLoading.next(true);
@@ -232,9 +235,17 @@ export class AuthService {
         this.authStatusChanged.next(true); // create user with cognito data
         return;
     }
-
     getAuthenticatedUser = () => {
         return userPool.getCurrentUser();
+    }
+    getFedUser = () => {
+        const checkProperties = () => {
+            for (const key in this.feduser) {
+                if (this.feduser[key] !== null || this.feduser[key] !== '') { return false; }
+            }
+            return this.feduser;
+        };
+        return checkProperties();
     }
     getIdToken = () => {
         const user = this.getAuthenticatedUser();
@@ -253,15 +264,13 @@ export class AuthService {
             // return _config[flag + '.idToken'];
         }
         return token;
-    };
-
+    }
     logout() {
         this.getAuthenticatedUser().signOut();
         this.msgService.broadcast('userloggedout', true);
         this.authStatusChanged.next(false);
         this.router.navigateByUrl('/auth/signin');
     }
-
     isAuthenticated(): Observable<boolean> {
         // debugger
         const user = this.getAuthenticatedUser();
@@ -282,7 +291,6 @@ export class AuthService {
         });
         return obs;
     }
-
     initAuth() {
         this.isAuthenticated().subscribe(
             (auth) => this.authStatusChanged.next(auth)

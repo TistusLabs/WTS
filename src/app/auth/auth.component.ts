@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import * as $ from 'jquery';
 import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -36,7 +36,8 @@ export class AuthComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private authService: AuthService,
-        private toasterService: ToasterService
+        private toasterService: ToasterService,
+        private _ngZone: NgZone
     ) {
     }
 
@@ -46,12 +47,8 @@ export class AuthComponent implements OnInit {
         this.auth2.attachClickHandler(element, {},
             function (googleUser) {
                 if (document.getElementById('name')) document.getElementById('name').innerText = "Signed in: " + googleUser.getBasicProfile().getName();
-                // localStorage.setItem('access_token', 'jwt');
-                // _self.authService.broadcastToken();
                 _self.authService.signUpGoogle_init(googleUser);
-                _self.router.navigateByUrl('/account');
             }, function (error) {
-                // alert(JSON.stringify(error, undefined, 2));
                 console.log("Google login cancelled");
             });
     }
@@ -62,15 +59,9 @@ export class AuthComponent implements OnInit {
             FB.login((response) => {
                 console.log('submitLogin', response);
                 if (response.authResponse) {
-                    // localStorage.setItem('access_token', 'jwt');
-                    // _self.authService.broadcastToken();
                     _self.authService.signUpFB_init(response.authResponse.accessToken);
-                    _self.router.navigateByUrl('/account');
                 } else {
                     console.log('Facebook login failed');
-                    // localStorage.setItem('access_token', 'jwt');
-                    // this.authService.broadcastToken();
-                    // this.router.navigateByUrl('/account');
                 }
             });
         }
@@ -126,7 +117,8 @@ export class AuthComponent implements OnInit {
         this.authService.authDidSuccess
             .subscribe((didSuccess: boolean) => {
                 if (didSuccess) {
-                    // this.router.navigateByUrl('/profile');
+                    this.router.navigateByUrl('/');
+                    this._ngZone.run(() => { console.log('Outside Done!'); });
                     this.signInOn = true;
                 }
             });
