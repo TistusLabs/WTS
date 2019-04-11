@@ -7,15 +7,15 @@
 </style>
 
 <h2 class="wts-header-2">Create Itinerary</h2>
-<form #createItineraryForm="ngForm" id="createItineraryForm" class="wts-dialog-form" (ngSubmit)="createInineraryInit()">
+<form #createItineraryForm="ngForm" id="createItineraryForm" class="wts-dialog-form" (ngSubmit)="createInineraryInit(createItineraryForm)">
 <mat-dialog-content class="wts-dialog">
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">General</h3>
             <div class="wts-input-wrap">
-                <input type="text" name="itineraryTitle" placeholder="Title" [(ngModel)]="data.title" class="wts-input-block-half">
+                <input type="text" name="itineraryTitle" placeholder="Title" [(ngModel)]="data.title" class="wts-input-block-half" required>
             </div>
             <div class="wts-input-wrap">
-                <textarea type="text" name="itineraryDescription" placeholder="Description" [(ngModel)]="data.description" class="wts-input-block"></textarea>
+                <textarea type="text" name="itineraryDescription" placeholder="Description" [(ngModel)]="data.description" class="wts-input-block" required></textarea>
             </div>
             <div class="wts-input-wrap">
                 <p>Delight people who check your itinerary with an image that describes the overall experience they will have.</p>
@@ -68,12 +68,12 @@
             <h3 class="wts-header-3">Period</h3>
             <div  fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
-                    <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="data.tour_from" [min]="minDate" fxFlex>
+                    <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="data.tour_from" [min]="minDate" fxFlex required>
                     <button type="button" class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
                     <mat-datepicker #fromPicker></mat-datepicker>
                 </div>
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
-                    <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="data.tour_to" [min]="minDate" fxFlex>
+                    <input type="text" name="itineraryPeriodTo" placeholder="To.." [matDatepicker]="toPicker" [(ngModel)]="data.tour_to" [min]="minDate" fxFlex required>
                     <button type="button" class="mat-button-circle" (click)="toPicker.open()"><mat-icon>date_range</mat-icon></button>
                     <mat-datepicker #toPicker></mat-datepicker>
                 </div>
@@ -96,14 +96,16 @@
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Price</h3>
             <div class="wts-input-wrap">
-                $ <input type="number" name="itineraryTravellerType" placeholder="Price per person" [(ngModel)]="data.price" class="wts-input-block-half">
+                $ <input type="number" name="itineraryTravellerType" placeholder="Price per person" [(ngModel)]="data.price" class="wts-input-block-half" required>
                 <b> SGD</b> <span> per Person</span>
             </div>
         </div>
 </mat-dialog-content>
 <div mat-dialog-actions fxFlexAlign="end">
     <button type="button" (click)="onNoClick()">Cancel</button>
-    <button class="wts-button-primary" type="submit" [disabled]="loading">Save</button>
-    <mat-spinner diameter="30" *ngIf="loading" style="margin-left: 20px"></mat-spinner>
+    <button class="wts-button-primary" type="submit" [disabled]="loading">
+        <mat-spinner diameter="18" *ngIf="loading" style="color: #fff;margin: 0 20px"></mat-spinner>
+        <span *ngIf="!loading">Save</span>
+    </button>
 </div>
 </form>

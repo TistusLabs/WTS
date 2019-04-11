@@ -127,14 +127,18 @@ export class AgentItinerariesComponent implements OnInit {
         this.itineraryService.getMyItineraries()
             .subscribe(res => {
                 this.myitineraries = res['Data'];
-                for (const i_ of this.myitineraries) {
-                    i_.guide = {
-                        name: this.profile.fname,
-                        picture: this.profile.image_url,
-                        stars: Array(4).fill(0).map((x, i) => i),
-                        rating: 5.0,
-                        languages: ['English', 'Mandarin']
-                    };
+                if (this.myitineraries) {
+                    for (const i_ of this.myitineraries) {
+                        i_.guide = {
+                            name: this.profile.fname,
+                            picture: this.profile.image_url,
+                            stars: Array(4).fill(0).map((x, i) => i),
+                            rating: 5.0,
+                            languages: ['English', 'Mandarin']
+                        };
+                    }
+                } else {
+                    this.toastr.pop('error', 'My Itineraries', 'Failed to load Itineraries');
                 }
                 this.loading = false;
             },
@@ -232,23 +236,25 @@ export class CreateItinerary implements OnInit {
         reader.readAsDataURL(files.item(0));
     }
 
-    createInineraryInit() {
-        const payload = this.data;
-        const _self = this;
-        // payload.backdrop = "https://static.businessinsider.sg/2018/03/st-singapore-supertrees-4113.jpg";
-        this.loading = true;
-        if (this.imageFile) {
-            debugger
-            this.mediaService.uploadMedia(_self.imageFile, payload['backdrop'], 'itinerary')
-                .subscribe(media => {
-                    payload.backdrop = media["Data"].Location;
-                    _self.createItinerary(payload);
-                }, error => {
-                    _self.loading = false;
-                    _self.toasterService.pop('error', 'Itinerary', 'Failed to create itinerary. Please try again later.');
-                });
-        } else {
-            this.createItinerary(payload);
+    createInineraryInit(createItineraryForm) {
+        if (createItineraryForm.valid) {
+            const payload = this.data;
+            const _self = this;
+            // payload.backdrop = "https://static.businessinsider.sg/2018/03/st-singapore-supertrees-4113.jpg";
+            this.loading = true;
+            if (this.imageFile) {
+                // debugger
+                this.mediaService.uploadMedia(_self.imageFile, payload['backdrop'], 'itinerary')
+                    .subscribe(media => {
+                        payload.backdrop = media["Data"].Location;
+                        _self.createItinerary(payload);
+                    }, error => {
+                        _self.loading = false;
+                        _self.toasterService.pop('error', 'Itinerary', 'Failed to create itinerary. Please try again later.');
+                    });
+            } else {
+                this.createItinerary(payload);
+            }
         }
     }
 

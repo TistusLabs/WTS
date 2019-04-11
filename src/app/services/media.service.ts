@@ -38,7 +38,7 @@ export class MediaService {
     ) {}
 
     uploadMedia (file, media, folder) {
-        //debugger
+        // debugger
         const payload: Media = {
             "userId":"",
             "file_folder":"",
