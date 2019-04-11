@@ -5,6 +5,11 @@
             <div fxFlex="50%">
                 <input type="number" min="1" formControlName="number_of_travellers" class="wts-input-block-half" (change)="updateTravellers($event)">
             </div>
+            <div fxLayout="row" fxLayoutAlign="end center" fxFlex="50%">
+                <input type="text" formControlName="booking_date" placeholder="Booking date" [matDatepicker]="bookDatePicker" [(ngModel)]="bookingForm.booking_date" [min]="minDate" class="wts-input-block-half">
+                <button type="button" class="mat-button-circle" (click)="bookDatePicker.open()"><mat-icon>date_range</mat-icon></button>
+                <mat-datepicker #bookDatePicker md-min-date></mat-datepicker>
+            </div>
         </div>
     </div>
     <div formArrayName="travellers">

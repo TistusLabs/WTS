@@ -1287,6 +1287,7 @@ export class TourTravellers implements OnInit {
     ngOnInit() {
         this.bookingForm = this.fb.group({
             number_of_travellers : [1, Validators.min(1)],
+            booking_date : ['', Validators.required],
             travellers : this.fb.array([this.getTraveller()]),
             setProfileDisabled : [true]
         });
@@ -1346,7 +1347,7 @@ export class TourTravellers implements OnInit {
             const _payload = {
                 'itinerary_id': this.itinerary.itinerary_id,
                 'buddylist' : buddies,
-                'datetime' : this.itinerary.from,
+                'datetime' : formdata.booking_date,
                 'tourstartdatetime' : this.itinerary.from,
                 'tourenddatetime' : this.itinerary.to
             };
