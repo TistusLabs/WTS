@@ -1331,8 +1331,8 @@ export class TourTravellers implements OnInit {
     }
     submit(e) {
         // debugger
-        this.preloadBooking.emit(true);
         if (this.bookingForm.valid) {
+            this.preloadBooking.emit(true);
             e.preventDefault();
             const formdata = this.bookingForm.value;
             const mainaddress = formdata.travellers[0].address;
@@ -1362,6 +1362,8 @@ export class TourTravellers implements OnInit {
                     },
                     () => {
                     });
+        } else {
+            this.toastr.pop('info', 'Invalid inputs', 'Please fill all the required (bordered in blue) fields');
         }
     }
 

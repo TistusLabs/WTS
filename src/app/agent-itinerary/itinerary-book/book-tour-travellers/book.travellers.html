@@ -1,4 +1,4 @@
-<form [formGroup]="bookingForm" id="bookingForm" (submit)="submit($event)">
+<form [formGroup]="bookingForm" #bookingForm_="ngForm" id="bookingForm" (submit)="submit($event)">
     <div class="wts-space-h-p">
         <h3 class="wts-header-3">No of Travellers</h3>
         <div class="wts-input-wrap">

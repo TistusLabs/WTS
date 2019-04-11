@@ -310,11 +310,15 @@ mat-select{
   border-radius: $wts-border-radius-secondary;
   border: solid 1px $wts-color-border-primary;
   outline: none;
+  position: relative;
   &.wts-input-block {
     width: 100%;
   }
   &.wts-input-block-half {
     width: 50%;
+  }
+  &.ng-invalid {
+    border-color: $wts-color-primary-light;
   }
 }
 
