@@ -8,6 +8,7 @@ import {UserService} from '../../services/user.service';
 import {AuthService} from '../../services/auth.service';
 import * as moment from 'moment';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {ItineraryService} from '../../services/itinerary.service';
 
 declare let StripeCheckout;
 @Component({
@@ -63,6 +64,7 @@ export class ItineraryBook implements OnInit {
                 private userService: UserService,
                 private authService: AuthService,
                 private bookingService: BookingService,
+                private itineraryService: ItineraryService,
                 private fb: FormBuilder,
                 @Inject(MAT_DIALOG_DATA) public data: Itinerary
     ) {
@@ -169,6 +171,10 @@ export class ItineraryBook implements OnInit {
     }
     forwardBooking (e) {
         this.togglePreload(false);
+        this.summary.adults.count = this.itineraryService.getRecentBooking().count;
+        this.summary.adults.subtotal = this.itinerary.price * this.summary.adults.count;
+        this.summary.children.count = this.itineraryService.getRecentBooking().count;
+        this.summary.children.subtotal = this.itinerary.price * this.summary.children.count;
         this.continueBooking();
     }
 

@@ -38,9 +38,9 @@
                     <div class="wts-itinerary-info wts-space-h-p wts-card" fxFlex="40%" style="border-top: solid 3px #6ca0f0;background-color: #fafafa">
                         <h3 class="wts-header-3">Summary</h3>
                         <h4>{{itinerary.title}}</h4>
-                        <div class="wts-textbox wts-textbox-horizontal">
-                            <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>event</mat-icon></div> {{itinerary.from | date: 'longDate'}} - {{itinerary.to | date: 'longDate'}}
-                        </div>
+                        <!--<div class="wts-textbox wts-textbox-horizontal">-->
+                            <!--<div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>event</mat-icon></div> {{itinerary.from | date: 'longDate'}} - {{itinerary.to | date: 'longDate'}}-->
+                        <!--</div>-->
                         <div class="wts-textbox wts-textbox-horizontal">
                             <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>location_on</mat-icon></div> {{itinerary.area }}
                         </div>
@@ -66,7 +66,7 @@
                                     <b>Adults</b>
                                 </td>
                                 <td>
-                                    {{summary.adults.count}} * {{itinerary.price_adult}}
+                                    {{summary.adults.count}} * {{itinerary.price}}
                                 </td>
                                 <td style="text-align: right">
                                     {{summary.adults.subtotal}}
@@ -77,7 +77,7 @@
                                     <b>Children</b>
                                 </td>
                                 <td>
-                                    {{summary.children.count}} * {{itinerary.price_child}}
+                                    {{summary.children.count}} * {{itinerary.price}}
                                 </td>
                                 <td style="text-align: right">
                                     {{summary.children.subtotal}}
@@ -89,7 +89,7 @@
                         </div>
                         <div fxLayout="row" fxLayoutAlign="space-between center">
                             <h2 class="wts-header-2" fxFlex>Total</h2>
-                            <h2 class="wts-header-2" fxFlex style="text-align: right">{{summary.total}}</h2>
+                            <h2 class="wts-header-2" fxFlex style="text-align: right">{{summary.adults.subtotal * 2}}</h2>
                         </div>
                     </div>
                 </div>

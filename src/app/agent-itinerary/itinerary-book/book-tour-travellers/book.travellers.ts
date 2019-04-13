@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BookingService} from '../../../services/booking.service';
 import {ToasterService} from 'angular2-toaster';
+import {ItineraryService} from '../../../services/itinerary.service';
 
 @Component({
     'selector': 'book-tour-travellers',
@@ -1282,7 +1283,8 @@ export class TourTravellers implements OnInit {
     constructor(
         private fb: FormBuilder,
         private bookingService: BookingService,
-        private toastr: ToasterService
+        private toastr: ToasterService,
+        private itineraryService: ItineraryService
     ) {}
     ngOnInit() {
         this.bookingForm = this.fb.group({
@@ -1355,6 +1357,9 @@ export class TourTravellers implements OnInit {
                 .subscribe(
                     res => {
                         // debugger
+                        this.itineraryService.setRecentBooking({
+                            count: formdata.number_of_travellers
+                        });
                         this.bookingCompletion(true, res['Data']);
                     },
                     err => {

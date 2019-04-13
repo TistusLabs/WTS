@@ -31,10 +31,10 @@
                             <b>Adults</b>
                         </td>
                         <td>
-                            {{summary.adults.count}} * {{itinerary.price_adult}}
+                            {{count}} * {{price}}
                         </td>
                         <td style="text-align: right">
-                            {{summary.adults.subtotal}}
+                            {{count * price}}
                         </td>
                     </tr>
                     <tr>
@@ -42,10 +42,10 @@
                             <b>Children</b>
                         </td>
                         <td>
-                            {{summary.children.count}} * {{itinerary.price_child}}
+                            {{count}} * {{price}}
                         </td>
                         <td style="text-align: right">
-                            {{summary.children.subtotal}}
+                            {{count * price}}
                         </td>
                     </tr>
                 </table>
@@ -54,7 +54,7 @@
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                     <h2 class="wts-header-2" fxFlex>Total</h2>
-                    <h2 class="wts-header-2" fxFlex style="text-align: right">{{summary.total}}</h2>
+                    <h2 class="wts-header-2" fxFlex style="text-align: right">{{(count * price) * 2}}</h2>
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ import {AuthService} from './auth.service';
 export class ItineraryService {
 
     public itinerary: Itinerary;
+    public recentBooking: any;
     constructor(
         private http: HttpClient,
         private router: Router,
@@ -137,6 +138,14 @@ export class ItineraryService {
             .pipe(
                 catchError(this.handleError)
             );
+    }
+
+    setRecentBooking(booking) {
+        this.recentBooking = booking;
+    }
+
+    getRecentBooking() {
+        return this.recentBooking;
     }
 
 
