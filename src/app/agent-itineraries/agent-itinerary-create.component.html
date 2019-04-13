@@ -8,7 +8,7 @@
 
 <h2 class="wts-header-2">Create Itinerary</h2>
 <form #createItineraryForm="ngForm" id="createItineraryForm" class="wts-dialog-form" (ngSubmit)="createInineraryInit(createItineraryForm)">
-<mat-dialog-content class="wts-dialog">
+    <mat-dialog-content class="wts-dialog">
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">General</h3>
             <div class="wts-input-wrap">
@@ -40,14 +40,12 @@
                 </div>
             </div>
         </div>
-
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Activities</h3>
             <div class="wts-input-wrap">
                 <textarea type="text" name="itineraryDescription" placeholder="What will the traveller experience? eg: Explore the historic places etc." [(ngModel)]="data.activities" class="wts-input-block"></textarea>
             </div>
         </div>
-
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Services</h3>
             <div class="wts-input-wrap">
@@ -63,7 +61,6 @@
                 </div>
             </div>
         </div>
-
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Period</h3>
             <div  fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
@@ -79,20 +76,17 @@
                 </div>
             </div>
         </div>
-
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Traveller conditions</h3>
             <div class="wts-input-wrap">
                 <input type="text" name="itineraryTravellerCondition" placeholder="Condition for the traveller.. eg: Age from 6 and above" [(ngModel)]="data.guest_condition" class="wts-input-block-half">
             </div>
         </div>
-
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Area</h3>
             <p>Drag the marker to select the starting point of the trip.</p>
             <div id="wts-itinerary-map"></div>
         </div>
-
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Price</h3>
             <div class="wts-input-wrap">
@@ -101,7 +95,7 @@
             </div>
         </div>
 </mat-dialog-content>
-<div mat-dialog-actions fxFlexAlign="end">
+    <div mat-dialog-actions fxFlexAlign="end">
     <button type="button" (click)="onNoClick()">Cancel</button>
     <button class="wts-button-primary" type="submit" [disabled]="loading">
         <mat-spinner diameter="18" *ngIf="loading" style="color: #fff;margin: 0 20px"></mat-spinner>

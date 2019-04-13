@@ -137,7 +137,7 @@ export class AuthComponent implements OnInit {
 
         // Geolocation
         const _self = this;
-        _self.geolocloading = true;
+        this.geolocloading = true;
         navigator.geolocation.getCurrentPosition(pos => {
             const lat = pos.coords.latitude;
             const lon = pos.coords.longitude;
@@ -154,18 +154,18 @@ export class AuthComponent implements OnInit {
                             }
                         }
                     }
-                    this.authService.getCountryCode()
+                    _self.authService.getCountryCode()
                         .subscribe(codes => {
                             const _codes = codes;
                             const code = _codes['filter'](c => {
                                 if (c.code === _country) return c.dial_code;
                             });
-                            this.countryCode = code[0].dial_code;
-                            this.geolocloading = false;
+                            _self.countryCode = code[0].dial_code;
+                            _self.geolocloading = false;
                         });
                 } else {
-                    this.geolocloading = false;
-                    this.toasterService.pop('error', 'Faild to identify country', 'Sorry, we were unable to understand where you are from. Please use the correct country code for your phone number when Signing Up');
+                    _self.geolocloading = false;
+                    _self.toasterService.pop('error', 'Faild to identify country', 'Sorry, we were unable to understand where you are from. Please use the correct country code for your phone number when Signing Up');
                 }
             });
         });
