@@ -18,7 +18,7 @@
             </div>
         </div>
         <div class="wts-it-wid-desc">
-            <div class="wts-it-wid-price">${{ itinerary.price | number : '1.2-2' }}/ per Person</div>
+            <div *ngIf="itinerary.price_adult" class="wts-it-wid-price">${{ itinerary.price_adult | number : '1.2-2' }}/ per Adult</div>
             <div class="wts-it-wid-about">
                 <h3 class="wts-header-3">{{ itinerary.title }}</h3>
                 <p *ngIf="itinerary.description != null">{{ itinerary.description.trim() | slice:0:80 }}...</p>

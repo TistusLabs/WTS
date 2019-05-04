@@ -6,19 +6,24 @@
     }
 </style>
 
-<h2 class="wts-header-2">Create Itinerary</h2>
-<form #createItineraryForm="ngForm" id="createItineraryForm" class="wts-dialog-form" (ngSubmit)="createInineraryInit(createItineraryForm)">
+<h2 *ngIf="newItinerary" class="wts-header-2">Create Itinerary</h2>
+<h2 *ngIf="!newItinerary" class="wts-header-2">Update Itinerary</h2>
+<form #createItineraryForm="ngForm" id="createItineraryForm" class="wts-dialog-form"
+    (ngSubmit)="createInineraryInit(createItineraryForm)">
     <mat-dialog-content class="wts-dialog">
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">General</h3>
             <div class="wts-input-wrap">
-                <input type="text" name="itineraryTitle" placeholder="Title" [(ngModel)]="data.title" class="wts-input-block-half" required>
+                <input type="text" name="itineraryTitle" placeholder="Title" [(ngModel)]="data.title"
+                    class="wts-input-block-half" required>
             </div>
             <div class="wts-input-wrap">
-                <textarea type="text" name="itineraryDescription" placeholder="Description" [(ngModel)]="data.description" class="wts-input-block" required></textarea>
+                <textarea type="text" name="itineraryDescription" placeholder="Description"
+                    [(ngModel)]="data.description" class="wts-input-block" required></textarea>
             </div>
             <div class="wts-input-wrap">
-                <p>Delight people who check your itinerary with an image that describes the overall experience they will have.</p>
+                <p>Delight people who check your itinerary with an image that describes the overall experience they will
+                    have.</p>
                 <div class="wts-image-uploader">
                     <div class="wts-image-uploader-preview" fxShow.xs="false">
                         <img *ngIf="data.backdrop != ''" src="{{data.backdrop}}" alt="">
@@ -33,7 +38,8 @@
                             <i>or</i>
                         </div>
                         <div class="wts-space-h-p">
-                            <input type="file" accept="image/*" (change)="handleProfileImage($event.target.files)" #file style="display: none">
+                            <input type="file" accept="image/*" (change)="handleProfileImage($event.target.files)" #file
+                                style="display: none">
                             <button type="button" (click)="file.click()" class="wts-button-primary">Upload</button>
                         </div>
                     </div>
@@ -43,15 +49,22 @@
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Activities</h3>
             <div class="wts-input-wrap">
-                <textarea type="text" name="itineraryDescription" placeholder="What will the traveller experience? eg: Explore the historic places etc." [(ngModel)]="data.activities" class="wts-input-block"></textarea>
+                <textarea type="text" name="itineraryDescription"
+                    placeholder="What will the traveller experience? eg: Explore the historic places etc."
+                    [(ngModel)]="data.activities" class="wts-input-block"></textarea>
             </div>
         </div>
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Services</h3>
             <div class="wts-input-wrap">
                 <div class="wts-input-wrap" fxLayout="row" fxLayoutGap="10px">
-                    <input type="text" id="itineraryActivityInput" name="itineraryActivityInput" placeholder="What will you provide? eg: Food, Transportation etc." [(ngModel)]="serviceInput" class="wts-input-block-half">
-                    <button type="button" class="mat-button-circle wts-button-primary" (click)="addService(serviceInput)"><mat-icon>add</mat-icon></button>
+                    <input type="text" id="itineraryActivityInput" name="itineraryActivityInput"
+                        placeholder="What will you provide? eg: Food, Transportation etc." [(ngModel)]="serviceInput"
+                        class="wts-input-block-half">
+                    <button type="button" class="mat-button-circle wts-button-primary"
+                        (click)="addService(serviceInput)">
+                        <mat-icon>add</mat-icon>
+                    </button>
                 </div>
             </div>
             <div class="wts-space-v-p" fxLayoutGap="10px" fxLayout="row">
@@ -62,8 +75,17 @@
             </div>
         </div>
         <div class="wts-space-h-p">
+            <h3 class="wts-header-3">Duration</h3>
+            <div class="wts-input-wrap">
+                <div class="wts-input-wrap" fxFlex fxLayout="row">
+                    <input type="text" name="itineraryDuration" placeholder="Duration of the tour.."
+                        [(ngModel)]="data.duration" class="wts-input-block-half" required>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="wts-space-h-p">
             <h3 class="wts-header-3">Period</h3>
-            <div  fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px">
+            <div class="wts-input-wrap">
                 <div class="wts-input-wrap" fxFlex fxLayout="row">
                     <input type="text" name="itineraryPeriodFrom" placeholder="From.." [matDatepicker]="fromPicker" [(ngModel)]="data.tour_from" [min]="minDate" fxFlex required>
                     <button type="button" class="mat-button-circle" (click)="fromPicker.open()"><mat-icon>date_range</mat-icon></button>
@@ -75,11 +97,13 @@
                     <mat-datepicker #toPicker></mat-datepicker>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="wts-space-h-p">
             <h3 class="wts-header-3">Traveller conditions</h3>
             <div class="wts-input-wrap">
-                <input type="text" name="itineraryTravellerCondition" placeholder="Condition for the traveller.. eg: Age from 6 and above" [(ngModel)]="data.guest_condition" class="wts-input-block-half">
+                <input type="text" name="itineraryTravellerCondition"
+                    placeholder="Condition for the traveller.. eg: Age from 6 and above"
+                    [(ngModel)]="data.guest_condition" class="wts-input-block-half">
             </div>
         </div>
         <div class="wts-space-h-p">
@@ -88,18 +112,24 @@
             <div id="wts-itinerary-map"></div>
         </div>
         <div class="wts-space-h-p">
-            <h3 class="wts-header-3">Price</h3>
+            <h3 class="wts-header-3">Prices</h3>
             <div class="wts-input-wrap">
-                $ <input type="number" name="itineraryTravellerType" placeholder="Price per person" [(ngModel)]="data.price" class="wts-input-block-half" required>
-                <b> SGD</b> <span> per Person</span>
+                $ <input type="number" name="itineraryTravellerType" placeholder="Price per adult"
+                    [(ngModel)]="data.price_adult" class="wts-input-block-half" required>
+                <b> SGD</b> <span> per Adult</span>
+            </div>
+            <div class="wts-input-wrap">
+                $ <input type="number" name="itineraryTravellerType" placeholder="Price per child"
+                    [(ngModel)]="data.price_child" class="wts-input-block-half" required>
+                <b> SGD</b> <span> per Child</span>
             </div>
         </div>
-</mat-dialog-content>
+    </mat-dialog-content>
     <div mat-dialog-actions fxFlexAlign="end">
-    <button type="button" (click)="onNoClick()">Cancel</button>
-    <button class="wts-button-primary" type="submit" [disabled]="loading">
-        <mat-spinner diameter="18" *ngIf="loading" style="color: #fff;margin: 0 20px"></mat-spinner>
-        <span *ngIf="!loading">Save</span>
-    </button>
-</div>
+        <button type="button" (click)="onNoClick()">Cancel</button>
+        <button class="wts-button-primary" type="submit" [disabled]="loading">
+            <mat-spinner diameter="18" *ngIf="loading" style="color: #fff;margin: 0 20px"></mat-spinner>
+            <span *ngIf="!loading">Save</span>
+        </button>
+    </div>
 </form>

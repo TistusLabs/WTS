@@ -149,6 +149,7 @@ export class AgentItinerariesComponent implements OnInit {
     }
 
     createItinerary(): void {
+        debugger
         const dialogRef = this.dialog.open(CreateItinerary, {
             width: '80%',
             disableClose: true,
@@ -182,6 +183,7 @@ export class CreateItinerary implements OnInit {
     serviceInput = '';
     loading = false;
     imageFile = null;
+    newItinerary = false;
 
     constructor(
         public dialogRef: MatDialogRef<CreateItinerary>,
@@ -190,6 +192,9 @@ export class CreateItinerary implements OnInit {
         private mediaService: MediaService,
         private router: Router,
         @Inject(MAT_DIALOG_DATA) public data: Itinerary) {
+        if (data["itinerary_id"] == null) {
+            this.newItinerary = true;
+        }
     }
 
 
@@ -259,17 +264,31 @@ export class CreateItinerary implements OnInit {
     }
 
     createItinerary(payload) {
-        this.itineraryService.createItinerary(payload)
-            .subscribe(res => {
-                if (res['IsSuccess']) {
-                    this.onNoClick();
-                    this.toasterService.pop('success', 'Itinerary created', 'You have successfully created an Itinerary');
-                    // this.router.navigateByUrl('/');
-                }else{
-                    this.toasterService.pop('error', 'Itinerary created failed', res["Message"]);
-                    this.loading = false;
-                }
-            });
+        if (this.newItinerary) {
+            this.itineraryService.createItinerary(payload)
+                .subscribe(res => {
+                    if (res['IsSuccess']) {
+                        this.onNoClick();
+                        this.toasterService.pop('success', 'Itinerary created', 'You have successfully created an Itinerary');
+                        // this.router.navigateByUrl('/');
+                    } else {
+                        this.toasterService.pop('error', 'Itinerary created failed', res["Message"]);
+                        this.loading = false;
+                    }
+                });
+        } else {
+            this.itineraryService.editItinerary(payload)
+                .subscribe(res => {
+                    if (res['IsSuccess']) {
+                        this.onNoClick();
+                        this.toasterService.pop('success', 'Itinerary Updated', 'You have successfully updated the Itinerary');
+                        // this.router.navigateByUrl('/');
+                    } else {
+                        this.toasterService.pop('error', 'Itinerary update failed', res["Message"]);
+                        this.loading = false;
+                    }
+                });
+        }
     }
 
 }

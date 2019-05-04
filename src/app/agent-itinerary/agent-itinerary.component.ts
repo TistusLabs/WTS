@@ -96,7 +96,6 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
     }
 
     initFunctionality(){
-        debugger
         this.itinerary = this.itineraryService.getItinerary();
         if (!this.itinerary) { this.router.navigateByUrl('/search'); }
 

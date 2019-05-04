@@ -154,6 +154,14 @@
                 </div>
                 <p>{{ itinerary.guest_condition }}</p>
             </div>
+            <div *ngIf="itinerary.duration" class="wts-card">
+                    <div class="wts-card-header">
+                        <div class="wts-card-header-flex">
+                            <h2 class="wts-header-2">How long it takes</h2>
+                        </div>
+                    </div>
+                    <p>{{ itinerary.duration }}</p>
+                </div>
             <div class="wts-card">
                 <div class="wts-card-header">
                     <div class="wts-card-header-flex">
@@ -230,11 +238,11 @@
                 </div>
                 <div fxLayout="row" fxLayoutAlign="center" style="text-align: center">
                     <div fxFlex>
-                        <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' | currency:'SGD' }}</div>
+                        <div class="wts-itinerary-price">{{ itinerary.price_adult | number : '1.2-2' | currency:'SGD' }}</div>
                         <span class="wts-iti-price-per">Adults</span>
                     </div>
                     <div fxFlex>
-                        <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' | currency:'SGD' }}</div>
+                        <div class="wts-itinerary-price">{{ itinerary.price_child | number : '1.2-2' | currency:'SGD' }}</div>
                         <span class="wts-iti-price-per">Children</span>
                     </div>
                 </div>
