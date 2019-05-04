@@ -94,7 +94,7 @@
                         </div>
                         <p>{{ itinerary.description }}</p>
                     </div>
-                    <div fxLayout="column" fxLayoutAlign="center">
+                    <div (click)="viewProfile(itinerary.guide)" fxLayout="column" fxLayoutAlign="center">
                         <div class="wts-itinerary-guide-img">
                             <img src="{{itinerary.guide['picture']}}" alt="{{itinerary.guide['name']}}">
                         </div>

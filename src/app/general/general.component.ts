@@ -254,6 +254,7 @@ export class GeneralComponent implements OnInit, OnDestroy {
 
     getProfileForID(userId) {
         let returnObj = {
+            userId : '',
             name: 'Austin',
             picture: './assets/user_male.jpg',
             stars: Array(4).fill(0).map((x, i) => i),
@@ -262,6 +263,7 @@ export class GeneralComponent implements OnInit, OnDestroy {
         };
         for (const profile of this.profiles) {
             if (profile.userId == userId) {
+                returnObj.userId = userId;
                 returnObj.name = profile.fname;
                 returnObj.picture = profile.image_url;
                 break;

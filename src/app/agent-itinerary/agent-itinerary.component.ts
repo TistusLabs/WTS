@@ -131,6 +131,11 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
             }
         });
     }
+
+    viewProfile(guideInfo){
+        this.router.navigateByUrl('/profile/' + guideInfo.userId);
+    }
+
     deleteItinerary() {
         debugger
         this.loading = true;

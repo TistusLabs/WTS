@@ -47,6 +47,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         }];
 
     profileID = "";
+    isOwner = false;
 
     // user: User = {
     //     first_name: 'John',
@@ -78,7 +79,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         public dialog: MatDialog,
         private msgService: MessageService
     ) {
-        
+
     }
 
     getProfileInfo(profileID) {
@@ -86,11 +87,27 @@ export class ProfileComponent implements OnInit, OnDestroy {
             .subscribe(profile => {
                 if (profile['IsSuccess']) {
                     this.user = profile['Data'];
-                    this.msgService.broadcast('profileObj', this.user);
+                    if (this.profileID == null) {
+                        this.msgService.broadcast('profileObj', this.user);
+                    }
+                    this.checkIfOwner();
                 } else {
                     this.openCreateProfile(false);
                 }
             });
+    }
+
+    checkIfOwner() {
+        if (this.profileID != null) {
+            const profile = this.userService.getCurrentUserProfile();
+            if (profile.userId == this.profileID) {
+                this.isOwner = true;
+            } else {
+                this.isOwner = false;
+            }
+        } else {
+            this.isOwner = true;
+        }
     }
 
     ngOnInit() {
@@ -102,11 +119,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
                 this.getProfileInfo(user['username']);
             } else {
                 this.user = profile;
+                this.checkIfOwner();
             }
         } else {
             this.getProfileInfo(this.profileID);
         }
-
 
         // this.ref.detectChanges();
         // this.getAllItineraries();

@@ -132,6 +132,7 @@ export class AgentItinerariesComponent implements OnInit {
                 if (this.myitineraries) {
                     for (const i_ of this.myitineraries) {
                         i_.guide = {
+                            userId: this.user.userId,
                             name: this.user.fname,
                             picture: this.user.image_url,
                             stars: Array(4).fill(0).map((x, i) => i),
