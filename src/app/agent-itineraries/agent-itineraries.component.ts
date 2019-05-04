@@ -25,10 +25,12 @@ export class AgentItinerariesComponent implements OnInit {
         services: [],
         guest_type: '',
         guest_condition: '',
-        price: 0,
+        price_adult: 0,
+        price_child: 0,
         area: 'Singapore',
         tour_from: '',
         tour_to: '',
+        tour_duration: '',
         notes: '',
         guide: {},
         is_public: false
