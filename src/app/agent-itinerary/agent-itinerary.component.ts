@@ -48,14 +48,7 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
     }
 
     ngOnInit() {
-        this.itinerary = this.itineraryService.getItinerary();
-        if (!this.itinerary) { this.router.navigateByUrl('/search'); }
-
-        // check ownership
-        const profile = this.userService.getCurrentUserProfile();
-        if(this.itinerary["userId"] == profile["userId"]){
-            this.isOwner = true;
-        }
+        this.initFunctionality();
 
         const myLatlng = new google.maps.LatLng(1.3521, 103.8198);
         const mapOptions = {
@@ -100,6 +93,18 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
                 width: (galwidth)
             });
         });
+    }
+
+    initFunctionality(){
+        debugger
+        this.itinerary = this.itineraryService.getItinerary();
+        if (!this.itinerary) { this.router.navigateByUrl('/search'); }
+
+        // check ownership
+        const profile = this.userService.getCurrentUserProfile();
+        if(this.itinerary["userId"] == profile["userId"]){
+            this.isOwner = true;
+        }
     }
     ngAfterViewChecked() {
 
@@ -160,11 +165,30 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
                     // debugger;
                     this.loading = false;
                     this.toastr.pop('success', 'Make Public', 'Successfully made public.');
+                    this.initFunctionality();
                 },
                 error => {
                     // debugger;
                     this.loading = false;
                     this.toastr.pop('error', 'My Itineraries', 'Failed to make public.');
+                });
+    }
+    makePrivate() {
+        debugger
+        this.loading = true;
+        const _payload = this.itinerary;
+        this.itineraryService.markItineraryPrivate(_payload["itinerary_id"])
+            .subscribe(
+                res => {
+                    // debugger;
+                    this.loading = false;
+                    this.toastr.pop('success', 'Make Public', 'Successfully made private.');
+                    this.initFunctionality();
+                },
+                error => {
+                    // debugger;
+                    this.loading = false;
+                    this.toastr.pop('error', 'My Itineraries', 'Failed to make private.');
                 });
     }
     editItinerary(): void {
