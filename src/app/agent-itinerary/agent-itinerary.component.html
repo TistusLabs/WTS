@@ -7,7 +7,8 @@
 </style>
 <div class="wts-banner" fxLayout="row" fxLayout.xs="column" fxLayoutWrap>
     <img class="wts-itinerary-cover" src="{{ itinerary.backdrop }}" alt="{{ itinerary.title }}">
-    <div class="wts-itinerary-summery" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.xs="15px" fxFlex>
+    <div class="wts-itinerary-summery" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.xs="15px"
+        fxFlex>
         <div class="wts-itinerary-info-main" fxFlex="60%">
             <h3 class="wts-header-3 wts-itinerary-place">Singapore</h3>
             <h2 class="wts-header-2 wts-itinerary-title">{{ itinerary.title }}</h2>
@@ -29,57 +30,58 @@
     </div>
 </div>
 <div class="wts-itinerary">
-    <div fxLayout="row" class="wts-main-wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutAlign="center" fxLayoutWrap>
+    <div fxLayout="row" class="wts-main-wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px"
+        fxLayoutAlign="center" fxLayoutWrap>
         <div fxFlex fxLayout="column" fxLayoutGap="20px">
             <!--<div class="wts-card wts-card-sunken">-->
-                <!--<div class="wts-space-h-p">-->
-                    <!--<div class="wts-itinerary-service" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.xs="15px">-->
-                        <!--<div class="wts-iti-service-loc">-->
-                            <!--<mat-icon>location_on</mat-icon> {{ itinerary.area }}-->
-                        <!--</div>-->
-                        <!--<div class="wts-iti-service-duration" fxFlex>-->
-                            <!--<mat-icon>event</mat-icon> {{ itinerary.from | date: 'longDate'}} - {{ itinerary.to | date: 'longDate'}}-->
-                        <!--</div>-->
-                        <!--<div class="wts-iti-service-lang">-->
-                            <!--<mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']; let i = index"> {{l}}{{i !== itinerary.guide['languages'].length-1 ? ',  ' : null}}</span>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
+            <!--<div class="wts-space-h-p">-->
+            <!--<div class="wts-itinerary-service" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap.xs="15px">-->
+            <!--<div class="wts-iti-service-loc">-->
+            <!--<mat-icon>location_on</mat-icon> {{ itinerary.area }}-->
+            <!--</div>-->
+            <!--<div class="wts-iti-service-duration" fxFlex>-->
+            <!--<mat-icon>event</mat-icon> {{ itinerary.from | date: 'longDate'}} - {{ itinerary.to | date: 'longDate'}}-->
+            <!--</div>-->
+            <!--<div class="wts-iti-service-lang">-->
+            <!--<mat-icon>language</mat-icon> <span *ngFor="let l of itinerary.guide['languages']; let i = index"> {{l}}{{i !== itinerary.guide['languages'].length-1 ? ',  ' : null}}</span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
             <!--</div>-->
             <div class="wts-card wts-card-sunken" style="padding: 0">
                 <div id="wts-itinerary-gal">
                     <div class="slider-for">
                         <div class="item">
-                            <img src="assets/13.jpg" alt="image"  draggable="false"/>
+                            <img src="assets/13.jpg" alt="image" draggable="false" />
                         </div>
                         <div class="item">
-                            <img src="assets/52df12e0c5393.jpg" alt="image" draggable="false"/>
+                            <img src="assets/52df12e0c5393.jpg" alt="image" draggable="false" />
                         </div>
                         <div class="item">
-                            <img src="assets/backdrop_1.jpg" alt="image" draggable="false"/>
+                            <img src="assets/backdrop_1.jpg" alt="image" draggable="false" />
                         </div>
                         <div class="item">
-                            <img src="assets/backdrop_2.jpg" alt="image" draggable="false"/>
+                            <img src="assets/backdrop_2.jpg" alt="image" draggable="false" />
                         </div>
                         <div class="item">
-                            <img src="assets/backdrop_3.jpg" alt="image" draggable="false"/>
+                            <img src="assets/backdrop_3.jpg" alt="image" draggable="false" />
                         </div>
                     </div>
                     <div class="slider-nav">
                         <div class="item">
-                            <img src="assets/13.jpg" alt="image"  draggable="false"/>
+                            <img src="assets/13.jpg" alt="image" draggable="false" />
                         </div>
                         <div class="item">
-                            <img src="assets/52df12e0c5393.jpg" alt="image" draggable="false"/>
+                            <img src="assets/52df12e0c5393.jpg" alt="image" draggable="false" />
                         </div>
                         <div class="item">
-                            <img src="assets/backdrop_1.jpg" alt="image" draggable="false"/>
+                            <img src="assets/backdrop_1.jpg" alt="image" draggable="false" />
                         </div>
                         <div class="item">
-                            <img src="assets/backdrop_2.jpg" alt="image" draggable="false"/>
+                            <img src="assets/backdrop_2.jpg" alt="image" draggable="false" />
                         </div>
                         <div class="item">
-                            <img src="assets/backdrop_3.jpg" alt="image" draggable="false"/>
+                            <img src="assets/backdrop_3.jpg" alt="image" draggable="false" />
                         </div>
                     </div>
                 </div>
@@ -114,26 +116,34 @@
                     </div>
                 </div>
                 <ul class="wts-list">
-                   <li class="wts-list-item">
-                       <div class="wts-textbox wts-textbox-horizontal">
-                           <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>check_circle_outline</mat-icon></div> Hawker Center meal
-                       </div>
-                   </li>
-                   <li class="wts-list-item">
-                       <div class="wts-textbox wts-textbox-horizontal">
-                           <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>check_circle_outline</mat-icon></div> Singapore Sling or Beer
-                       </div>
-                   </li>
-                   <li class="wts-list-item">
-                       <div class="wts-textbox wts-textbox-horizontal">
-                           <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>check_circle_outline</mat-icon></div> Singapore River Cruise
-                       </div>
-                   </li>
-                   <li class="wts-list-item">
-                       <div class="wts-textbox wts-textbox-horizontal">
-                           <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>check_circle_outline</mat-icon></div> Public Transportation
-                       </div>
-                   </li>
+                    <li class="wts-list-item">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small">
+                                <mat-icon>check_circle_outline</mat-icon>
+                            </div> Hawker Center meal
+                        </div>
+                    </li>
+                    <li class="wts-list-item">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small">
+                                <mat-icon>check_circle_outline</mat-icon>
+                            </div> Singapore Sling or Beer
+                        </div>
+                    </li>
+                    <li class="wts-list-item">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small">
+                                <mat-icon>check_circle_outline</mat-icon>
+                            </div> Singapore River Cruise
+                        </div>
+                    </li>
+                    <li class="wts-list-item">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small">
+                                <mat-icon>check_circle_outline</mat-icon>
+                            </div> Public Transportation
+                        </div>
+                    </li>
                 </ul>
             </div>
             <div class="wts-card">
@@ -161,12 +171,14 @@
                         <h2 class="wts-header-2">Notes</h2>
                     </div>
                 </div>
-                <p fxLayout="row" fxLayoutAlign="start center"> <mat-icon>error_outline</mat-icon> {{ itinerary.notes }}</p>
+                <p fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon>error_outline</mat-icon> {{ itinerary.notes }}
+                </p>
             </div>
         </div>
         <div class="wts-card" fxFlex="30%">
             <mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
-            <div class="wts-card-header" style="margin-top: 10px">
+            <div *ngIf="isOwner" class="wts-card-header" style="margin-top: 10px">
                 <div class="wts-card-header-flex">
                     <h2 class="wts-header-2">
                         <div class="wts-textbox wts-textbox-horizontal">
@@ -178,21 +190,44 @@
                     </h2>
                 </div>
             </div>
-            <ul class="wts-list" *ngIf="!loading">
-                <li class="wts-list-item wts-clickable" (click)="editItinerary()">
-                    <div class="wts-textbox wts-textbox-horizontal">
-                        <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>edit</mat-icon></div> Edit Itinerary
-                    </div>
-                </li>
-                <li class="wts-list-item wts-clickable" (click)="makePublic()" *ngIf="!itinerary.is_public">
-                    <div class="wts-textbox wts-textbox-horizontal">
-                        <div class="wts-textbox-icon wts-txtbx-icon-small"><mat-icon>language</mat-icon></div> Make Public
-                    </div>
-                </li>
-            </ul>
+
+            <div *ngIf="isOwner">
+                <ul class="wts-list" *ngIf="!loading">
+                    <li class="wts-list-item wts-clickable" (click)="editItinerary()">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small">
+                                <mat-icon>edit</mat-icon>
+                            </div> Edit Itinerary
+                        </div>
+                    </li>
+                    <li class="wts-list-item wts-clickable" (click)="makePublic()" *ngIf="!itinerary.is_public">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small">
+                                <mat-icon>language</mat-icon>
+                            </div> Make Public
+                        </div>
+                    </li>
+                    <li class="wts-list-item wts-clickable" (click)="makePublic()" *ngIf="itinerary.is_public">
+                        <div class="wts-textbox wts-textbox-horizontal">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small">
+                                <mat-icon>language</mat-icon>
+                            </div> Make Private
+                        </div>
+                    </li>
+                    <li class="wts-list-item wts-clickable">
+                        <div class="wts-textbox wts-textbox-horizontal" (click)="deleteConfirmation()">
+                            <div class="wts-textbox-icon wts-txtbx-icon-small">
+                                <mat-icon>delete</mat-icon>
+                            </div> Delete
+                        </div>
+                    </li>
+                </ul>
+            </div>
 
             <div class="wts-space-h-p">
-                <div class="wts-space-h-p"><div class="_divider"></div></div>
+                <div class="wts-space-h-p">
+                    <div class="_divider"></div>
+                </div>
                 <div fxLayout="row" fxLayoutAlign="center" style="text-align: center">
                     <div fxFlex>
                         <div class="wts-itinerary-price">{{ itinerary.price | number : '1.2-2' | currency:'SGD' }}</div>
@@ -203,7 +238,9 @@
                         <span class="wts-iti-price-per">Children</span>
                     </div>
                 </div>
-                <div class="wts-space-h-p"><div class="_divider"></div></div>
+                <div class="wts-space-h-p">
+                    <div class="_divider"></div>
+                </div>
             </div>
 
             <div class="wts-space-h-p">
@@ -216,37 +253,29 @@
                     </div>
                 </h2>
                 <div class="wts-rotate-month" fxLayout="row" fxLayoutAlign="center">
-                    <div fxFlex class="-rotate-left -rotate-control"
-                         mwlCalendarPreviousView
-                         [view]="view"
-                         [(viewDate)]="viewDate"
-                         (viewDateChange)="closeOpenMonthViewDay()">
+                    <div fxFlex class="-rotate-left -rotate-control" mwlCalendarPreviousView [view]="view"
+                        [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
                         <mat-icon>keyboard_arrow_left</mat-icon>
                     </div>
-                    <div fxFlex class="-rotate-today -rotate-control"
-                         mwlCalendarToday
-                         [(viewDate)]="viewDate">
+                    <div fxFlex class="-rotate-today -rotate-control" mwlCalendarToday [(viewDate)]="viewDate">
                         Today
                     </div>
-                    <div fxFlex class="-rotate-right -rotate-control"
-                         mwlCalendarNextView
-                         [view]="view"
-                         [(viewDate)]="viewDate"
-                         (viewDateChange)="closeOpenMonthViewDay()">
+                    <div fxFlex class="-rotate-right -rotate-control" mwlCalendarNextView [view]="view"
+                        [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
                         <mat-icon>keyboard_arrow_right</mat-icon>
                     </div>
                 </div>
                 <div style="display: flex;justify-content: center">
-                    <mwl-calendar-month-view
-                        [viewDate]="viewDate"
-                        [events]="events"
-                        (beforeViewRender)="beforeMonthViewRender($event)"
-                        (dayClicked)="dayClicked($event.day)">
+                    <mwl-calendar-month-view [viewDate]="viewDate" [events]="events"
+                        (beforeViewRender)="beforeMonthViewRender($event)" (dayClicked)="dayClicked($event.day)">
                     </mwl-calendar-month-view>
                 </div>
             </div>
-            <div class="wts-space-h-p" style="text-align: center" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="15px">
-                <button class="wts-button mat-button-flat-p"> <mat-icon>chat_outline</mat-icon>Chat</button>
+            <div class="wts-space-h-p" style="text-align: center" fxLayout="row" fxLayoutAlign="center"
+                fxLayoutGap="15px">
+                <button class="wts-button mat-button-flat-p">
+                    <mat-icon>chat_outline</mat-icon>Chat
+                </button>
                 <button class="wts-button-primary" (click)="requestToBook(itinerary)">Request to book</button>
             </div>
         </div>

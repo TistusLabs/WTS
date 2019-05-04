@@ -1,16 +1,17 @@
-import {Component, Inject, OnInit, ChangeDetectionStrategy, AfterViewChecked} from '@angular/core';
+import { Component, Inject, OnInit, ChangeDetectionStrategy, AfterViewChecked } from '@angular/core';
 import * as $ from 'jquery';
 import 'slick-carousel';
-import {ActivatedRoute, Router} from '@angular/router';
-import {ItineraryService} from '../services/itinerary.service';
-import {Itinerary} from '../data/itinerary.model';
-import {ToasterService} from 'angular2-toaster';
-import {MatDialog} from '@angular/material';
-import {ItineraryBook} from './itinerary-book/itinerary-book.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ItineraryService } from '../services/itinerary.service';
+import { Itinerary } from '../data/itinerary.model';
+import { ToasterService } from 'angular2-toaster';
+import { MatDialog } from '@angular/material';
+import { ItineraryBook } from './itinerary-book/itinerary-book.component';
 import { CreateItinerary } from '../agent-itineraries/agent-itineraries.component';
-import {CalendarEvent, CalendarMonthViewBeforeRenderEvent, CalendarMonthViewDay, CalendarView} from 'angular-calendar';
+import { CalendarEvent, CalendarMonthViewBeforeRenderEvent, CalendarMonthViewDay, CalendarView } from 'angular-calendar';
 import { addDays } from 'date-fns';
 import { DayViewHour } from 'calendar-utils';
+import { UserService } from '../services/user.service';
 
 declare let google;
 
@@ -35,11 +36,13 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
     selectedDays: any = [];
     dayView: DayViewHour[];
     activeDayIsOpen: boolean = true;
+    isOwner = false;
 
     constructor(private itineraryService: ItineraryService,
-                private toastr: ToasterService,
-                private router: Router,
-                public dialog: MatDialog) {
+        private toastr: ToasterService,
+        private userService : UserService,
+        private router: Router,
+        public dialog: MatDialog) {
         const i = this.itineraryService.getItinerary();
         if (!i) { this.router.navigateByUrl('/search'); }
     }
@@ -47,6 +50,13 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
     ngOnInit() {
         this.itinerary = this.itineraryService.getItinerary();
         if (!this.itinerary) { this.router.navigateByUrl('/search'); }
+
+        // check ownership
+        const profile = this.userService.getCurrentUserProfile();
+        if(this.itinerary["userId"] == profile["userId"]){
+            this.isOwner = true;
+        }
+
         const myLatlng = new google.maps.LatLng(1.3521, 103.8198);
         const mapOptions = {
             zoom: 12,
@@ -84,10 +94,10 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
                 variableWidth: true
             });
             $('.slider-for').css({
-                width : (galwidth)
+                width: (galwidth)
             });
             $('.slider-nav').css({
-                width : (galwidth)
+                width: (galwidth)
             });
         });
     }
@@ -100,7 +110,7 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
     initGal() {
 
     }
-    requestToBook (itinerary) {
+    requestToBook(itinerary) {
         const dialogRef = this.dialog.open(ItineraryBook, {
             width: '70%',
             disableClose: true,
@@ -116,6 +126,29 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
 
             }
         });
+    }
+    deleteItinerary() {
+        debugger
+        this.loading = true;
+        this.itineraryService.deleteItinerary(this.itinerary["itinerary_id"])
+            .subscribe(
+                res => {
+                    // debugger;
+                    this.loading = false;
+                    this.toastr.pop('success', 'Success', 'Successfully deleted itinerary.');
+                    this.router.navigateByUrl('/itineraries')
+                },
+                error => {
+                    // debugger;
+                    this.loading = false;
+                    this.toastr.pop('error', 'Error', 'Failed to delete itinerary.');
+                });
+    }
+    deleteConfirmation() {
+        var r = confirm("Are you sure to remove this? This is cannot be undone!");
+        if (r == true) {
+            this.deleteItinerary();
+        }
     }
     makePublic() {
         debugger

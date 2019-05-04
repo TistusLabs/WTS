@@ -4,7 +4,7 @@
     </div>
     <div class="wts-topbar-tools wts-topbar-tools-lg" [ngClass]="{'-visible': xsToolsOn}">
         <button mat-button (click)="goToHome()">Home</button>
-        <button *ngIf="currentUser.logged" mat-button (click)="navigateTo('become_tour_guide')">Become tour guide</button>
+        <button *ngIf="currentUser.logged" mat-button (click)="navigateTo('become_tour_guide')">Share an Experience</button>
         <button mat-button (click)="navigateTo('about_us')">About Us</button>
         <button mat-button (click)="navigateTo('contact_us')">Contact Us</button>
         <button *ngIf="!currentUser.logged" mat-button (click)="navigateTo('auth/signin')">Log In</button>

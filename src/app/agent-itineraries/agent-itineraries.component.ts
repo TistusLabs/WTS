@@ -107,9 +107,8 @@ export class AgentItinerariesComponent implements OnInit {
             this.getProfileInfo(user['username']);
         } else {
             this.user = profile;
+            this.getAllItineraries();
         }
-        this.profile = this.userService.getCurrentUserProfile();
-        this.getAllItineraries();
     }
 
     getProfileInfo(profileID) {
@@ -118,6 +117,7 @@ export class AgentItinerariesComponent implements OnInit {
                 if (profile['IsSuccess']) {
                     this.user = profile['Data'];
                     this.msgService.broadcast('profileObj', this.user);
+                    this.getAllItineraries();
                 }
             });
     }
@@ -130,8 +130,8 @@ export class AgentItinerariesComponent implements OnInit {
                 if (this.myitineraries) {
                     for (const i_ of this.myitineraries) {
                         i_.guide = {
-                            name: this.profile.fname,
-                            picture: this.profile.image_url,
+                            name: this.user.fname,
+                            picture: this.user.image_url,
                             stars: Array(4).fill(0).map((x, i) => i),
                             rating: 5.0,
                             languages: ['English', 'Mandarin']
