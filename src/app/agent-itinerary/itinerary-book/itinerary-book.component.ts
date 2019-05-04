@@ -172,9 +172,9 @@ export class ItineraryBook implements OnInit {
     forwardBooking (e) {
         this.togglePreload(false);
         this.summary.adults.count = this.itineraryService.getRecentBooking().count;
-        this.summary.adults.subtotal = this.itinerary.price * this.summary.adults.count;
+        this.summary.adults.subtotal = this.itinerary.price_adult * this.summary.adults.count;
         this.summary.children.count = this.itineraryService.getRecentBooking().count;
-        this.summary.children.subtotal = this.itinerary.price * this.summary.children.count;
+        this.summary.children.subtotal = this.itinerary.price_child * this.summary.children.count;
         this.continueBooking();
     }
 
