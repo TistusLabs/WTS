@@ -101,8 +101,10 @@ export class AgentItineraryComponent implements OnInit, AfterViewChecked {
 
         // check ownership
         const profile = this.userService.getCurrentUserProfile();
-        if(this.itinerary["userId"] == profile["userId"]){
-            this.isOwner = true;
+        if (profile) {
+            if(this.itinerary["userId"] == profile["userId"]){
+                this.isOwner = true;
+            }
         }
     }
     ngAfterViewChecked() {
